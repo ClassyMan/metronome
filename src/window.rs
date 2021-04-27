@@ -10,7 +10,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, CompositeTemplate)]
-    #[template(resource = "/com/adrienplazas/Metronome/window.ui")]
+    #[template(resource = "/com/adrienplazas/Metronome/ui/window.ui")]
     pub struct ExampleApplicationWindow {
         #[template_child]
         pub headerbar: TemplateChild<gtk::HeaderBar>,
@@ -45,7 +45,7 @@ mod imp {
             self.parent_constructed(obj);
 
             let builder =
-                gtk::Builder::from_resource("/com/adrienplazas/Metronome/shortcuts.ui");
+                gtk::Builder::from_resource("/com/adrienplazas/Metronome/ui/shortcuts.ui");
             let shortcuts = builder.object("shortcuts").unwrap();
             obj.set_help_overlay(Some(&shortcuts));
 
