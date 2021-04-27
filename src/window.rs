@@ -1,4 +1,4 @@
-use crate::application::ExampleApplication;
+use crate::application::MtrApplication;
 use crate::config::{APP_ID, PROFILE};
 use glib::signal::Inhibit;
 use gtk::subclass::prelude::*;
@@ -11,16 +11,16 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/adrienplazas/Metronome/ui/window.ui")]
-    pub struct ExampleApplicationWindow {
+    pub struct MtrApplicationWindow {
         #[template_child]
         pub headerbar: TemplateChild<gtk::HeaderBar>,
         pub settings: gio::Settings,
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for ExampleApplicationWindow {
-        const NAME: &'static str = "ExampleApplicationWindow";
-        type Type = super::ExampleApplicationWindow;
+    impl ObjectSubclass for MtrApplicationWindow {
+        const NAME: &'static str = "MtrApplicationWindow";
+        type Type = super::MtrApplicationWindow;
         type ParentType = gtk::ApplicationWindow;
 
         fn new() -> Self {
@@ -40,7 +40,7 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for ExampleApplicationWindow {
+    impl ObjectImpl for MtrApplicationWindow {
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
 
@@ -59,8 +59,8 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for ExampleApplicationWindow {}
-    impl WindowImpl for ExampleApplicationWindow {
+    impl WidgetImpl for MtrApplicationWindow {}
+    impl WindowImpl for MtrApplicationWindow {
         // save window state on delete event
         fn close_request(&self, obj: &Self::Type) -> Inhibit {
             if let Err(err) = obj.save_window_size() {
@@ -70,18 +70,18 @@ mod imp {
         }
     }
 
-    impl ApplicationWindowImpl for ExampleApplicationWindow {}
+    impl ApplicationWindowImpl for MtrApplicationWindow {}
 }
 
 glib::wrapper! {
-    pub struct ExampleApplicationWindow(ObjectSubclass<imp::ExampleApplicationWindow>)
+    pub struct MtrApplicationWindow(ObjectSubclass<imp::MtrApplicationWindow>)
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, @implements gio::ActionMap, gio::ActionGroup;
 }
 
-impl ExampleApplicationWindow {
-    pub fn new(app: &ExampleApplication) -> Self {
+impl MtrApplicationWindow {
+    pub fn new(app: &MtrApplication) -> Self {
         let window: Self =
-            glib::Object::new(&[]).expect("Failed to create ExampleApplicationWindow");
+            glib::Object::new(&[]).expect("Failed to create MtrApplicationWindow");
         window.set_application(Some(app));
 
         // Set icons for shell
@@ -91,7 +91,7 @@ impl ExampleApplicationWindow {
     }
 
     pub fn save_window_size(&self) -> Result<(), glib::BoolError> {
-        let settings = &imp::ExampleApplicationWindow::from_instance(self).settings;
+        let settings = &imp::MtrApplicationWindow::from_instance(self).settings;
 
         let size = self.default_size();
 
@@ -104,7 +104,7 @@ impl ExampleApplicationWindow {
     }
 
     fn load_window_size(&self) {
-        let settings = &imp::ExampleApplicationWindow::from_instance(self).settings;
+        let settings = &imp::MtrApplicationWindow::from_instance(self).settings;
 
         let width = settings.int("window-width");
         let height = settings.int("window-height");
