@@ -8,6 +8,7 @@
     "finish-args" : [
         "--socket=fallback-x11",
         "--socket=wayland",
+        "--socket=pulseaudio",
         "--device=dri",
         "--talk-name=org.a11y.Bus",
         "--env=RUST_LOG=metronome=debug",
