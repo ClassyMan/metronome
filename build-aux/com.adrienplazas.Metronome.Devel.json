@@ -29,6 +29,51 @@
     },
     "modules": [
         {
+            "name" : "libadwaita",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dintrospection=enabled",
+                "-Dtests=false",
+                "-Dexamples=false",
+                "-Dvapi=false"
+            ],
+            "cleanup" : [
+                "/include",
+                "/lib/pkgconfig"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
+                    "commit" : "430d5b5c5430da6c4ee5456ed623ce07e651ccff"
+                }
+            ],
+            "modules": [
+                {
+                    "name" : "libsass",
+                    "buildsystem" : "meson",
+                    "sources" : [
+                        {
+                            "type" : "git",
+                            "url" : "https://github.com/lazka/libsass.git",
+                            "branch" : "meson"
+                        }
+                    ]
+                },
+                {
+                    "name" : "sassc",
+                    "buildsystem" : "meson",
+                    "sources" : [
+                        {
+                            "type" : "git",
+                            "url" : "https://github.com/lazka/sassc.git",
+                            "branch" : "meson"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "metronome",
             "buildsystem": "meson",
             "run-tests": true,
