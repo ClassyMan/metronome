@@ -1,10 +1,18 @@
 use crate::application::MtrApplication;
+use crate::clicker::MtrClicker;
 use crate::config::{APP_ID, PROFILE};
-use glib::signal::Inhibit;
+use crate::timer::MtrTimer;
+use crate::timerbutton::MtrTimerButton;
+use adw::subclass::prelude::*;
+use glib::clone;
+use glib::ParamSpec;
 use gtk::subclass::prelude::*;
 use gtk::{self, prelude::*};
 use gtk::{gio, glib, CompositeTemplate};
-use log::warn;
+use gtk_macros::*;
+use once_cell::sync::Lazy;
+use std::cell::Cell;
+use std::time::Instant;
 
 mod imp {
     use super::*;
@@ -13,20 +21,41 @@ mod imp {
     #[template(resource = "/com/adrienplazas/Metronome/ui/window.ui")]
     pub struct MtrApplicationWindow {
         #[template_child]
-        pub headerbar: TemplateChild<gtk::HeaderBar>,
-        pub settings: gio::Settings,
+        pub timer_button: TemplateChild<MtrTimerButton>,
+        #[template_child]
+        pub timer: TemplateChild<MtrTimer>,
+        #[template_child]
+        pub time_signature_2_4_button: TemplateChild<gtk::ToggleButton>,
+        #[template_child]
+        pub time_signature_3_4_button: TemplateChild<gtk::ToggleButton>,
+        #[template_child]
+        pub time_signature_4_4_button: TemplateChild<gtk::ToggleButton>,
+        #[template_child]
+        pub time_signature_6_8_button: TemplateChild<gtk::ToggleButton>,
+        pub clicker: MtrClicker,
+        pub beats_per_bar: Cell<u32>,
+        pub beats_per_minute: Cell<u32>,
+        pub tap_time: Cell<Instant>,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for MtrApplicationWindow {
         const NAME: &'static str = "MtrApplicationWindow";
         type Type = super::MtrApplicationWindow;
-        type ParentType = gtk::ApplicationWindow;
+        type ParentType = adw::ApplicationWindow;
 
         fn new() -> Self {
             Self {
-                headerbar: TemplateChild::default(),
-                settings: gio::Settings::new(APP_ID),
+                timer_button: TemplateChild::default(),
+                timer: TemplateChild::default(),
+                time_signature_2_4_button: TemplateChild::default(),
+                time_signature_3_4_button: TemplateChild::default(),
+                time_signature_4_4_button: TemplateChild::default(),
+                time_signature_6_8_button: TemplateChild::default(),
+                clicker: MtrClicker::new(),
+                beats_per_bar: std::cell::Cell::<u32>::new(4),
+                beats_per_minute: std::cell::Cell::<u32>::new(100),
+                tap_time: std::cell::Cell::<Instant>::new(Instant::now()),
             }
         }
 
@@ -36,6 +65,8 @@ mod imp {
 
         // You must call `Widget`'s `init_template()` within `instance_init()`.
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
+            MtrTimerButton::static_type();
+            MtrTimer::static_type();
             obj.init_template();
         }
     }
@@ -47,6 +78,7 @@ mod imp {
             let builder =
                 gtk::Builder::from_resource("/com/adrienplazas/Metronome/ui/shortcuts.ui");
             let shortcuts = builder.object("shortcuts").unwrap();
+
             obj.set_help_overlay(Some(&shortcuts));
 
             // Devel Profile
@@ -54,28 +86,128 @@ mod imp {
                 obj.style_context().add_class("devel");
             }
 
-            // load latest window state
-            obj.load_window_size();
+            self.timer
+                .connect_local(
+                    "beat",
+                    false,
+                    clone!(@strong obj as this => move |args| {
+                        let high = args[1].get::<bool>().unwrap();
+
+                        let imp = imp::MtrApplicationWindow::from_instance(&this);
+                        if high { imp.clicker.high(); } else { imp.clicker.low(); }
+
+                        None
+                    }),
+                )
+                .unwrap();
+
+            self.time_signature_2_4_button.get().connect_notify_local(
+                Some("active"),
+                clone!(@strong obj as this => move |button, _| {
+                    let imp = imp::MtrApplicationWindow::from_instance(&this);
+                    if button.is_active() {
+                        imp.beats_per_bar.set(2);
+                        this.notify("beats-per-bar");
+                    }
+                }),
+            );
+
+            self.time_signature_3_4_button.get().connect_notify_local(
+                Some("active"),
+                clone!(@strong obj as this => move |button, _| {
+                    let imp = imp::MtrApplicationWindow::from_instance(&this);
+                    if button.is_active() {
+                        imp.beats_per_bar.set(3);
+                        this.notify("beats-per-bar");
+                    }
+                }),
+            );
+
+            self.time_signature_4_4_button.get().connect_notify_local(
+                Some("active"),
+                clone!(@strong obj as this => move |button, _| {
+                    let imp = imp::MtrApplicationWindow::from_instance(&this);
+                    if button.is_active() {
+                        imp.beats_per_bar.set(4);
+                        this.notify("beats-per-bar");
+                    }
+                }),
+            );
+
+            self.time_signature_6_8_button.get().connect_notify_local(
+                Some("active"),
+                clone!(@strong obj as this => move |button, _| {
+                    let imp = imp::MtrApplicationWindow::from_instance(&this);
+                    if button.is_active() {
+                        imp.beats_per_bar.set(6);
+                        this.notify("beats-per-bar");
+                    }
+                }),
+            );
+        }
+
+        fn properties() -> &'static [ParamSpec] {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![
+                    ParamSpec::new_uint(
+                        "beats-per-bar",
+                        "Beats per bar",
+                        "Beats per bar",
+                        1,
+                        9,
+                        4,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::new_uint(
+                        "beats-per-minute",
+                        "Beats per minute",
+                        "Beats per minute",
+                        20,
+                        260,
+                        100,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                ]
+            });
+
+            PROPERTIES.as_ref()
+        }
+
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
+                "beats-per-bar" => self.beats_per_bar.get().to_value(),
+                "beats-per-minute" => self.beats_per_minute.get().to_value(),
+                _ => unimplemented!(),
+            }
+        }
+
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.name() {
+                "beats-per-bar" => self.beats_per_bar.set(value.get::<u32>().unwrap()),
+                "beats-per-minute" => self.beats_per_minute.set(value.get::<u32>().unwrap()),
+                _ => unimplemented!(),
+            }
         }
     }
 
     impl WidgetImpl for MtrApplicationWindow {}
-    impl WindowImpl for MtrApplicationWindow {
-        // save window state on delete event
-        fn close_request(&self, obj: &Self::Type) -> Inhibit {
-            if let Err(err) = obj.save_window_size() {
-                warn!("Failed to save window state, {}", &err);
-            }
-            Inhibit(false)
-        }
-    }
+
+    impl WindowImpl for MtrApplicationWindow {}
 
     impl ApplicationWindowImpl for MtrApplicationWindow {}
+
+    impl AdwApplicationWindowImpl for MtrApplicationWindow {}
 }
 
 glib::wrapper! {
     pub struct MtrApplicationWindow(ObjectSubclass<imp::MtrApplicationWindow>)
-        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, @implements gio::ActionMap, gio::ActionGroup;
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow, @implements gio::ActionMap, gio::ActionGroup;
 }
 
 impl MtrApplicationWindow {
@@ -83,36 +215,58 @@ impl MtrApplicationWindow {
         let window: Self = glib::Object::new(&[]).expect("Failed to create MtrApplicationWindow");
         window.set_application(Some(app));
 
+        window.setup_actions();
+
         // Set icons for shell
         gtk::Window::set_default_icon_name(APP_ID);
 
         window
     }
 
-    pub fn save_window_size(&self) -> Result<(), glib::BoolError> {
-        let settings = &imp::MtrApplicationWindow::from_instance(self).settings;
+    fn setup_actions(&self) {
+        action!(
+            self,
+            "decrease-bpm",
+            clone!(@weak self as this => move |_, _| {
+                this.add_to_bpm(-1);
+            })
+        );
 
-        let size = self.default_size();
+        action!(
+            self,
+            "increase-bpm",
+            clone!(@weak self as this => move |_, _| {
+                this.add_to_bpm(1);
+            })
+        );
 
-        settings.set_int("window-width", size.0)?;
-        settings.set_int("window-height", size.1)?;
-
-        settings.set_boolean("is-maximized", self.is_maximized())?;
-
-        Ok(())
+        action!(
+            self,
+            "tap",
+            clone!(@weak self as this => move |_, _| {
+                this.tap();
+            })
+        );
     }
 
-    fn load_window_size(&self) {
-        let settings = &imp::MtrApplicationWindow::from_instance(self).settings;
+    fn set_bpm(&self, bpm: u32) {
+        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        imp.beats_per_minute.set(bpm.clamp(20, 260));
+        self.notify("beats-per-minute");
+    }
 
-        let width = settings.int("window-width");
-        let height = settings.int("window-height");
-        let is_maximized = settings.boolean("is-maximized");
+    fn add_to_bpm(&self, value: i32) {
+        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        self.set_bpm(imp.beats_per_minute.get().wrapping_add(value as u32));
+    }
 
-        self.set_default_size(width, height);
-
-        if is_maximized {
-            self.maximize();
-        }
+    fn tap(&self) {
+        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        let now = Instant::now();
+        let duration = now - imp.tap_time.get();
+        let bpm = 60.0 / duration.as_secs_f64();
+        imp.tap_time.set(now);
+        self.set_bpm(bpm as u32);
+        imp.clicker.low();
     }
 }

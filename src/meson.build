@@ -20,8 +20,12 @@ run_command(
 
 sources = files(
   'application.rs',
+  'clicker.rs',
   'config.rs',
   'main.rs',
+  'timer.rs',
+  'timerbutton.rs',
+  'timerbuttonmark.rs',
   'window.rs',
 )
 

@@ -1,0 +1,52 @@
+<interface>
+  <template class="MtrTimerButton" parent="GtkWidget">
+    <property name="overflow">hidden</property>
+    <child>
+      <object class="GtkBox">
+        <property name="halign">center</property>
+        <property name="homogeneous">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkGizmo"/>
+        </child>
+        <child>
+          <object class="GtkOverlay" id="marks_overlay"/>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <child>
+          <object class="GtkButton" id="start_button">
+            <style>
+              <class name="circular"/>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage">
+                <property name="valign">fill</property>
+                <property name="icon-name">media-playback-start-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="pause_button">
+            <style>
+              <class name="circular"/>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage">
+                <property name="valign">fill</property>
+                <property name="icon-name">media-playback-pause-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

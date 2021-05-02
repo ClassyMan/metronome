@@ -5,6 +5,7 @@
     <file compressed="true">audio/clicker-low.ogg</file>
 
     <file compressed="true" preprocess="xml-stripblanks">ui/shortcuts.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/timerbutton.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
 
     <file compressed="true">style.css</file>

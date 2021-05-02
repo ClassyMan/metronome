@@ -1,6 +1,10 @@
 mod application;
 #[rustfmt::skip]
+mod clicker;
 mod config;
+mod timer;
+mod timerbutton;
+mod timerbuttonmark;
 mod window;
 
 use application::MtrApplication;
