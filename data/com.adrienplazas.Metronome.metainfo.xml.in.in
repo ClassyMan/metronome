@@ -23,9 +23,9 @@
     <release version="0.0.1" date="2021-05-06" />
   </releases>
   <kudos>
-     <kudo>HighContrast</kudo>
-     <kudo>HiDpiIcon</kudo>
-     <kudo>ModernToolkit</kudo>
+    <kudo>HighContrast</kudo>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>ModernToolkit</kudo>
   </kudos>
   <developer_name>Adrien Plazas</developer_name>
   <update_contact>kekun.plazas@laposte.net</update_contact>
