@@ -80,8 +80,7 @@ glib::wrapper! {
 
 impl MtrApplicationWindow {
     pub fn new(app: &MtrApplication) -> Self {
-        let window: Self =
-            glib::Object::new(&[]).expect("Failed to create MtrApplicationWindow");
+        let window: Self = glib::Object::new(&[]).expect("Failed to create MtrApplicationWindow");
         window.set_application(Some(app));
 
         // Set icons for shell
