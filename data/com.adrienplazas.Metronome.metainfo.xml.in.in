@@ -19,6 +19,9 @@
   <url type="bugtracker">https://gitlab.gnome.org/aplazas/metronome/issues</url>
   <url type="donation">https://liberapay.com/adrienplazas</url>
   <content_rating type="oars-1.0" />
+  <releases>
+    <release version="0.0.1" date="2021-05-06" />
+  </releases>
   <kudos>
      <kudo>HighContrast</kudo>
      <kudo>HiDpiIcon</kudo>
