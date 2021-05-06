@@ -126,13 +126,13 @@ impl MtrApplication {
         let dialog = gtk::AboutDialogBuilder::new()
             .program_name("Metronome")
             .logo_icon_name(config::APP_ID)
-            .license_type(gtk::License::MitX11)
+            .license_type(gtk::License::Gpl30)
             .website("https://gitlab.gnome.org/aplazas/metronome/")
             .version(config::VERSION)
             .transient_for(&self.get_main_window())
             .modal(true)
-            .authors(vec!["Adrien Plazas".into()])
-            .artists(vec!["Adrien Plazas".into()])
+            .authors(vec!["Adrien Plazas <kekun.plazas@laposte.net>".into()])
+            .artists(vec!["Tobias Bernard <tbernard@gnome.org>".into()])
             .build();
 
         dialog.show();
