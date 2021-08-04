@@ -72,21 +72,21 @@ timerbutton {
   /* Mimicks Adwaita's private $dark_fill color. */
   background-color: mix(@borders, @theme_bg_color, 0.5);
   border-radius: 100%;
-  color: @theme_selected_bg_color;
+  color: @accent_bg_color;
   outline: 1px solid alpha(black, .1);
   outline-offset: -1px;
 }
 
-timerbutton:backdrop {
-  /* Mimicks Adwaita's private $backdrop_dark_fill color. */
-  background-color: mix(@unfocused_borders, @theme_unfocused_bg_color, 0.65);
-  color: @theme_unfocused_selected_bg_color;
+timerbutton stack {
+  border-radius: 100%;
+  margin: 4px;
+  color: transparent;
+  background: @theme_bg_color;
 }
 
 timerbutton button {
   border: none;
   box-shadow: 0 0 0 1px alpha(black, .1);
-  margin: 4px;
   min-height: 84px;
   min-width: 84px;
 }
@@ -100,20 +100,20 @@ timerbuttonmark {
 }
 
 @keyframes reject {
-  0% { background: radial-gradient(transparent 100%, @theme_selected_bg_color 100%); }
-  100% { background: radial-gradient(transparent 0%, @theme_selected_bg_color 0%); }
+  0% { background: radial-gradient(transparent 100%, @accent_bg_color 100%); }
+  100% { background: radial-gradient(transparent 0%, @accent_bg_color 0%); }
 }
 
 @keyframes inject {
-  0% { background: radial-gradient(transparent 0%, @theme_selected_bg_color 0%); }
-  100% { background: radial-gradient(transparent 100%, @theme_selected_bg_color 100%); }
+  0% { background: radial-gradient(transparent 0%, @accent_bg_color 0%); }
+  100% { background: radial-gradient(transparent 100%, @accent_bg_color 100%); }
 }
 
 timerbutton:not(:checked) stack > button:first-child image {
   animation: reject ease-out 200ms;
   border-radius: 100%;
   /* Mimicks Adwaita's button.suggested-action. */
-  background-color: @theme_selected_bg_color;
+  background-color: @accent_bg_color;
   color: white;
 }
 
@@ -124,10 +124,11 @@ timerbutton:not(:checked) stack > button:first-child:focus:focus-visible {
 
 timerbutton:not(:checked) stack > button:first-child:hover image {
   /* Mimicks Adwaita's button.suggested-action:hover. */
-  background-color: mix(@theme_selected_bg_color, black, 0.08);
+  background-color: mix(@accent_bg_color, black, 0.08);
 }
 
 timerbutton:checked stack > button:last-child image {
   animation: inject ease-out 200ms;
   border-radius: 100%;
+  color: @theme_fg_color;
 }
