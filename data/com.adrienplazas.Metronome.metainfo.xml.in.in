@@ -12,11 +12,11 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/aplazas/metronome/raw/master/data/resources/screenshots/screenshot1.png</image>
+      <image>https://gitlab.gnome.org/aplazas/metronome/raw/1.0.0/data/resources/screenshots/screenshot1.png</image>
       <caption>Main window</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/aplazas/metronome/raw/master/data/resources/screenshots/screenshot2.png</image>
+      <image>https://gitlab.gnome.org/aplazas/metronome/raw/1.0.0/data/resources/screenshots/screenshot2.png</image>
       <caption>Main window, narrow and running</caption>
     </screenshot>
   </screenshots>
@@ -25,7 +25,17 @@
   <url type="donation">https://liberapay.com/adrienplazas</url>
   <content_rating type="oars-1.0" />
   <releases>
-    <release version="0.0.1" date="2021-05-06" />
+    <release version="1.0.0" date="2021-08-04">
+      <description>
+        <p>First version of the application, offering the following features:</p>
+        <ul>
+          <li>Beat the rythm to 2/4, 3/4, 4/4 or 6/8.</li>
+          <li>High and low click sounds.</li>
+          <li>Set the beats-per-minute in the 20–260 interval.</li>
+          <li>Tap to set the beating interval.</li>
+        </ul>
+      </description>
+    </release>
   </releases>
   <kudos>
     <kudo>HighContrast</kudo>
