@@ -15,6 +15,10 @@
       <image>https://gitlab.gnome.org/aplazas/metronome/raw/master/data/resources/screenshots/screenshot1.png</image>
       <caption>Main window</caption>
     </screenshot>
+    <screenshot type="default">
+      <image>https://gitlab.gnome.org/aplazas/metronome/raw/master/data/resources/screenshots/screenshot2.png</image>
+      <caption>Main window, narrow and running</caption>
+    </screenshot>
   </screenshots>
   <url type="homepage">https://gitlab.gnome.org/aplazas/metronome</url>
   <url type="bugtracker">https://gitlab.gnome.org/aplazas/metronome/issues</url>
