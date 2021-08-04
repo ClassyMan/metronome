@@ -9,15 +9,18 @@ gnome = import('gnome')
 
 base_id = 'com.adrienplazas.Metronome'
 
-dependency('glib-2.0', version: '>= 2.66')
-dependency('gio-2.0', version: '>= 2.66')
+glib_version = '>= 2.66'
+gstreamer_version = '>= 1.16'
+
+dependency('gio-2.0', version: glib_version)
+dependency('glib-2.0', version: glib_version)
+dependency('gstreamer-1.0', version: gstreamer_version)
+dependency('gstreamer-audio-1.0', version: gstreamer_version)
+dependency('gstreamer-base-1.0', version: gstreamer_version)
+dependency('gstreamer-player-1.0', version: gstreamer_version)
+dependency('gstreamer-plugins-base-1.0', version: gstreamer_version)
 dependency('gtk4', version: '>= 4.0.0')
 dependency('libadwaita-1', version: '== 1.0.0-alpha.2')
-dependency('gstreamer-1.0', version: '>= 1.16')
-dependency('gstreamer-base-1.0', version: '>= 1.16')
-dependency('gstreamer-audio-1.0', version: '>= 1.16')
-dependency('gstreamer-player-1.0', version: '>= 1.16')
-dependency('gstreamer-plugins-base-1.0', version: '>= 1.16')
 
 glib_compile_resources = find_program('glib-compile-resources', required: true)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)
