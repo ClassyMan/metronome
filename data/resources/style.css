@@ -95,6 +95,10 @@ timerbutton button image {
   -gtk-icon-size: 32px;
 }
 
+timerbuttontrough {
+  border-radius: 100%;
+}
+
 timerbuttonmark {
   outline: solid 1px white;
 }

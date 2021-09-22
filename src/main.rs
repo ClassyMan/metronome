@@ -5,6 +5,7 @@ mod config;
 mod timer;
 mod timerbutton;
 mod timerbuttonmark;
+mod timerbuttontrough;
 mod window;
 
 use application::MtrApplication;

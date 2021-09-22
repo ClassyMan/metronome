@@ -26,6 +26,7 @@ sources = files(
   'timer.rs',
   'timerbutton.rs',
   'timerbuttonmark.rs',
+  'timerbuttontrough.rs',
   'window.rs',
 )
 
