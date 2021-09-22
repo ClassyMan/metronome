@@ -1,6 +1,6 @@
 # Metronome
 
-Practice music with a regular tempo
+Keep the tempo
 
 Metronome beats the rhythm for you, you simply need to tell it the required time signature and beats per minutes.
 

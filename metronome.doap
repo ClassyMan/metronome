@@ -7,7 +7,7 @@
 
   <name xml:lang="en">Metronome</name>
   <shortname xml:lang="en">metronome</name>
-  <shortdesc xml:lang="en">Practice music with a regular tempo</shortdesc>
+  <shortdesc xml:lang="en">Keep the tempo</shortdesc>
   <description xml:lang="en">
     Metronome beats the rhythm for you, you simply need to tell it the required time signature and beats per minutes.
     You can also tap to let the application guess the required beats per minute.

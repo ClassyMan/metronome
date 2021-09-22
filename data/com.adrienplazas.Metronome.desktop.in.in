@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Metronome
-Comment=Practice music with a regular tempo
+Comment=Keep the tempo
 Type=Application
 Exec=metronome
 Terminal=false
