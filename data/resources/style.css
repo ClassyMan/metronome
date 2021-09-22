@@ -121,9 +121,8 @@ timerbutton:not(:checked) stack > button:first-child image {
   color: white;
 }
 
-timerbutton:not(:checked) stack > button:first-child:focus:focus-visible {
-  /* Mimicks Adwaita's button.suggested-action:focus:focus-visible. */
-  outline-color: rgba(255, 255, 255, 0.2);
+timerbutton stack > button {
+  outline-offset: 4px;
 }
 
 timerbutton:not(:checked) stack > button:first-child:hover image {
