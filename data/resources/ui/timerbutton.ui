@@ -2,6 +2,11 @@
   <template class="MtrTimerButton" parent="GtkWidget">
     <property name="overflow">hidden</property>
     <child>
+      <object class="MtrTimerButtonTrough" id="trough">
+        <property name="overflow">hidden</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkBox">
         <property name="halign">center</property>
         <property name="homogeneous">True</property>

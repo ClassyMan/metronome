@@ -1,10 +1,11 @@
 use crate::timerbuttonmark::MtrTimerButtonMark;
+use crate::timerbuttontrough::MtrTimerButtonTrough;
 use adw::subclass::prelude::*;
 use glib::clone;
 use glib::ParamSpec;
 use gtk::subclass::prelude::*;
 use gtk::{self, prelude::*};
-use gtk::{gdk, glib, graphene, gsk, CompositeTemplate};
+use gtk::{glib, CompositeTemplate};
 use once_cell::sync::Lazy;
 use std::cell::{Cell, RefCell};
 use std::time::Instant;
@@ -15,6 +16,8 @@ mod imp {
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/adrienplazas/Metronome/ui/timerbutton.ui")]
     pub struct MtrTimerButton {
+        #[template_child]
+        pub trough: TemplateChild<MtrTimerButtonTrough>,
         #[template_child]
         pub start_button: TemplateChild<gtk::Button>,
         #[template_child]
@@ -37,6 +40,7 @@ mod imp {
 
         fn new() -> Self {
             Self {
+                trough: TemplateChild::default(),
                 start_button: TemplateChild::default(),
                 pause_button: TemplateChild::default(),
                 marks_overlay: TemplateChild::default(),
@@ -56,6 +60,7 @@ mod imp {
 
         // You must call `Widget`'s `init_template()` within `instance_init()`.
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
+            MtrTimerButtonTrough::static_type();
             obj.init_template();
         }
     }
@@ -128,45 +133,19 @@ mod imp {
 
     impl WidgetImpl for MtrTimerButton {
         fn snapshot(&self, widget: &Self::Type, snapshot: &gtk::Snapshot) {
-            let width = widget.width() as f64;
-            let height = widget.height() as f64;
-            let style_ctx = widget.style_context();
-
             let s_per_beat = 60.0 / self.beats_per_minute.get() as f64;
             let s_per_bar = s_per_beat * self.beats_per_bar.get() as f64;
 
             let now = Instant::now();
             let elapsed = now - self.start_time.get();
 
-            let (progress, bar) = if self.running_id.borrow().is_some() {
-                let bar = elapsed.as_secs_f64() / s_per_bar;
-                (bar.fract() as f32, bar.trunc() as i32)
+            let progress = if self.running_id.borrow().is_some() {
+                (elapsed.as_secs_f64() / s_per_bar).fract() as f64
             } else {
-                (0.0, 0)
+                0.0
             };
 
-            let fg_color = style_ctx.color();
-            let transparent = gdk::RGBA {
-                red: 0.0,
-                green: 0.0,
-                blue: 0.0,
-                alpha: 0.0,
-            };
-
-            let fill = gsk::ColorStop::new(progress, fg_color);
-            let void = gsk::ColorStop::new(progress, transparent);
-            let stops = if bar % 2 == 0 {
-                [fill, void]
-            } else {
-                [void, fill]
-            };
-
-            snapshot.append_conic_gradient(
-                &graphene::Rect::new(0.0, 0.0, width as f32, height as f32),
-                &graphene::Point::new(width as f32 / 2.0, height as f32 / 2.0),
-                0.0,
-                &stops,
-            );
+            self.trough.set_progress(progress);
 
             self.parent_snapshot(widget, snapshot);
         }
