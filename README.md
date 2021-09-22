@@ -9,7 +9,7 @@ You can also tap to let the application guess the required beats per minute.
 A boilerplate template to get started with GTK, Rust, Meson, Flatpak made for GNOME. It can be adapted for other desktop environments like elementary.
 
 <div align="center">
-![Main window](data/resources/screenshots/screenshot1.png "wain Window")
+![Main window](data/resources/screenshots/screenshot1.png "Main window")
 </div>
 
 ## Building with Flatpak + GNOME Builder
