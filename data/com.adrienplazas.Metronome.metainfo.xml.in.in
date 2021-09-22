@@ -42,6 +42,14 @@
     <kudo>HiDpiIcon</kudo>
     <kudo>ModernToolkit</kudo>
   </kudos>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
   <developer_name>Adrien Plazas</developer_name>
   <update_contact>kekun.plazas@laposte.net</update_contact>
   <translation type="gettext">@gettext-package@</translation>
