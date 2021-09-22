@@ -122,7 +122,7 @@ timerbutton:not(:checked) stack > button:first-child image {
 }
 
 timerbutton stack > button {
-  outline-offset: 4px;
+  outline-offset: 5px;
 }
 
 timerbutton:not(:checked) stack > button:first-child:hover image {
