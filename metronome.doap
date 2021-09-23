@@ -6,7 +6,7 @@
          xmlns="http://usefulinc.com/ns/doap#">
 
   <name xml:lang="en">Metronome</name>
-  <shortname xml:lang="en">metronome</name>
+  <shortname xml:lang="en">metronome</shortname>
   <shortdesc xml:lang="en">Keep the tempo</shortdesc>
   <description xml:lang="en">
     Metronome beats the rhythm for you, you simply need to tell it the required time signature and beats per minutes.
