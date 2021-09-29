@@ -16,5 +16,17 @@
       <summary>Default window maximized behaviour</summary>
       <description></description>
     </key>
+    <key name="beats-per-bar" type="u">
+      <range min="1" max="9"/>
+      <default>4</default>
+      <summary>Default beats per bar</summary>
+      <description>Default beats per bar</description>
+    </key>
+    <key name="beats-per-minute" type="u">
+      <range min="20" max="260"/>
+      <default>100</default>
+      <summary>Default beats per minute</summary>
+      <description>Default beats per minute</description>
+    </key>
   </schema>
 </schemalist>

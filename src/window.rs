@@ -10,6 +10,7 @@ use gtk::subclass::prelude::*;
 use gtk::{self, prelude::*};
 use gtk::{gio, glib, CompositeTemplate};
 use gtk_macros::*;
+use log::warn;
 use once_cell::sync::Lazy;
 use std::cell::Cell;
 use std::time::Instant;
@@ -36,6 +37,7 @@ mod imp {
         pub beats_per_bar: Cell<u32>,
         pub beats_per_minute: Cell<u32>,
         pub tap_time: Cell<Instant>,
+        pub settings: gio::Settings,
     }
 
     #[glib::object_subclass]
@@ -56,6 +58,7 @@ mod imp {
                 beats_per_bar: std::cell::Cell::<u32>::new(4),
                 beats_per_minute: std::cell::Cell::<u32>::new(100),
                 tap_time: std::cell::Cell::<Instant>::new(Instant::now()),
+                settings: gio::Settings::new(APP_ID),
             }
         }
 
@@ -140,6 +143,8 @@ mod imp {
                     }
                 }),
             );
+
+            obj.load_settings();
         }
 
         fn properties() -> &'static [ParamSpec] {
@@ -259,12 +264,27 @@ impl MtrApplicationWindow {
             button.set_active(true);
         }
 
+        if let Err(err) = imp
+            .settings
+            .set_uint("beats-per-bar", imp.beats_per_bar.get())
+        {
+            warn!("Failed to save the beats per bar, {}", &err);
+        }
+
         self.notify("beats-per-bar");
     }
 
     fn set_beats_per_minute(&self, bpm: u32) {
         let imp = imp::MtrApplicationWindow::from_instance(&self);
         imp.beats_per_minute.set(bpm.clamp(20, 260));
+
+        if let Err(err) = imp
+            .settings
+            .set_uint("beats-per-minute", imp.beats_per_minute.get())
+        {
+            warn!("Failed to save the beats per minute, {}", &err);
+        }
+
         self.notify("beats-per-minute");
     }
 
@@ -282,5 +302,11 @@ impl MtrApplicationWindow {
         imp.tap_time.set(now);
         self.set_beats_per_minute(bpm as u32);
         imp.clicker.low();
+    }
+
+    fn load_settings(&self) {
+        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        self.set_beats_per_bar(imp.settings.uint("beats-per-bar"));
+        self.set_beats_per_minute(imp.settings.uint("beats-per-minute"));
     }
 }
