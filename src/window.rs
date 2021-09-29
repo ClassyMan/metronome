@@ -183,14 +183,14 @@ mod imp {
 
         fn set_property(
             &self,
-            _obj: &Self::Type,
+            obj: &Self::Type,
             _id: usize,
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
             match pspec.name() {
                 "beats-per-bar" => self.beats_per_bar.set(value.get::<u32>().unwrap()),
-                "beats-per-minute" => self.beats_per_minute.set(value.get::<u32>().unwrap()),
+                "beats-per-minute" => obj.set_beats_per_minute(value.get::<u32>().unwrap()),
                 _ => unimplemented!(),
             }
         }
@@ -257,7 +257,8 @@ impl MtrApplicationWindow {
 
     fn add_beats_per_minute(&self, value: i32) {
         let imp = imp::MtrApplicationWindow::from_instance(&self);
-        self.set_beats_per_minute(imp.beats_per_minute.get().wrapping_add(value as u32));
+        let bpm = imp.beats_per_minute.get() as i32 + value;
+        self.set_beats_per_minute(bpm as u32);
     }
 
     fn tap(&self) {
