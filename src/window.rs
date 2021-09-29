@@ -249,7 +249,7 @@ impl MtrApplicationWindow {
         );
     }
 
-    fn set_bpm(&self, bpm: u32) {
+    fn set_beats_per_minute(&self, bpm: u32) {
         let imp = imp::MtrApplicationWindow::from_instance(&self);
         imp.beats_per_minute.set(bpm.clamp(20, 260));
         self.notify("beats-per-minute");
@@ -257,7 +257,7 @@ impl MtrApplicationWindow {
 
     fn add_to_bpm(&self, value: i32) {
         let imp = imp::MtrApplicationWindow::from_instance(&self);
-        self.set_bpm(imp.beats_per_minute.get().wrapping_add(value as u32));
+        self.set_beats_per_minute(imp.beats_per_minute.get().wrapping_add(value as u32));
     }
 
     fn tap(&self) {
@@ -266,7 +266,7 @@ impl MtrApplicationWindow {
         let duration = now - imp.tap_time.get();
         let bpm = 60.0 / duration.as_secs_f64();
         imp.tap_time.set(now);
-        self.set_bpm(bpm as u32);
+        self.set_beats_per_minute(bpm as u32);
         imp.clicker.low();
     }
 }
