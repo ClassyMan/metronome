@@ -249,6 +249,16 @@ impl MtrApplicationWindow {
         let imp = imp::MtrApplicationWindow::from_instance(&self);
         imp.beats_per_bar.set(bpm.clamp(1, 9));
 
+        if let Some(button) = match bpm {
+            2 => Some(imp.time_signature_2_4_button.get()),
+            3 => Some(imp.time_signature_3_4_button.get()),
+            4 => Some(imp.time_signature_4_4_button.get()),
+            6 => Some(imp.time_signature_6_8_button.get()),
+            _ => None,
+        } {
+            button.set_active(true);
+        }
+
         self.notify("beats-per-bar");
     }
 
