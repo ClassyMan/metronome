@@ -140,7 +140,9 @@ mod imp {
             let elapsed = now - self.start_time.get();
 
             let progress = if self.running_id.borrow().is_some() {
-                (elapsed.as_secs_f64() / s_per_bar).fract() as f64
+                let progress = elapsed.as_secs_f64() / s_per_bar;
+                // Perform a kind of floating point modulus between 0 and 2.
+                progress.fract() + (progress as i32 % 2) as f64
             } else {
                 0.0
             };
