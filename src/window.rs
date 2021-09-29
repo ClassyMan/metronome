@@ -104,9 +104,8 @@ mod imp {
             self.time_signature_2_4_button.get().connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
-                    let imp = imp::MtrApplicationWindow::from_instance(&this);
                     if button.is_active() {
-                        imp.beats_per_bar.set(2);
+                        this.set_beats_per_bar(2);
                         this.notify("beats-per-bar");
                     }
                 }),
@@ -115,9 +114,8 @@ mod imp {
             self.time_signature_3_4_button.get().connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
-                    let imp = imp::MtrApplicationWindow::from_instance(&this);
                     if button.is_active() {
-                        imp.beats_per_bar.set(3);
+                        this.set_beats_per_bar(3);
                         this.notify("beats-per-bar");
                     }
                 }),
@@ -126,9 +124,8 @@ mod imp {
             self.time_signature_4_4_button.get().connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
-                    let imp = imp::MtrApplicationWindow::from_instance(&this);
                     if button.is_active() {
-                        imp.beats_per_bar.set(4);
+                        this.set_beats_per_bar(4);
                         this.notify("beats-per-bar");
                     }
                 }),
@@ -137,9 +134,8 @@ mod imp {
             self.time_signature_6_8_button.get().connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
-                    let imp = imp::MtrApplicationWindow::from_instance(&this);
                     if button.is_active() {
-                        imp.beats_per_bar.set(6);
+                        this.set_beats_per_bar(6);
                         this.notify("beats-per-bar");
                     }
                 }),
@@ -189,7 +185,7 @@ mod imp {
             pspec: &ParamSpec,
         ) {
             match pspec.name() {
-                "beats-per-bar" => self.beats_per_bar.set(value.get::<u32>().unwrap()),
+                "beats-per-bar" => obj.set_beats_per_bar(value.get::<u32>().unwrap()),
                 "beats-per-minute" => obj.set_beats_per_minute(value.get::<u32>().unwrap()),
                 _ => unimplemented!(),
             }
@@ -247,6 +243,13 @@ impl MtrApplicationWindow {
                 this.tap();
             })
         );
+    }
+
+    fn set_beats_per_bar(&self, bpm: u32) {
+        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        imp.beats_per_bar.set(bpm.clamp(1, 9));
+
+        self.notify("beats-per-bar");
     }
 
     fn set_beats_per_minute(&self, bpm: u32) {
