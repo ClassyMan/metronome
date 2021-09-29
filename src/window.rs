@@ -228,7 +228,7 @@ impl MtrApplicationWindow {
             self,
             "decrease-bpm",
             clone!(@weak self as this => move |_, _| {
-                this.add_to_bpm(-1);
+                this.add_beats_per_minute(-1);
             })
         );
 
@@ -236,7 +236,7 @@ impl MtrApplicationWindow {
             self,
             "increase-bpm",
             clone!(@weak self as this => move |_, _| {
-                this.add_to_bpm(1);
+                this.add_beats_per_minute(1);
             })
         );
 
@@ -255,7 +255,7 @@ impl MtrApplicationWindow {
         self.notify("beats-per-minute");
     }
 
-    fn add_to_bpm(&self, value: i32) {
+    fn add_beats_per_minute(&self, value: i32) {
         let imp = imp::MtrApplicationWindow::from_instance(&self);
         self.set_beats_per_minute(imp.beats_per_minute.get().wrapping_add(value as u32));
     }
