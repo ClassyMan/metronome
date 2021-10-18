@@ -22,7 +22,7 @@ fn main() {
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).expect("Unable to bind the text domain");
     textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain");
 
-    gtk::glib::set_application_name("Metronome");
+    gtk::glib::set_application_name(&gettext("Metronome"));
     gtk::glib::set_prgname(Some("metronome"));
 
     gtk::init().expect("Unable to start GTK4");
