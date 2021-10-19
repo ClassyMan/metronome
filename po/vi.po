@@ -1,0 +1,151 @@
+# Vietnamese translation for metronome.
+# Copyright (C) 2021 metronome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the metronome package.
+# Ngọc Quân Trần <vnwildman@gmail.com>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: metronome master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
+"POT-Creation-Date: 2021-10-16 06:17+0000\n"
+"PO-Revision-Date: 2021-10-18 13:30+0700\n"
+"Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
+"Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 3.38.0\n"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Chung"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Hiện phím tắt"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Thoát"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Bấm chuột theo nhịp"
+
+#: data/resources/ui/window.ui:5
+msgid "_Keyboard Shortcuts"
+msgstr "_Phím tắt bàn phím"
+
+#: data/resources/ui/window.ui:9
+msgid "_About Metronome"
+msgstr "_Giới thiệu Máy gõ nhịp"
+
+#: data/resources/ui/window.ui:58
+msgid ""
+"2\n"
+"4"
+msgstr ""
+"2\n"
+"4"
+
+#: data/resources/ui/window.ui:77
+msgid ""
+"3\n"
+"4"
+msgstr ""
+"3\n"
+"4"
+
+#: data/resources/ui/window.ui:96
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
+
+#: data/resources/ui/window.ui:115
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.ui:207
+msgid "TAP"
+msgstr "Bấm chuột theo nhịp"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7
+msgid "Metronome"
+msgstr "Máy gõ nhịp"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "Giữ nhịp độ"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr ""
+"Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;Phách;Phach;Nhịp;Nhip;Đo;"
+"Do;Gõ;go;"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Độ rộng cửa sổ mặc định"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Độ cao của cửa sổ mặc định"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Cách ứng xử cửa sổ đã phóng hết cỡ mặc định"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Nhịp mặc định mỗi phách"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Nhịp mặc định mỗi phút"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Máy gõ nhịp gõ nhịp cho bạn, bạn đơn giản chỉ cần cho nó biết nhịp và tốc độ "
+"gõ mỗi phút."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Bạn cũng có thể bấm chuột theo nhịp và ứng dụng sẽ đoán được tốc độ gõ mỗi "
+"phút."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Cửa sổ chính"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Cửa sổ chính, hẹp và đang chạy"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
