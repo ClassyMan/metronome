@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2021-11-04 20:39+0000\n"
-"PO-Revision-Date: 2021-11-06 18:08+0000\n"
+"POT-Creation-Date: 2021-11-06 16:08+0000\n"
+"PO-Revision-Date: 2021-11-29 18:08+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -33,7 +33,7 @@ msgstr "Irten"
 #: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Tap"
-msgstr ""
+msgstr "Kolpekatu"
 
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
@@ -41,7 +41,7 @@ msgstr "Las_ter-teklak"
 
 #: data/resources/ui/window.ui:9
 msgid "_About Metronome"
-msgstr "Metronome jokoari _buruz"
+msgstr "Metronome aplikazioari _buruz"
 
 #: data/resources/ui/window.ui:58
 msgid ""
@@ -73,7 +73,7 @@ msgstr "6\n"
 
 #: data/resources/ui/window.ui:207
 msgid "TAP"
-msgstr ""
+msgstr "KOLPEKATU"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -83,47 +83,47 @@ msgstr "Metronome"
 #: data/com.adrienplazas.Metronome.desktop.in.in:4
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
 msgid "Keep the tempo"
-msgstr ""
+msgstr "Eutsi tempoari"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
 msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr ""
+msgstr "Konpasa;Kolpea;Kolpeak;KM;Neurria;Minutua;Erritmoa;Kolpetxoa;Tempoa;"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
 msgid "Default window width"
-msgstr ""
+msgstr "Leihoaren zabalera lehenetsia"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:11
 #: data/com.adrienplazas.Metronome.gschema.xml.in:12
 msgid "Default window height"
-msgstr ""
+msgstr "Leihoaren altuera lehenetsia"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:16
 msgid "Default window maximized behaviour"
-msgstr ""
+msgstr "Maximizatutako leihoaren portaera lehenetsia"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:22
 #: data/com.adrienplazas.Metronome.gschema.xml.in:23
 msgid "Default beats per bar"
-msgstr ""
+msgstr "Kolpe kopuru lehenetsia barrako"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:28
 #: data/com.adrienplazas.Metronome.gschema.xml.in:29
 msgid "Default beats per minute"
-msgstr ""
+msgstr "Kolpe kopuru lehenetsia konpaseko"
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
 msgid ""
 "Metronome beats the rhythm for you, you simply need to tell it the required "
 "time signature and beats per minutes."
-msgstr ""
+msgstr "Metronomek erritmoa ezartzen du zuretzat, beharrezko denbora-sinadura eta minutuko zenbat kolpe nahi dituzun besterik ez du behar."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
 msgid ""
 "You can also tap to let the application guess the required beats per minute."
-msgstr ""
+msgstr "Kolpetxoak ere eman ditzakezu, aplikazioak minutuko zenbat kolpe nahi dituzun kalkulatu dezan."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
 msgid "Main window"
@@ -131,7 +131,7 @@ msgstr "Leiho nagusia"
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
 msgid "Main window, narrow and running"
-msgstr ""
+msgstr "Leiho nagusia, estua eta exekutatzen"
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
 msgid "Adrien Plazas"
