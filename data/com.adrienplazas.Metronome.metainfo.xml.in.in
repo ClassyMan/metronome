@@ -12,11 +12,11 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/aplazas/metronome/raw/1.1.0/data/resources/screenshots/screenshot1.png</image>
+      <image>https://gitlab.gnome.org/aplazas/metronome/raw/1.2.0/data/resources/screenshots/screenshot1.png</image>
       <caption>Main window</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/aplazas/metronome/raw/1.1.0/data/resources/screenshots/screenshot2.png</image>
+      <image>https://gitlab.gnome.org/aplazas/metronome/raw/1.2.0/data/resources/screenshots/screenshot2.png</image>
       <caption>Main window, narrow and running</caption>
     </screenshot>
   </screenshots>
@@ -25,6 +25,16 @@
   <url type="donation">https://liberapay.com/adrienplazas</url>
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="1.2.0" date="2021-04-13">
+      <description>
+        <p>The 1.2.0 release of Metronome brings bug fixes.</p>
+        <ul>
+          <li>Update the application to GNOME 42.</li>
+          <li>Keep the BPM setting between sessions.</li>
+          <li>Add many new translations.</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.1.0" date="2021-09-22">
       <description>
         <p>The 1.1.0 release of Metronome brings bug fixes and improved metadata.</p>
