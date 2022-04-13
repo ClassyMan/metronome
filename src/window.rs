@@ -5,7 +5,6 @@ use crate::timer::MtrTimer;
 use crate::timerbutton::MtrTimerButton;
 use adw::subclass::prelude::*;
 use glib::clone;
-use glib::ParamSpec;
 use gtk::subclass::prelude::*;
 use gtk::{self, prelude::*};
 use gtk::{gio, glib, CompositeTemplate};
@@ -89,20 +88,18 @@ mod imp {
                 obj.style_context().add_class("devel");
             }
 
-            self.timer
-                .connect_local(
-                    "beat",
-                    false,
-                    clone!(@strong obj as this => move |args| {
-                        let high = args[1].get::<bool>().unwrap();
+            self.timer.connect_local(
+                "beat",
+                false,
+                clone!(@strong obj as this => move |args| {
+                    let high = args[1].get::<bool>().unwrap();
 
-                        let imp = imp::MtrApplicationWindow::from_instance(&this);
-                        if high { imp.clicker.high(); } else { imp.clicker.low(); }
+                    let imp = imp::MtrApplicationWindow::from_instance(&this);
+                    if high { imp.clicker.high(); } else { imp.clicker.low(); }
 
-                        None
-                    }),
-                )
-                .unwrap();
+                    None
+                }),
+            );
 
             self.time_signature_2_4_button.get().connect_notify_local(
                 Some("active"),
@@ -147,10 +144,10 @@ mod imp {
             obj.load_settings();
         }
 
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+        fn properties() -> &'static [glib::ParamSpec] {
+            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_uint(
+                    glib::ParamSpecUInt::new(
                         "beats-per-bar",
                         "Beats per bar",
                         "Beats per bar",
@@ -159,7 +156,7 @@ mod imp {
                         4,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_uint(
+                    glib::ParamSpecUInt::new(
                         "beats-per-minute",
                         "Beats per minute",
                         "Beats per minute",
@@ -174,7 +171,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
                 "beats-per-bar" => self.beats_per_bar.get().to_value(),
                 "beats-per-minute" => self.beats_per_minute.get().to_value(),
@@ -187,7 +184,7 @@ mod imp {
             obj: &Self::Type,
             _id: usize,
             value: &glib::Value,
-            pspec: &ParamSpec,
+            pspec: &glib::ParamSpec,
         ) {
             match pspec.name() {
                 "beats-per-bar" => obj.set_beats_per_bar(value.get::<u32>().unwrap()),

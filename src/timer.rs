@@ -2,7 +2,6 @@ use adw::subclass::prelude::*;
 use glib::clone;
 use glib::subclass::Signal;
 use glib::subclass::SignalType;
-use glib::ParamSpec;
 use glib::Type;
 use gtk::glib;
 use gtk::{self, prelude::*};
@@ -46,17 +45,17 @@ mod imp {
             self.parent_constructed(obj);
         }
 
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+        fn properties() -> &'static [glib::ParamSpec] {
+            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_boolean(
+                    glib::ParamSpecBoolean::new(
                         "active",
                         "Active",
                         "Active",
                         false,
                         glib::ParamFlags::WRITABLE,
                     ),
-                    ParamSpec::new_uint(
+                    glib::ParamSpecUInt::new(
                         "beats-per-bar",
                         "Beats per bar",
                         "Beats per bar",
@@ -65,7 +64,7 @@ mod imp {
                         4,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_uint(
+                    glib::ParamSpecUInt::new(
                         "beats-per-minute",
                         "Beats per minute",
                         "Beats per minute",
@@ -93,7 +92,7 @@ mod imp {
             SIGNALS.as_ref()
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
                 "beats-per-bar" => self.beats_per_bar.get().to_value(),
                 "beats-per-minute" => self.beats_per_minute.get().to_value(),
@@ -106,7 +105,7 @@ mod imp {
             obj: &Self::Type,
             _id: usize,
             value: &glib::Value,
-            pspec: &ParamSpec,
+            pspec: &glib::ParamSpec,
         ) {
             match pspec.name() {
                 "active" => obj.set_active(value.get::<bool>().unwrap()),
@@ -143,17 +142,17 @@ impl MtrTimer {
                     let beat_in_bar = (imp.beat_in_bar.get() + 1) % imp.beats_per_bar.get();
                     imp.beat_in_bar.set(beat_in_bar);
 
-                    this.emit_by_name("beat", &[&(beat_in_bar == 0)]).unwrap();
+                    this.emit_by_name::<()>("beat", &[&(beat_in_bar == 0)]);
                     glib::Continue(true)
                 }),
             );
             imp.click_id.replace(Some(click_id));
 
             imp.beat_in_bar.set(0);
-            self.emit_by_name("beat", &[&true]).unwrap();
+            self.emit_by_name::<()>("beat", &[&true]);
         } else {
             if let Some(id) = imp.click_id.take() {
-                glib::source_remove(id);
+                id.remove();
             }
         }
     }

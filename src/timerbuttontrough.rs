@@ -1,5 +1,4 @@
 use adw::subclass::prelude::*;
-use glib::ParamSpec;
 use gtk::subclass::prelude::*;
 use gtk::{self, prelude::*};
 use gtk::{gdk, glib, graphene, gsk};
@@ -37,9 +36,9 @@ mod imp {
             self.parent_constructed(obj);
         }
 
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpec::new_double(
+        fn properties() -> &'static [glib::ParamSpec] {
+            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+                vec![glib::ParamSpecDouble::new(
                     "progress",
                     "Progress",
                     "Progress",
@@ -53,7 +52,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
                 "progress" => self.progress.get().to_value(),
                 _ => unimplemented!(),
@@ -65,7 +64,7 @@ mod imp {
             obj: &Self::Type,
             _id: usize,
             value: &glib::Value,
-            pspec: &ParamSpec,
+            pspec: &glib::ParamSpec,
         ) {
             match pspec.name() {
                 "progress" => obj.set_progress(value.get::<f64>().unwrap()),
@@ -81,12 +80,7 @@ mod imp {
             let style_ctx = widget.style_context();
 
             let fg_color = style_ctx.color();
-            let transparent = gdk::RGBA {
-                red: 0.0,
-                green: 0.0,
-                blue: 0.0,
-                alpha: 0.0,
-            };
+            let transparent = gdk::RGBA::new(0.0, 0.0, 0.0, 0.0);
 
             let progress = self.progress.get() as f32;
 

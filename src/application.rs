@@ -124,7 +124,7 @@ impl MtrApplication {
     }
 
     fn show_about_dialog(&self) {
-        let dialog = gtk::AboutDialogBuilder::new()
+        let dialog = gtk::builders::AboutDialogBuilder::new()
             .program_name("Metronome")
             .logo_icon_name(config::APP_ID)
             .license_type(gtk::License::Gpl30)

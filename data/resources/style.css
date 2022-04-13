@@ -3,11 +3,6 @@ window.application {
   min-width: 360px;
 }
 
-headerbar.flat {
-  background: none;
-  border-color: transparent;
-}
-
 .time-signature {
   margin: 0 12px 18px 12px;
 }
