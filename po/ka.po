@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: metronome\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
+"POT-Creation-Date: 2022-05-14 09:06+0000\n"
+"PO-Revision-Date: 2022-06-07 06:21+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <(nothing)>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "საერთო"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "მალსახმობების ჩვენება"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "გასვლა"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "დააჭირეთ"
+
+#: data/resources/ui/window.ui:5
+msgid "_Keyboard Shortcuts"
+msgstr "კლავიატურის მალსახმობები"
+
+#: data/resources/ui/window.ui:9
+msgid "_About Metronome"
+msgstr "Metronome-ის შესახებ"
+
+#: data/resources/ui/window.ui:58
+msgid ""
+"2\n"
+"4"
+msgstr ""
+"2\n"
+"4"
+
+#: data/resources/ui/window.ui:77
+msgid ""
+"3\n"
+"4"
+msgstr ""
+"3\n"
+"4"
+
+#: data/resources/ui/window.ui:96
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
+
+#: data/resources/ui/window.ui:115
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.ui:207
+msgid "TAP"
+msgstr "TAP"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Metronome"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "ტემპის შენარჩუნება"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "ფანჯრის ნაგულისხმები სიგანე"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "ფანჯრის ნაგულისხმები სიგრძე"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "ფანჯრის ქცევა სრულად გაშლისას"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "ნაგულისხმები დარტყმა ტაქტში"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "ნაგულისხმები დარტყმა წუთში"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Metronome ჩვეულებრივი მეტრონომია. უბრალოდ მიუთითეთ დრო და დარტყმების "
+"რაოდენობა წუთში."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"დააჭირეთ აქ, რომ აპლიკაცია თვითონ მიხვდეს, რამდენი ტაქტია საჭირო წუთში."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "მთავარი ფანჯარა"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "მთავარი ფანჯარა, ვიწრო და გაშვებული"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
