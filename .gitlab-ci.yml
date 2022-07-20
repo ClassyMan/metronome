@@ -1,36 +1,20 @@
+include: 'https://gitlab.gnome.org/GNOME/citemplates/-/raw/master/flatpak/flatpak_ci_initiative.yml'
+
 stages:
   - check
   - test
+  - deploy
 
-flatpak:
-  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master'
-  stage: test
-  tags:
-    - flatpak
+.vars_nightly:
   variables:
-    BUNDLE: "metronome-nightly.flatpak"
     MANIFEST_PATH: "build-aux/com.adrienplazas.Metronome.Devel.json"
     FLATPAK_MODULE: "metronome"
     APP_ID: "com.adrienplazas.Metronome.Devel"
-    RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-  script:
-    - >
-      xvfb-run -a -s "-screen 0 1024x768x24"
-      flatpak-builder --keep-build-dirs --user --disable-rofiles-fuse flatpak_app --repo=repo ${BRANCH:+--default-branch=$BRANCH} ${MANIFEST_PATH}
-    - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${APP_ID} ${BRANCH}
-  artifacts:
-    name: 'Flatpak artifacts'
-    expose_as: 'Get Flatpak bundle here'
-    when: 'always'
-    paths:
-      - "${BUNDLE}"
-      - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/meson-log.txt'
-      - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/testlog.txt'
-    expire_in: 14 days
 
 # Configure and run rustfmt
 # Exits and builds fails if on bad format
 rustfmt:
+  stage: check
   image: "rust:slim"
   script:
     - rustup component add rustfmt
@@ -40,3 +24,28 @@ rustfmt:
     - rustc -Vv && cargo -Vv
     - cargo fmt --version
     - cargo fmt --all -- --color=always --check
+
+build@x86_64:
+  extends:
+    - .flatpak@x86_64
+    - .vars_nightly
+  variables:
+    BUNDLE: "metronome-nightly-x86_64.flatpak"
+
+build@aarch64:
+  extends:
+    - .flatpak@aarch64
+    - .vars_nightly
+  variables:
+    BUNDLE: "metronome-nightly-aarch64.flatpak"
+  allow_failure: true
+
+# Publish the nightly version
+# Only on main
+publish_nightly@x86_64:
+  extends: .publish_nightly
+  needs: ['build@x86_64']
+
+publish_nightly@aarch64:
+  extends: .publish_nightly
+  needs: ['build@aarch64']
