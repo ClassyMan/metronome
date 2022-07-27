@@ -60,7 +60,7 @@ publish_nightly@aarch64:
 
 tarball:
   stage: release
-  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
+  image: 'quay.io/gnome_infrastructure/gnome-runtime-images:gnome-master'
   extends:
     - .vars_nightly
     - .vars_release
