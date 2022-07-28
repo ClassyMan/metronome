@@ -27,7 +27,6 @@ glib_compile_schemas = find_program('glib-compile-schemas', required: true)
 desktop_file_validate = find_program('desktop-file-validate', required: false)
 appstream_util = find_program('appstream-util', required: false)
 cargo = find_program('cargo', required: true)
-cargo_script = find_program('build-aux/cargo.sh')
 
 version = meson.project_version()
 version_array = version.split('.')
@@ -76,4 +75,8 @@ subdir('data')
 subdir('po')
 subdir('src')
 
-meson.add_install_script('build-aux/meson_post_install.py')
+gnome.post_install(
+  gtk_update_icon_cache: true,
+  glib_compile_schemas: true,
+  update_desktop_database: true,
+)
