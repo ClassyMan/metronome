@@ -10,7 +10,7 @@ pretty_env_logger = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 gtk-macros = "0.3"
 once_cell = "1.5"
-gtk = { package = "gtk4", git = "https://github.com/gtk-rs/gtk4-rs" }
-adw = { package = "libadwaita", git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs" }
+gtk = { version = "0.4", package = "gtk4" }
+adw = { version = "0.1", package = "libadwaita" }
 gst = { version = "0.16.1", package = "gstreamer" }
 gst_player = { version = "0.16.0", package = "gstreamer-player" }
