@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2021-11-03 12:20+0000\n"
-"PO-Revision-Date: 2021-11-04 18:45+0100\n"
+"POT-Creation-Date: 2022-07-09 19:42+0000\n"
+"PO-Revision-Date: 2022-07-24 16:11+0200\n"
+"Last-Translator: maite guix <maite.guix@me.com>\n"
 "Language-Team: Catalan <gnome@llistes.softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: maite guix <maite.guix@me.com>\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -35,7 +35,7 @@ msgstr "Surt"
 #: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Tap"
-msgstr ""
+msgstr "Toc"
 
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
@@ -79,7 +79,7 @@ msgstr ""
 
 #: data/resources/ui/window.ui:207
 msgid "TAP"
-msgstr ""
+msgstr "TOC"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -89,13 +89,14 @@ msgstr "Metrònom"
 #: data/com.adrienplazas.Metronome.desktop.in.in:4
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
 msgid "Keep the tempo"
-msgstr "Mantenir la freqüència cardíaca"
+msgstr "Mantenir el tempo"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
-#, fuzzy
 msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Freqüència cardíaca;"
+msgstr ""
+"Pulsació;pulsacions;minut;bpm;ppm;mesura;ritme;tempo;temps;compàs;tap;toc;"
+"tocs;"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -114,11 +115,10 @@ msgstr "Comportament maximitzat de finestra per defecte"
 #: data/com.adrienplazas.Metronome.gschema.xml.in:22
 #: data/com.adrienplazas.Metronome.gschema.xml.in:23
 msgid "Default beats per bar"
-msgstr ""
+msgstr "Pulsacions predeterminades per barra"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:28
 #: data/com.adrienplazas.Metronome.gschema.xml.in:29
-#, fuzzy
 msgid "Default beats per minute"
 msgstr "Pulsacions per minut per defecte"
 
@@ -127,14 +127,15 @@ msgid ""
 "Metronome beats the rhythm for you, you simply need to tell it the required "
 "time signature and beats per minutes."
 msgstr ""
+"El metrònom et dona el ritme, només has d'indicar-li el compàs i les "
+"pulsacions per minut."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
-#, fuzzy
 msgid ""
 "You can also tap to let the application guess the required beats per minute."
 msgstr ""
-"També podeu tocar perquè l'aplicació endevini els batecs requerits per "
-"minut."
+"També podeu tocar perquè l'aplicació endevini les pulsacions per minut "
+"requerides."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
 msgid "Main window"
@@ -144,6 +145,6 @@ msgstr "Finestra principal"
 msgid "Main window, narrow and running"
 msgstr "Finestra principal, estreta i en execució"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
 msgid "Adrien Plazas"
 msgstr "Adrien Plazas"
