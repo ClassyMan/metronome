@@ -1,8 +1,8 @@
 use crate::config;
 use crate::window::MtrApplicationWindow;
+use adw::subclass::prelude::*;
 use gtk::prelude::*;
-use gtk::subclass::prelude::*;
-use gtk::{gdk, gio, glib};
+use gtk::{gio, glib};
 
 mod imp {
     use super::*;
@@ -18,12 +18,12 @@ mod imp {
     impl ObjectSubclass for MtrApplication {
         const NAME: &'static str = "MtrApplication";
         type Type = super::MtrApplication;
-        type ParentType = gtk::Application;
+        type ParentType = adw::Application;
     }
 
     impl ObjectImpl for MtrApplication {}
 
-    impl gio::subclass::prelude::ApplicationImpl for MtrApplication {
+    impl ApplicationImpl for MtrApplication {
         fn activate(&self) {
             log::debug!("GtkApplication<MtrApplication>::activate");
             self.parent_activate();
@@ -38,7 +38,6 @@ mod imp {
                 window.present();
                 return;
             }
-            app.setup_css();
 
             let window = MtrApplicationWindow::new(&app);
             self.window
@@ -59,11 +58,13 @@ mod imp {
     }
 
     impl GtkApplicationImpl for MtrApplication {}
+    impl AdwApplicationImpl for MtrApplication {}
 }
 
 glib::wrapper! {
     pub struct MtrApplication(ObjectSubclass<imp::MtrApplication>)
-        @extends gio::Application, gtk::Application, @implements gio::ActionMap, gio::ActionGroup;
+        @extends gio::Application, gtk::Application, adw::Application,
+        @implements gio::ActionMap, gio::ActionGroup;
 }
 
 impl MtrApplication {
@@ -104,18 +105,6 @@ impl MtrApplication {
         self.set_accels_for_action("app.quit", &["<primary>q"]);
         self.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         self.set_accels_for_action("win.tap", &["t"]);
-    }
-
-    fn setup_css(&self) {
-        let provider = gtk::CssProvider::new();
-        provider.load_from_resource("/com/adrienplazas/Metronome/style.css");
-        if let Some(display) = gdk::Display::default() {
-            gtk::StyleContext::add_provider_for_display(
-                &display,
-                &provider,
-                gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-            );
-        }
     }
 
     fn show_about_dialog(&self) {
