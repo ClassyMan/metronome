@@ -271,5 +271,6 @@
     <property name="active" bind-source="timer_button" bind-property="active" bind-flags="sync-create"/>
     <property name="beats-per-bar" bind-source="MtrApplicationWindow" bind-property="beats-per-bar" bind-flags="sync-create"/>
     <property name="beats-per-minute" bind-source="MtrApplicationWindow" bind-property="beats-per-minute" bind-flags="sync-create"/>
+    <signal name="beat" handler="on_beat" swapped="true" />
   </object>
 </interface>

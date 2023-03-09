@@ -4,11 +4,7 @@ use crate::config::{APP_ID, PROFILE};
 use crate::timer::MtrTimer;
 use crate::timerbutton::MtrTimerButton;
 use adw::subclass::prelude::*;
-use gtk::{
-    gio,
-    glib::{self, clone},
-    prelude::*,
-};
+use gtk::{gio, glib, prelude::*};
 use std::time::Instant;
 
 mod imp {
@@ -96,20 +92,6 @@ mod imp {
             if PROFILE == "Devel" {
                 obj.style_context().add_class("devel");
             }
-
-            self.timer.connect_local(
-                "beat",
-                false,
-                clone!(@strong obj as this => move |args| {
-                    let high = args[1].get::<bool>().unwrap();
-
-                    let imp = this.imp();
-                    if high { imp.clicker.high(); } else { imp.clicker.low(); }
-
-                    None
-                }),
-            );
-
             obj.load_settings();
         }
 
@@ -241,6 +223,16 @@ impl MtrApplicationWindow {
     ) {
         if button.is_active() {
             self.set_beats_per_bar(8);
+        }
+    }
+
+    #[template_callback]
+    fn on_beat(&self, high: bool) {
+        let imp = self.imp();
+        if high {
+            imp.clicker.high();
+        } else {
+            imp.clicker.low();
         }
     }
 }
