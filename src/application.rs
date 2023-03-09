@@ -41,8 +41,6 @@ mod imp {
                 window.present();
                 return;
             }
-
-            app.set_resource_base_path(Some("/com/adrienplazas/Metronome/"));
             app.setup_css();
 
             let window = MtrApplicationWindow::new(&app);
@@ -75,6 +73,7 @@ impl MtrApplication {
     pub fn new() -> Self {
         glib::Object::builder()
             .property("application-id", config::APP_ID)
+            .property("resource-base-path", "/com/adrienplazas/Metronome/")
             .build()
     }
 

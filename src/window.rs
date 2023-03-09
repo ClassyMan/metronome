@@ -89,12 +89,6 @@ mod imp {
             self.parent_constructed();
             let obj = self.obj();
 
-            let builder =
-                gtk::Builder::from_resource("/com/adrienplazas/Metronome/ui/shortcuts.ui");
-            let shortcuts = builder.object("shortcuts").unwrap();
-
-            obj.set_help_overlay(Some(&shortcuts));
-
             // Devel Profile
             if PROFILE == "Devel" {
                 obj.style_context().add_class("devel");
