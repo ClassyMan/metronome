@@ -29,11 +29,7 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for MtrTimerButtonMark {
-        fn constructed(&self) {
-            self.parent_constructed();
-        }
-    }
+    impl ObjectImpl for MtrTimerButtonMark {}
 
     impl WidgetImpl for MtrTimerButtonMark {
         fn snapshot(&self, snapshot: &gtk::Snapshot) {

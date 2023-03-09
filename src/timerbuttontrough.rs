@@ -32,10 +32,6 @@ mod imp {
     }
 
     impl ObjectImpl for MtrTimerButtonTrough {
-        fn constructed(&self) {
-            self.parent_constructed();
-        }
-
         fn properties() -> &'static [glib::ParamSpec] {
             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
                 vec![glib::ParamSpecDouble::new(

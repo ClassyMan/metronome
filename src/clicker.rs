@@ -16,7 +16,6 @@ mod imp {
     impl ObjectSubclass for MtrClicker {
         const NAME: &'static str = "MtrClicker";
         type Type = super::MtrClicker;
-        type ParentType = glib::Object;
 
         fn new() -> Self {
             Self {
@@ -25,11 +24,7 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for MtrClicker {
-        fn constructed(&self) {
-            self.parent_constructed();
-        }
-    }
+    impl ObjectImpl for MtrClicker {}
 }
 
 glib::wrapper! {

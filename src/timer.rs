@@ -26,7 +26,6 @@ mod imp {
     impl ObjectSubclass for MtrTimer {
         const NAME: &'static str = "MtrTimer";
         type Type = super::MtrTimer;
-        type ParentType = glib::Object;
 
         fn new() -> Self {
             Self {
@@ -41,10 +40,6 @@ mod imp {
     }
 
     impl ObjectImpl for MtrTimer {
-        fn constructed(&self) {
-            self.parent_constructed();
-        }
-
         fn properties() -> &'static [glib::ParamSpec] {
             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
                 vec![

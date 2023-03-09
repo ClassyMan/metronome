@@ -46,15 +46,16 @@ mod imp {
                 .set(window.downgrade())
                 .expect("Window already set.");
 
-            app.setup_gactions();
-            app.setup_accels();
-
             app.get_main_window().present();
         }
 
         fn startup(&self) {
             debug!("GtkApplication<MtrApplication>::startup");
             self.parent_startup();
+            let app = self.obj();
+
+            app.setup_gactions();
+            app.setup_accels();
         }
     }
 
