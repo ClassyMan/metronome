@@ -88,10 +88,8 @@ mod imp {
 
                 self.beat_in_bar.set(0);
                 obj.emit_by_name::<()>("beat", &[&true]);
-            } else {
-                if let Some(id) = self.click_id.take() {
-                    id.remove();
-                }
+            } else if let Some(id) = self.click_id.take() {
+                id.remove();
             }
         }
     }

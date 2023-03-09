@@ -25,8 +25,7 @@ fn main() {
     gtk::glib::set_application_name(&gettext("Metronome"));
     gtk::glib::set_prgname(Some("metronome"));
 
-    gtk::init().expect("Unable to start GTK4");
-    adw::init();
+    adw::init().expect("Unable to start libadwaita");
     gst::init().expect("Unable to start GStreamer");
 
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
