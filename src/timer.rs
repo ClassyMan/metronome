@@ -1,16 +1,15 @@
 use adw::subclass::prelude::*;
-use glib::clone;
-use glib::subclass::Signal;
-use glib::subclass::SignalType;
-use glib::Type;
-use gtk::glib;
-use gtk::{self, prelude::*};
-use once_cell::sync::Lazy;
-use std::cell::{Cell, RefCell};
+use gtk::{
+    glib::{self, clone},
+    prelude::*,
+};
 use std::time::Instant;
 
 mod imp {
     use super::*;
+    use glib::subclass::Signal;
+    use once_cell::sync::Lazy;
+    use std::cell::{Cell, RefCell};
 
     #[derive(Debug, glib::Properties)]
     #[properties(wrapper_type = super::MtrTimer)]

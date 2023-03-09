@@ -1,11 +1,10 @@
 use adw::subclass::prelude::*;
-use gtk::subclass::prelude::*;
-use gtk::{self, prelude::*};
+use gtk::prelude::*;
 use gtk::{glib, graphene};
-use std::cell::Cell;
 
 mod imp {
     use super::*;
+    use std::cell::Cell;
 
     #[derive(Debug, Default, glib::Properties)]
     #[properties(wrapper_type = super::MtrTimerButtonMark)]

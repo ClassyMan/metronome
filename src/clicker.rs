@@ -1,5 +1,5 @@
 use adw::subclass::prelude::*;
-use gtk::{glib, self};
+use gtk::glib;
 
 static AUDIO_CLICKER_HIGH_URI: &str = "resource:///com/adrienplazas/Metronome/audio/clicker-high.ogg";
 static AUDIO_CLICKER_LOW_URI: &str = "resource:///com/adrienplazas/Metronome/audio/clicker-low.ogg";

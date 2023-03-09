@@ -1,18 +1,18 @@
 use crate::timerbuttonmark::MtrTimerButtonMark;
 use crate::timerbuttontrough::MtrTimerButtonTrough;
 use adw::subclass::prelude::*;
-use glib::clone;
-use gtk::subclass::prelude::*;
-use gtk::{self, prelude::*};
-use gtk::{glib, CompositeTemplate};
-use once_cell::sync::Lazy;
-use std::cell::{Cell, RefCell};
+use gtk::{
+    glib::{self, clone},
+    prelude::*,
+};
 use std::time::Instant;
 
 mod imp {
     use super::*;
+    use once_cell::sync::Lazy;
+    use std::cell::{Cell, RefCell};
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, gtk::CompositeTemplate)]
     #[template(resource = "/com/adrienplazas/Metronome/ui/timerbutton.ui")]
     pub struct MtrTimerButton {
         #[template_child]

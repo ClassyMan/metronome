@@ -1,12 +1,10 @@
 use adw::subclass::prelude::*;
-use gtk::subclass::prelude::*;
-use gtk::{self, prelude::*};
-use gtk::{gdk, glib, graphene, gsk};
-use once_cell::sync::Lazy;
-use std::cell::Cell;
+use gtk::{gdk, glib, graphene, gsk, prelude::*};
 
 mod imp {
     use super::*;
+    use once_cell::sync::Lazy;
+    use std::cell::Cell;
 
     #[derive(Debug)]
     pub struct MtrTimerButtonTrough {

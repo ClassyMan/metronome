@@ -4,20 +4,21 @@ use crate::config::{APP_ID, PROFILE};
 use crate::timer::MtrTimer;
 use crate::timerbutton::MtrTimerButton;
 use adw::subclass::prelude::*;
-use glib::clone;
-use gtk::subclass::prelude::*;
-use gtk::{self, prelude::*};
-use gtk::{gio, glib, CompositeTemplate};
+use gtk::{
+    gio,
+    glib::{self, clone},
+    prelude::*,
+};
 use gtk_macros::*;
 use log::warn;
-use once_cell::sync::Lazy;
-use std::cell::Cell;
 use std::time::Instant;
 
 mod imp {
     use super::*;
+    use once_cell::sync::Lazy;
+    use std::cell::Cell;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, gtk::CompositeTemplate)]
     #[template(resource = "/com/adrienplazas/Metronome/ui/window.ui")]
     pub struct MtrApplicationWindow {
         #[template_child]

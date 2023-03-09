@@ -1,16 +1,18 @@
 use crate::config;
 use crate::window::MtrApplicationWindow;
-use glib::clone;
-use glib::WeakRef;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{gdk, gio, glib};
+use gtk::{
+    gdk, gio,
+    glib::{self, clone},
+};
 use gtk_macros::action;
 use log::{debug, info};
-use once_cell::sync::OnceCell;
 
 mod imp {
     use super::*;
+    use glib::WeakRef;
+    use once_cell::sync::OnceCell;
 
     #[derive(Debug, Default)]
     pub struct MtrApplication {
