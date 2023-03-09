@@ -3,11 +3,12 @@ use gtk::{gdk, glib, graphene, gsk, prelude::*};
 
 mod imp {
     use super::*;
-    use once_cell::sync::Lazy;
     use std::cell::Cell;
 
-    #[derive(Debug)]
+    #[derive(Debug, Default, glib::Properties)]
+    #[properties(wrapper_type = super::MtrTimerButtonTrough)]
     pub struct MtrTimerButtonTrough {
+        #[property(get, set = Self::set_progress)]
         pub progress: Cell<f64>,
     }
 
@@ -17,12 +18,6 @@ mod imp {
         type Type = super::MtrTimerButtonTrough;
         type ParentType = gtk::Widget;
 
-        fn new() -> Self {
-            Self {
-                progress: std::cell::Cell::<f64>::new(0.0),
-            }
-        }
-
         fn class_init(klass: &mut Self::Class) {
             klass.set_layout_manager_type::<gtk::BinLayout>();
             klass.set_css_name("timerbuttontrough");
@@ -31,34 +26,15 @@ mod imp {
 
     impl ObjectImpl for MtrTimerButtonTrough {
         fn properties() -> &'static [glib::ParamSpec] {
-            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
-                vec![glib::ParamSpecDouble::new(
-                    "progress",
-                    "Progress",
-                    "Progress",
-                    i32::MIN as f64,
-                    i32::MAX as f64,
-                    0.0,
-                    glib::ParamFlags::READWRITE,
-                )]
-            });
-
-            PROPERTIES.as_ref()
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            match pspec.name() {
-                "progress" => self.progress.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
-        fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            let obj = self.obj();
-            match pspec.name() {
-                "progress" => obj.set_progress(value.get::<f64>().unwrap()),
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
     }
 
@@ -72,7 +48,7 @@ mod imp {
             let fg_color = style_ctx.color();
             let transparent = gdk::RGBA::new(0.0, 0.0, 0.0, 0.0);
 
-            let progress = self.progress.get() as f32;
+            let progress = widget.progress() as f32;
 
             let fill = gsk::ColorStop::new(progress.fract(), fg_color);
             let void = gsk::ColorStop::new(progress.fract(), transparent);
@@ -92,6 +68,13 @@ mod imp {
             self.parent_snapshot(snapshot);
         }
     }
+
+    impl MtrTimerButtonTrough {
+        fn set_progress(&self, progress: f64) {
+            self.progress.set(progress);
+            self.obj().queue_draw();
+        }
+    }
 }
 
 glib::wrapper! {
@@ -102,10 +85,5 @@ glib::wrapper! {
 impl MtrTimerButtonTrough {
     pub fn new() -> Self {
         glib::Object::new()
-    }
-
-    pub fn set_progress(&self, progress: f64) {
-        self.imp().progress.set(progress);
-        self.queue_draw();
     }
 }
