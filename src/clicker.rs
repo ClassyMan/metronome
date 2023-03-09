@@ -19,7 +19,10 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                player: gst_player::Player::new(None::<gst_player::PlayerVideoRenderer>, None::<gst_player::PlayerSignalDispatcher>),
+                player: gst_player::Player::new(
+                    None::<gst_player::PlayerVideoRenderer>,
+                    None::<gst_player::PlayerSignalDispatcher>,
+                ),
             }
         }
     }
