@@ -1,10 +1,7 @@
 use crate::timerbuttonmark::MtrTimerButtonMark;
 use crate::timerbuttontrough::MtrTimerButtonTrough;
 use adw::subclass::prelude::*;
-use gtk::{
-    glib::{self, clone},
-    prelude::*,
-};
+use gtk::{glib, prelude::*};
 use std::time::Instant;
 
 mod imp {
@@ -61,6 +58,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
             klass.set_layout_manager_type::<gtk::BinLayout>();
             klass.set_css_name("timerbutton");
         }
@@ -77,7 +75,6 @@ mod imp {
             self.parent_constructed();
             let obj = self.obj();
 
-            obj.setup_signals();
             obj.update_marks();
         }
 
@@ -145,6 +142,7 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
+#[gtk::template_callbacks]
 impl MtrTimerButton {
     pub fn new() -> Self {
         glib::Object::new()
@@ -165,20 +163,7 @@ impl MtrTimerButton {
         }
     }
 
-    fn setup_signals(&self) {
-        let imp = self.imp();
-
-        imp.start_button
-            .connect_clicked(clone!(@strong self as this => move |_| {
-                this.start();
-            }));
-
-        imp.pause_button
-            .connect_clicked(clone!(@strong self as this => move |_| {
-                this.pause();
-            }));
-    }
-
+    #[template_callback]
     fn start(&self) {
         let imp = self.imp();
 
@@ -197,6 +182,7 @@ impl MtrTimerButton {
         self.notify_active();
     }
 
+    #[template_callback]
     fn pause(&self) {
         let imp = self.imp();
 

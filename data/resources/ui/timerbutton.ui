@@ -24,6 +24,7 @@
         <property name="valign">center</property>
         <child>
           <object class="GtkButton" id="start_button">
+            <signal name="clicked" handler="start" swapped="true" />
             <style>
               <class name="circular"/>
               <class name="image-button"/>
@@ -38,6 +39,7 @@
         </child>
         <child>
           <object class="GtkButton" id="pause_button">
+            <signal name="clicked" handler="pause" swapped="true" />
             <style>
               <class name="circular"/>
               <class name="image-button"/>

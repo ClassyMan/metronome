@@ -64,6 +64,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
 
             klass.install_action("win.decrease-bpm", None, |win, _, _| {
                 win.add_beats_per_minute(-1);
@@ -106,42 +107,6 @@ mod imp {
                     if high { imp.clicker.high(); } else { imp.clicker.low(); }
 
                     None
-                }),
-            );
-
-            self.time_signature_2_4_button.connect_notify_local(
-                Some("active"),
-                clone!(@strong obj as this => move |button, _| {
-                    if button.is_active() {
-                        this.set_beats_per_bar(2);
-                    }
-                }),
-            );
-
-            self.time_signature_3_4_button.connect_notify_local(
-                Some("active"),
-                clone!(@strong obj as this => move |button, _| {
-                    if button.is_active() {
-                        this.set_beats_per_bar(3);
-                    }
-                }),
-            );
-
-            self.time_signature_4_4_button.connect_notify_local(
-                Some("active"),
-                clone!(@strong obj as this => move |button, _| {
-                    if button.is_active() {
-                        this.set_beats_per_bar(4);
-                    }
-                }),
-            );
-
-            self.time_signature_6_8_button.connect_notify_local(
-                Some("active"),
-                clone!(@strong obj as this => move |button, _| {
-                    if button.is_active() {
-                        this.set_beats_per_bar(6);
-                    }
                 }),
             );
 
@@ -207,6 +172,7 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow, @implements gio::ActionMap, gio::ActionGroup;
 }
 
+#[gtk::template_callbacks]
 impl MtrApplicationWindow {
     pub fn new(app: &MtrApplication) -> Self {
         glib::Object::builder().property("application", app).build()
@@ -231,5 +197,49 @@ impl MtrApplicationWindow {
         let imp = self.imp();
         self.set_beats_per_bar(imp.settings.uint("beats-per-bar"));
         self.set_beats_per_minute(imp.settings.uint("beats-per-minute"));
+    }
+
+    #[template_callback]
+    fn on_time_signature_2_4_button_active(
+        &self,
+        _pspec: &glib::ParamSpec,
+        button: &gtk::ToggleButton,
+    ) {
+        if button.is_active() {
+            self.set_beats_per_bar(2);
+        }
+    }
+
+    #[template_callback]
+    fn on_time_signature_3_4_button_active(
+        &self,
+        _pspec: &glib::ParamSpec,
+        button: &gtk::ToggleButton,
+    ) {
+        if button.is_active() {
+            self.set_beats_per_bar(3);
+        }
+    }
+
+    #[template_callback]
+    fn on_time_signature_4_4_button_active(
+        &self,
+        _pspec: &glib::ParamSpec,
+        button: &gtk::ToggleButton,
+    ) {
+        if button.is_active() {
+            self.set_beats_per_bar(4);
+        }
+    }
+
+    #[template_callback]
+    fn on_time_signature_6_8_button_active(
+        &self,
+        _pspec: &glib::ParamSpec,
+        button: &gtk::ToggleButton,
+    ) {
+        if button.is_active() {
+            self.set_beats_per_bar(8);
+        }
     }
 }
