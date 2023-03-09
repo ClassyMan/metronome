@@ -115,12 +115,12 @@ impl MtrApplication {
             .present();
     }
 
-    pub fn run(&self) {
+    pub fn run(&self) -> glib::ExitCode {
         log::info!("Metronome ({})", config::APP_ID);
         log::info!("Version: {} ({})", config::VERSION, config::PROFILE);
         log::info!("Datadir: {}", config::PKGDATADIR);
 
-        ApplicationExtManual::run(self);
+        ApplicationExtManual::run(self)
     }
 }
 

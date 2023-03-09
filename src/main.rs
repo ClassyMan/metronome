@@ -11,9 +11,9 @@ mod window;
 use application::MtrApplication;
 use config::{GETTEXT_PACKAGE, LOCALEDIR, RESOURCES_FILE};
 use gettextrs::*;
-use gtk::gio;
+use gtk::{gio, glib};
 
-fn main() {
+fn main() -> glib::ExitCode {
     // Initialize logger, debug is carried out via debug!, info!, and warn!.
     pretty_env_logger::init();
 
@@ -32,5 +32,5 @@ fn main() {
     gio::resources_register(&res);
 
     let app = MtrApplication::default();
-    app.run();
+    app.run()
 }
