@@ -48,16 +48,16 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                timer_button: TemplateChild::default(),
-                timer: TemplateChild::default(),
-                time_signature_2_4_button: TemplateChild::default(),
-                time_signature_3_4_button: TemplateChild::default(),
-                time_signature_4_4_button: TemplateChild::default(),
-                time_signature_6_8_button: TemplateChild::default(),
-                clicker: MtrClicker::new(),
-                beats_per_bar: std::cell::Cell::<u32>::new(4),
-                beats_per_minute: std::cell::Cell::<u32>::new(100),
-                tap_time: std::cell::Cell::<Instant>::new(Instant::now()),
+                timer_button: Default::default(),
+                timer: Default::default(),
+                time_signature_2_4_button: Default::default(),
+                time_signature_3_4_button: Default::default(),
+                time_signature_4_4_button: Default::default(),
+                time_signature_6_8_button: Default::default(),
+                clicker: Default::default(),
+                beats_per_bar: std::cell::Cell::new(4),
+                beats_per_minute: std::cell::Cell::new(100),
+                tap_time: std::cell::Cell::new(Instant::now()),
                 settings: gio::Settings::new(APP_ID),
             }
         }

@@ -32,10 +32,6 @@ glib::wrapper! {
 }
 
 impl MtrClicker {
-    pub fn new() -> Self {
-        glib::Object::new()
-    }
-
     pub fn high(&self) {
         let imp = self.imp();
         imp.player.set_uri(Some(AUDIO_CLICKER_HIGH_URI));
@@ -46,5 +42,11 @@ impl MtrClicker {
         let imp = self.imp();
         imp.player.set_uri(Some(AUDIO_CLICKER_LOW_URI));
         imp.player.play();
+    }
+}
+
+impl Default for MtrClicker {
+    fn default() -> Self {
+        glib::Object::new()
     }
 }

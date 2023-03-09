@@ -32,12 +32,12 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                active: std::cell::Cell::<bool>::new(false),
-                beats_per_bar: std::cell::Cell::<u32>::new(4),
-                beats_per_minute: std::cell::Cell::<u32>::new(100),
-                beat_in_bar: std::cell::Cell::<u32>::new(0),
-                start_time: std::cell::Cell::<Instant>::new(Instant::now()),
-                click_id: RefCell::new(None),
+                active: Default::default(),
+                beats_per_bar: std::cell::Cell::new(4),
+                beats_per_minute: std::cell::Cell::new(100),
+                beat_in_bar: Default::default(),
+                start_time: std::cell::Cell::new(Instant::now()),
+                click_id: Default::default(),
             }
         }
     }
@@ -99,10 +99,4 @@ mod imp {
 
 glib::wrapper! {
     pub struct MtrTimer(ObjectSubclass<imp::MtrTimer>);
-}
-
-impl MtrTimer {
-    pub fn new() -> Self {
-        glib::Object::new()
-    }
 }

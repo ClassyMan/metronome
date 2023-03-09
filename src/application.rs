@@ -68,13 +68,6 @@ glib::wrapper! {
 }
 
 impl MtrApplication {
-    pub fn new() -> Self {
-        glib::Object::builder()
-            .property("application-id", config::APP_ID)
-            .property("resource-base-path", "/com/adrienplazas/Metronome/")
-            .build()
-    }
-
     fn get_main_window(&self) -> MtrApplicationWindow {
         self.imp().window.get().unwrap().upgrade().unwrap()
     }
@@ -128,5 +121,14 @@ impl MtrApplication {
         log::info!("Datadir: {}", config::PKGDATADIR);
 
         ApplicationExtManual::run(self);
+    }
+}
+
+impl Default for MtrApplication {
+    fn default() -> Self {
+        glib::Object::builder()
+            .property("application-id", config::APP_ID)
+            .property("resource-base-path", "/com/adrienplazas/Metronome/")
+            .build()
     }
 }

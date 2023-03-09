@@ -81,9 +81,3 @@ glib::wrapper! {
     pub struct MtrTimerButtonTrough(ObjectSubclass<imp::MtrTimerButtonTrough>)
         @extends gtk::Widget;
 }
-
-impl MtrTimerButtonTrough {
-    pub fn new() -> Self {
-        glib::Object::new()
-    }
-}

@@ -60,8 +60,8 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
-impl MtrTimerButtonMark {
-    pub fn new() -> Self {
+impl Default for MtrTimerButtonMark {
+    fn default() -> Self {
         glib::Object::new()
     }
 }

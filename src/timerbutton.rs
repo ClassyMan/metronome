@@ -43,15 +43,15 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                trough: TemplateChild::default(),
-                start_button: TemplateChild::default(),
-                pause_button: TemplateChild::default(),
-                marks_overlay: TemplateChild::default(),
-                stack: TemplateChild::default(),
-                beats_per_bar: std::cell::Cell::<u32>::new(4),
-                beats_per_minute: std::cell::Cell::<u32>::new(100),
-                start_time: std::cell::Cell::<Instant>::new(Instant::now()),
-                running_id: RefCell::new(None),
+                trough: Default::default(),
+                start_button: Default::default(),
+                pause_button: Default::default(),
+                marks_overlay: Default::default(),
+                stack: Default::default(),
+                beats_per_bar: std::cell::Cell::new(4),
+                beats_per_minute: std::cell::Cell::new(100),
+                start_time: std::cell::Cell::new(Instant::now()),
+                running_id: Default::default(),
                 active: Default::default(),
             }
         }
@@ -144,10 +144,6 @@ glib::wrapper! {
 
 #[gtk::template_callbacks]
 impl MtrTimerButton {
-    pub fn new() -> Self {
-        glib::Object::new()
-    }
-
     fn update_marks(&self) {
         let imp = self.imp();
 
@@ -157,7 +153,7 @@ impl MtrTimerButton {
 
         let beats_per_bar = self.beats_per_bar();
         for i in 0..beats_per_bar {
-            let mark = MtrTimerButtonMark::new();
+            let mark = MtrTimerButtonMark::default();
             mark.set_angle(i as f32 * 360.0 / beats_per_bar as f32);
             imp.marks_overlay.add_overlay(&mark);
         }
