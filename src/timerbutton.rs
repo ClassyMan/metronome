@@ -9,11 +9,14 @@ use std::time::Instant;
 
 mod imp {
     use super::*;
-    use once_cell::sync::Lazy;
-    use std::cell::{Cell, RefCell};
+    use std::{
+        cell::{Cell, RefCell},
+        marker::PhantomData,
+    };
 
-    #[derive(Debug, gtk::CompositeTemplate)]
+    #[derive(Debug, glib::Properties, gtk::CompositeTemplate)]
     #[template(resource = "/com/adrienplazas/Metronome/ui/timerbutton.ui")]
+    #[properties(wrapper_type = super::MtrTimerButton)]
     pub struct MtrTimerButton {
         #[template_child]
         pub trough: TemplateChild<MtrTimerButtonTrough>,
@@ -25,10 +28,14 @@ mod imp {
         pub marks_overlay: TemplateChild<gtk::Overlay>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
+        #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
+        #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
         pub beats_per_minute: Cell<u32>,
         pub start_time: Cell<Instant>,
         pub running_id: RefCell<Option<gtk::TickCallbackId>>,
+        #[property(get = Self::active)]
+        pub active: PhantomData<bool>,
     }
 
     #[glib::object_subclass]
@@ -48,6 +55,7 @@ mod imp {
                 beats_per_minute: std::cell::Cell::<u32>::new(100),
                 start_time: std::cell::Cell::<Instant>::new(Instant::now()),
                 running_id: RefCell::new(None),
+                active: Default::default(),
             }
         }
 
@@ -74,63 +82,23 @@ mod imp {
         }
 
         fn properties() -> &'static [glib::ParamSpec] {
-            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
-                vec![
-                    glib::ParamSpecBoolean::new(
-                        "active",
-                        "Active",
-                        "Active",
-                        false,
-                        glib::ParamFlags::READABLE,
-                    ),
-                    glib::ParamSpecUInt::new(
-                        "beats-per-bar",
-                        "Beats per bar",
-                        "Beats per bar",
-                        1,
-                        9,
-                        4,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                    glib::ParamSpecUInt::new(
-                        "beats-per-minute",
-                        "Beats per minute",
-                        "Beats per minute",
-                        20,
-                        260,
-                        100,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                ]
-            });
-
-            PROPERTIES.as_ref()
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            let obj = self.obj();
-            match pspec.name() {
-                "active" => obj.active().to_value(),
-                "beats-per-bar" => self.beats_per_bar.get().to_value(),
-                "beats-per-minute" => self.beats_per_minute.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
-        fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            let obj = self.obj();
-            match pspec.name() {
-                "beats-per-bar" => obj.set_beats_per_bar(value.get::<u32>().unwrap()),
-                "beats-per-minute" => obj.set_beats_per_minute(value.get::<u32>().unwrap()),
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
     }
 
     impl WidgetImpl for MtrTimerButton {
         fn snapshot(&self, snapshot: &gtk::Snapshot) {
-            let s_per_beat = 60.0 / self.beats_per_minute.get() as f64;
-            let s_per_bar = s_per_beat * self.beats_per_bar.get() as f64;
+            let widget = self.obj();
+            let s_per_beat = 60.0 / widget.beats_per_minute() as f64;
+            let s_per_bar = s_per_beat * widget.beats_per_bar() as f64;
 
             let now = Instant::now();
             let elapsed = now - self.start_time.get();
@@ -146,6 +114,28 @@ mod imp {
             self.trough.set_progress(progress);
 
             self.parent_snapshot(snapshot);
+        }
+    }
+
+    impl MtrTimerButton {
+        fn set_beats_per_bar(&self, beats_per_bar: u32) {
+            let obj = self.obj();
+
+            self.beats_per_bar.set(beats_per_bar);
+            obj.pause();
+            obj.update_marks();
+        }
+
+        fn set_beats_per_minute(&self, beats_per_minute: u32) {
+            self.beats_per_minute.set(beats_per_minute);
+            self.obj().pause();
+        }
+
+        fn active(&self) -> bool {
+            match self.stack.visible_child() {
+                Some(child) => child == self.pause_button.get(),
+                None => false,
+            }
         }
     }
 }
@@ -167,27 +157,12 @@ impl MtrTimerButton {
             child.unparent();
         }
 
-        let beats_per_bar = imp.beats_per_bar.get();
+        let beats_per_bar = self.beats_per_bar();
         for i in 0..beats_per_bar {
             let mark = MtrTimerButtonMark::new();
             mark.set_angle(i as f32 * 360.0 / beats_per_bar as f32);
             imp.marks_overlay.get().add_overlay(&mark);
         }
-    }
-
-    fn set_beats_per_bar(&self, beats_per_bar: u32) {
-        let imp = self.imp();
-
-        imp.beats_per_bar.set(beats_per_bar);
-        self.pause();
-        self.update_marks();
-    }
-
-    fn set_beats_per_minute(&self, beats_per_minute: u32) {
-        let imp = self.imp();
-
-        imp.beats_per_minute.set(beats_per_minute);
-        self.pause();
     }
 
     fn setup_signals(&self) {
@@ -202,14 +177,6 @@ impl MtrTimerButton {
             .connect_clicked(clone!(@strong self as this => move |_| {
                 this.pause();
             }));
-    }
-
-    pub fn active(&self) -> bool {
-        let imp = self.imp();
-        match imp.stack.get().visible_child() {
-            Some(child) => child == imp.pause_button.get(),
-            None => false,
-        }
     }
 
     fn start(&self) {
@@ -227,7 +194,7 @@ impl MtrTimerButton {
 
         self.set_state_flags(gtk::StateFlags::CHECKED, false);
 
-        self.notify("active");
+        self.notify_active();
     }
 
     fn pause(&self) {
@@ -241,6 +208,6 @@ impl MtrTimerButton {
 
         self.unset_state_flags(gtk::StateFlags::CHECKED);
 
-        self.notify("active");
+        self.notify_active();
     }
 }

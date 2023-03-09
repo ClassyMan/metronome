@@ -2,10 +2,7 @@ use crate::config;
 use crate::window::MtrApplicationWindow;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{
-    gdk, gio,
-    glib::{self, clone},
-};
+use gtk::{gdk, gio, glib};
 
 mod imp {
     use super::*;
