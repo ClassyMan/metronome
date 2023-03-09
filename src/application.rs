@@ -78,8 +78,7 @@ impl MtrApplication {
     }
 
     fn get_main_window(&self) -> MtrApplicationWindow {
-        let priv_ = imp::MtrApplication::from_instance(self);
-        priv_.window.get().unwrap().upgrade().unwrap()
+        self.imp().window.get().unwrap().upgrade().unwrap()
     }
 
     fn setup_gactions(&self) {

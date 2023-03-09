@@ -161,7 +161,7 @@ impl MtrTimerButton {
     }
 
     fn update_marks(&self) {
-        let imp = imp::MtrTimerButton::from_instance(&self);
+        let imp = self.imp();
 
         while let Some(child) = imp.marks_overlay.get().first_child() {
             child.unparent();
@@ -176,7 +176,7 @@ impl MtrTimerButton {
     }
 
     fn set_beats_per_bar(&self, beats_per_bar: u32) {
-        let imp = imp::MtrTimerButton::from_instance(&self);
+        let imp = self.imp();
 
         imp.beats_per_bar.set(beats_per_bar);
         self.pause();
@@ -184,14 +184,14 @@ impl MtrTimerButton {
     }
 
     fn set_beats_per_minute(&self, beats_per_minute: u32) {
-        let imp = imp::MtrTimerButton::from_instance(&self);
+        let imp = self.imp();
 
         imp.beats_per_minute.set(beats_per_minute);
         self.pause();
     }
 
     fn setup_signals(&self) {
-        let imp = imp::MtrTimerButton::from_instance(&self);
+        let imp = self.imp();
 
         imp.start_button
             .connect_clicked(clone!(@strong self as this => move |_| {
@@ -205,7 +205,7 @@ impl MtrTimerButton {
     }
 
     pub fn active(&self) -> bool {
-        let imp = imp::MtrTimerButton::from_instance(&self);
+        let imp = self.imp();
         match imp.stack.get().visible_child() {
             Some(child) => child == imp.pause_button.get(),
             None => false,
@@ -213,7 +213,7 @@ impl MtrTimerButton {
     }
 
     fn start(&self) {
-        let imp = imp::MtrTimerButton::from_instance(&self);
+        let imp = self.imp();
 
         imp.start_time.set(Instant::now());
         imp.stack.get().set_visible_child(&imp.pause_button.get());
@@ -231,7 +231,7 @@ impl MtrTimerButton {
     }
 
     fn pause(&self) {
-        let imp = imp::MtrTimerButton::from_instance(&self);
+        let imp = self.imp();
 
         if let Some(id) = imp.running_id.take() {
             id.remove();

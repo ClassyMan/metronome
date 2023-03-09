@@ -37,13 +37,13 @@ impl MtrClicker {
     }
 
     pub fn high(&self) {
-        let imp = imp::MtrClicker::from_instance(&self);
+        let imp = self.imp();
         imp.player.set_uri(Some(AUDIO_CLICKER_HIGH_URI));
         imp.player.play();
     }
 
     pub fn low(&self) {
-        let imp = imp::MtrClicker::from_instance(&self);
+        let imp = self.imp();
         imp.player.set_uri(Some(AUDIO_CLICKER_LOW_URI));
         imp.player.play();
     }

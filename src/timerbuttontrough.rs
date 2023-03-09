@@ -105,10 +105,7 @@ impl MtrTimerButtonTrough {
     }
 
     pub fn set_progress(&self, progress: f64) {
-        let imp = imp::MtrTimerButtonTrough::from_instance(&self);
-
-        imp.progress.set(progress);
-
+        self.imp().progress.set(progress);
         self.queue_draw();
     }
 }

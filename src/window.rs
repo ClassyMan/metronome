@@ -100,7 +100,7 @@ mod imp {
                 clone!(@strong obj as this => move |args| {
                     let high = args[1].get::<bool>().unwrap();
 
-                    let imp = imp::MtrApplicationWindow::from_instance(&this);
+                    let imp = this.imp();
                     if high { imp.clicker.high(); } else { imp.clicker.low(); }
 
                     None
@@ -211,13 +211,11 @@ glib::wrapper! {
 
 impl MtrApplicationWindow {
     pub fn new(app: &MtrApplication) -> Self {
-        glib::Object::builder()
-            .property("application", app)
-            .build()
+        glib::Object::builder().property("application", app).build()
     }
 
     fn set_beats_per_bar(&self, bpm: u32) {
-        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        let imp = self.imp();
         imp.beats_per_bar.set(bpm.clamp(1, 9));
 
         if let Some(button) = match bpm {
@@ -241,7 +239,7 @@ impl MtrApplicationWindow {
     }
 
     fn set_beats_per_minute(&self, bpm: u32) {
-        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        let imp = self.imp();
         imp.beats_per_minute.set(bpm.clamp(20, 260));
 
         if let Err(err) = imp
@@ -255,13 +253,13 @@ impl MtrApplicationWindow {
     }
 
     fn add_beats_per_minute(&self, value: i32) {
-        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        let imp = self.imp();
         let bpm = imp.beats_per_minute.get() as i32 + value;
         self.set_beats_per_minute(bpm as u32);
     }
 
     fn tap(&self) {
-        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        let imp = self.imp();
         let now = Instant::now();
         let duration = now - imp.tap_time.get();
         let bpm = 60.0 / duration.as_secs_f64();
@@ -271,7 +269,7 @@ impl MtrApplicationWindow {
     }
 
     fn load_settings(&self) {
-        let imp = imp::MtrApplicationWindow::from_instance(&self);
+        let imp = self.imp();
         self.set_beats_per_bar(imp.settings.uint("beats-per-bar"));
         self.set_beats_per_minute(imp.settings.uint("beats-per-minute"));
     }
