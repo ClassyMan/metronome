@@ -25,6 +25,8 @@ mod imp {
         pub marks_overlay: TemplateChild<gtk::Overlay>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        marks_container: TemplateChild<gtk::Box>,
         #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
@@ -48,6 +50,7 @@ mod imp {
                 pause_button: Default::default(),
                 marks_overlay: Default::default(),
                 stack: Default::default(),
+                marks_container: Default::default(),
                 beats_per_bar: std::cell::Cell::new(4),
                 beats_per_minute: std::cell::Cell::new(100),
                 start_time: std::cell::Cell::new(Instant::now()),
@@ -88,6 +91,10 @@ mod imp {
 
         fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
             self.derived_set_property(id, value, pspec)
+        }
+
+        fn dispose(&self) {
+            self.dispose_template();
         }
     }
 

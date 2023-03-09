@@ -6,7 +6,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="marks_container">
         <property name="halign">center</property>
         <property name="homogeneous">True</property>
         <property name="orientation">vertical</property>
