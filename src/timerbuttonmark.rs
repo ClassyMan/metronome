@@ -7,8 +7,10 @@ use std::cell::Cell;
 mod imp {
     use super::*;
 
-    #[derive(Debug)]
+    #[derive(Debug, Default, glib::Properties)]
+    #[properties(wrapper_type = super::MtrTimerButtonMark)]
     pub struct MtrTimerButtonMark {
+        #[property(get, set)]
         pub angle: Cell<f32>,
     }
 
@@ -18,18 +20,24 @@ mod imp {
         type Type = super::MtrTimerButtonMark;
         type ParentType = gtk::Widget;
 
-        fn new() -> Self {
-            Self {
-                angle: std::cell::Cell::<f32>::new(0.0),
-            }
-        }
-
         fn class_init(klass: &mut Self::Class) {
             klass.set_css_name("timerbuttonmark");
         }
     }
 
-    impl ObjectImpl for MtrTimerButtonMark {}
+    impl ObjectImpl for MtrTimerButtonMark {
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
+        }
+
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+    }
 
     impl WidgetImpl for MtrTimerButtonMark {
         fn snapshot(&self, snapshot: &gtk::Snapshot) {
@@ -38,7 +46,7 @@ mod imp {
             let height = widget.height() as f32;
             let style_ctx = widget.style_context();
             let fg_color = style_ctx.color();
-            snapshot.rotate(self.angle.get() + 180.0);
+            snapshot.rotate(widget.angle() + 180.0);
             snapshot.append_color(
                 &fg_color,
                 &graphene::Rect::new(0.0, 0.0, width, height - 1.0),
@@ -56,10 +64,5 @@ glib::wrapper! {
 impl MtrTimerButtonMark {
     pub fn new() -> Self {
         glib::Object::new()
-    }
-
-    pub fn set_angle(&self, angle: f32) {
-        let imp = imp::MtrTimerButtonMark::from_instance(&self);
-        imp.angle.set(angle);
     }
 }
