@@ -13,11 +13,11 @@ use std::time::Instant;
 
 mod imp {
     use super::*;
-    use once_cell::sync::Lazy;
     use std::cell::Cell;
 
-    #[derive(Debug, gtk::CompositeTemplate)]
+    #[derive(Debug, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/adrienplazas/Metronome/ui/window.ui")]
+    #[properties(wrapper_type = super::MtrApplicationWindow)]
     pub struct MtrApplicationWindow {
         #[template_child]
         pub timer_button: TemplateChild<MtrTimerButton>,
@@ -32,7 +32,9 @@ mod imp {
         #[template_child]
         pub time_signature_6_8_button: TemplateChild<gtk::ToggleButton>,
         pub clicker: MtrClicker,
+        #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
+        #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
         pub beats_per_minute: Cell<u32>,
         pub tap_time: Cell<Instant>,
         pub settings: gio::Settings,
@@ -112,7 +114,6 @@ mod imp {
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {
                         this.set_beats_per_bar(2);
-                        this.notify("beats-per-bar");
                     }
                 }),
             );
@@ -122,7 +123,6 @@ mod imp {
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {
                         this.set_beats_per_bar(3);
-                        this.notify("beats-per-bar");
                     }
                 }),
             );
@@ -132,7 +132,6 @@ mod imp {
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {
                         this.set_beats_per_bar(4);
-                        this.notify("beats-per-bar");
                     }
                 }),
             );
@@ -142,7 +141,6 @@ mod imp {
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {
                         this.set_beats_per_bar(6);
-                        this.notify("beats-per-bar");
                     }
                 }),
             );
@@ -151,47 +149,15 @@ mod imp {
         }
 
         fn properties() -> &'static [glib::ParamSpec] {
-            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
-                vec![
-                    glib::ParamSpecUInt::new(
-                        "beats-per-bar",
-                        "Beats per bar",
-                        "Beats per bar",
-                        1,
-                        9,
-                        4,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                    glib::ParamSpecUInt::new(
-                        "beats-per-minute",
-                        "Beats per minute",
-                        "Beats per minute",
-                        20,
-                        260,
-                        100,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                ]
-            });
-
-            PROPERTIES.as_ref()
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            match pspec.name() {
-                "beats-per-bar" => self.beats_per_bar.get().to_value(),
-                "beats-per-minute" => self.beats_per_minute.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
-        fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            let obj = self.obj();
-            match pspec.name() {
-                "beats-per-bar" => obj.set_beats_per_bar(value.get::<u32>().unwrap()),
-                "beats-per-minute" => obj.set_beats_per_minute(value.get::<u32>().unwrap()),
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
     }
 
@@ -202,6 +168,38 @@ mod imp {
     impl ApplicationWindowImpl for MtrApplicationWindow {}
 
     impl AdwApplicationWindowImpl for MtrApplicationWindow {}
+
+    impl MtrApplicationWindow {
+        fn set_beats_per_bar(&self, bpm: u32) {
+            self.beats_per_bar.set(bpm);
+
+            if let Some(button) = match bpm {
+                2 => Some(self.time_signature_2_4_button.get()),
+                3 => Some(self.time_signature_3_4_button.get()),
+                4 => Some(self.time_signature_4_4_button.get()),
+                6 => Some(self.time_signature_6_8_button.get()),
+                _ => None,
+            } {
+                button.set_active(true);
+            }
+
+            if let Err(err) = self.settings.set_uint("beats-per-bar", bpm) {
+                log::warn!("Failed to save the beats per bar, {}", &err);
+            }
+
+            self.obj().notify_beats_per_bar();
+        }
+
+        fn set_beats_per_minute(&self, bpm: u32) {
+            self.beats_per_minute.set(bpm);
+
+            if let Err(err) = self.settings.set_uint("beats-per-minute", bpm) {
+                log::warn!("Failed to save the beats per minute, {}", &err);
+            }
+
+            self.obj().notify_beats_per_minute();
+        }
+    }
 }
 
 glib::wrapper! {
@@ -214,47 +212,8 @@ impl MtrApplicationWindow {
         glib::Object::builder().property("application", app).build()
     }
 
-    fn set_beats_per_bar(&self, bpm: u32) {
-        let imp = self.imp();
-        imp.beats_per_bar.set(bpm.clamp(1, 9));
-
-        if let Some(button) = match bpm {
-            2 => Some(imp.time_signature_2_4_button.get()),
-            3 => Some(imp.time_signature_3_4_button.get()),
-            4 => Some(imp.time_signature_4_4_button.get()),
-            6 => Some(imp.time_signature_6_8_button.get()),
-            _ => None,
-        } {
-            button.set_active(true);
-        }
-
-        if let Err(err) = imp
-            .settings
-            .set_uint("beats-per-bar", imp.beats_per_bar.get())
-        {
-            log::warn!("Failed to save the beats per bar, {}", &err);
-        }
-
-        self.notify("beats-per-bar");
-    }
-
-    fn set_beats_per_minute(&self, bpm: u32) {
-        let imp = self.imp();
-        imp.beats_per_minute.set(bpm.clamp(20, 260));
-
-        if let Err(err) = imp
-            .settings
-            .set_uint("beats-per-minute", imp.beats_per_minute.get())
-        {
-            log::warn!("Failed to save the beats per minute, {}", &err);
-        }
-
-        self.notify("beats-per-minute");
-    }
-
     fn add_beats_per_minute(&self, value: i32) {
-        let imp = self.imp();
-        let bpm = imp.beats_per_minute.get() as i32 + value;
+        let bpm = (self.beats_per_minute() as i32 + value).clamp(20, 260);
         self.set_beats_per_minute(bpm as u32);
     }
 
@@ -264,7 +223,7 @@ impl MtrApplicationWindow {
         let duration = now - imp.tap_time.get();
         let bpm = 60.0 / duration.as_secs_f64();
         imp.tap_time.set(now);
-        self.set_beats_per_minute(bpm as u32);
+        self.set_beats_per_minute((bpm as u32).clamp(20, 260));
         imp.clicker.low();
     }
 
