@@ -107,7 +107,7 @@ mod imp {
                 }),
             );
 
-            self.time_signature_2_4_button.get().connect_notify_local(
+            self.time_signature_2_4_button.connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {
@@ -117,7 +117,7 @@ mod imp {
                 }),
             );
 
-            self.time_signature_3_4_button.get().connect_notify_local(
+            self.time_signature_3_4_button.connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {
@@ -127,7 +127,7 @@ mod imp {
                 }),
             );
 
-            self.time_signature_4_4_button.get().connect_notify_local(
+            self.time_signature_4_4_button.connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {
@@ -137,7 +137,7 @@ mod imp {
                 }),
             );
 
-            self.time_signature_6_8_button.get().connect_notify_local(
+            self.time_signature_6_8_button.connect_notify_local(
                 Some("active"),
                 clone!(@strong obj as this => move |button, _| {
                     if button.is_active() {

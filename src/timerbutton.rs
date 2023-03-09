@@ -153,7 +153,7 @@ impl MtrTimerButton {
     fn update_marks(&self) {
         let imp = self.imp();
 
-        while let Some(child) = imp.marks_overlay.get().first_child() {
+        while let Some(child) = imp.marks_overlay.first_child() {
             child.unparent();
         }
 
@@ -161,7 +161,7 @@ impl MtrTimerButton {
         for i in 0..beats_per_bar {
             let mark = MtrTimerButtonMark::new();
             mark.set_angle(i as f32 * 360.0 / beats_per_bar as f32);
-            imp.marks_overlay.get().add_overlay(&mark);
+            imp.marks_overlay.add_overlay(&mark);
         }
     }
 
@@ -183,7 +183,7 @@ impl MtrTimerButton {
         let imp = self.imp();
 
         imp.start_time.set(Instant::now());
-        imp.stack.get().set_visible_child(&imp.pause_button.get());
+        imp.stack.set_visible_child(&*imp.pause_button);
 
         let source_id = self.add_tick_callback(move |this, _clock| {
             this.queue_draw();
@@ -204,7 +204,7 @@ impl MtrTimerButton {
             id.remove();
         }
 
-        imp.stack.get().set_visible_child(&imp.start_button.get());
+        imp.stack.set_visible_child(&*imp.start_button);
 
         self.unset_state_flags(gtk::StateFlags::CHECKED);
 
