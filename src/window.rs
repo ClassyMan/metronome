@@ -217,12 +217,9 @@ glib::wrapper! {
 
 impl MtrApplicationWindow {
     pub fn new(app: &MtrApplication) -> Self {
-        let window = glib::Object::new::<Self>();
-        window.set_application(Some(app));
-        // Set icons for shell
-        gtk::Window::set_default_icon_name(APP_ID);
-
-        window
+        glib::Object::builder()
+            .property("application", app)
+            .build()
     }
 
     fn set_beats_per_bar(&self, bpm: u32) {

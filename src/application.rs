@@ -30,6 +30,10 @@ mod imp {
         fn activate(&self) {
             log::debug!("GtkApplication<MtrApplication>::activate");
             self.parent_activate();
+
+            // Set icons for shell
+            gtk::Window::set_default_icon_name(config::APP_ID);
+
             let app = self.obj();
             if let Some(window) = self.window.get() {
                 let window = window.upgrade().unwrap();
