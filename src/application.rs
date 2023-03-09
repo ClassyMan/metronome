@@ -6,8 +6,6 @@ use gtk::{
     gdk, gio,
     glib::{self, clone},
 };
-use gtk_macros::action;
-use log::{debug, info};
 
 mod imp {
     use super::*;
@@ -30,7 +28,7 @@ mod imp {
 
     impl gio::subclass::prelude::ApplicationImpl for MtrApplication {
         fn activate(&self) {
-            debug!("GtkApplication<MtrApplication>::activate");
+            log::debug!("GtkApplication<MtrApplication>::activate");
             self.parent_activate();
             let app = self.obj();
             if let Some(window) = self.window.get() {
@@ -52,7 +50,7 @@ mod imp {
         }
 
         fn startup(&self) {
-            debug!("GtkApplication<MtrApplication>::startup");
+            log::debug!("GtkApplication<MtrApplication>::startup");
             self.parent_startup();
             let app = self.obj();
 
@@ -83,25 +81,23 @@ impl MtrApplication {
 
     fn setup_gactions(&self) {
         // Quit
-        action!(
-            self,
-            "quit",
-            clone!(@weak self as app => move |_, _| {
+        let quit_action = gio::ActionEntry::builder("quit")
+            .activate(|app: &Self, _, _| {
                 // This is needed to trigger the delete event
                 // and saving the window state
                 app.get_main_window().close();
                 app.quit();
             })
-        );
+            .build();
 
         // About
-        action!(
-            self,
-            "about",
-            clone!(@weak self as app => move |_, _| {
+        let about_action = gio::ActionEntry::builder("about")
+            .activate(|app: &Self, _, _| {
                 app.show_about_dialog();
             })
-        );
+            .build();
+
+        self.add_action_entries([quit_action, about_action]);
     }
 
     // Sets up keyboard shortcuts
@@ -140,9 +136,9 @@ impl MtrApplication {
     }
 
     pub fn run(&self) {
-        info!("Metronome ({})", config::APP_ID);
-        info!("Version: {} ({})", config::VERSION, config::PROFILE);
-        info!("Datadir: {}", config::PKGDATADIR);
+        log::info!("Metronome ({})", config::APP_ID);
+        log::info!("Version: {} ({})", config::VERSION, config::PROFILE);
+        log::info!("Datadir: {}", config::PKGDATADIR);
 
         ApplicationExtManual::run(self);
     }

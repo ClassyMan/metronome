@@ -9,8 +9,6 @@ use gtk::{
     glib::{self, clone},
     prelude::*,
 };
-use gtk_macros::*;
-use log::warn;
 use std::time::Instant;
 
 mod imp {
@@ -64,6 +62,18 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
+
+            klass.install_action("win.decrease-bpm", None, |win, _, _| {
+                win.add_beats_per_minute(-1);
+            });
+
+            klass.install_action("win.increase-bpm", None, |win, _, _| {
+                win.add_beats_per_minute(1);
+            });
+
+            klass.install_action("win.tap", None, |win, _, _| {
+                win.tap();
+            });
         }
 
         // You must call `Widget`'s `init_template()` within `instance_init()`.
@@ -209,39 +219,10 @@ impl MtrApplicationWindow {
     pub fn new(app: &MtrApplication) -> Self {
         let window = glib::Object::new::<Self>();
         window.set_application(Some(app));
-
-        window.setup_actions();
-
         // Set icons for shell
         gtk::Window::set_default_icon_name(APP_ID);
 
         window
-    }
-
-    fn setup_actions(&self) {
-        action!(
-            self,
-            "decrease-bpm",
-            clone!(@weak self as this => move |_, _| {
-                this.add_beats_per_minute(-1);
-            })
-        );
-
-        action!(
-            self,
-            "increase-bpm",
-            clone!(@weak self as this => move |_, _| {
-                this.add_beats_per_minute(1);
-            })
-        );
-
-        action!(
-            self,
-            "tap",
-            clone!(@weak self as this => move |_, _| {
-                this.tap();
-            })
-        );
     }
 
     fn set_beats_per_bar(&self, bpm: u32) {
@@ -262,7 +243,7 @@ impl MtrApplicationWindow {
             .settings
             .set_uint("beats-per-bar", imp.beats_per_bar.get())
         {
-            warn!("Failed to save the beats per bar, {}", &err);
+            log::warn!("Failed to save the beats per bar, {}", &err);
         }
 
         self.notify("beats-per-bar");
@@ -276,7 +257,7 @@ impl MtrApplicationWindow {
             .settings
             .set_uint("beats-per-minute", imp.beats_per_minute.get())
         {
-            warn!("Failed to save the beats per minute, {}", &err);
+            log::warn!("Failed to save the beats per minute, {}", &err);
         }
 
         self.notify("beats-per-minute");
