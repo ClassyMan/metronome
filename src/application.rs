@@ -44,7 +44,7 @@ mod imp {
                 .set(window.downgrade())
                 .expect("Window already set.");
 
-            app.get_main_window().present();
+            window.present();
         }
 
         fn startup(&self) {
@@ -108,19 +108,18 @@ impl MtrApplication {
     }
 
     fn show_about_dialog(&self) {
-        let dialog = gtk::AboutDialog::builder()
-            .program_name("Metronome")
-            .logo_icon_name(config::APP_ID)
+        adw::AboutWindow::builder()
+            .application_name("Metronome")
+            .application_icon(config::APP_ID)
             .license_type(gtk::License::Gpl30)
             .website("https://gitlab.gnome.org/aplazas/metronome/")
             .version(config::VERSION)
             .transient_for(&self.get_main_window())
             .modal(true)
-            .authors(vec!["Adrien Plazas <kekun.plazas@laposte.net>"])
+            .developers(vec!["Adrien Plazas <kekun.plazas@laposte.net>"])
             .artists(vec!["Tobias Bernard <tbernard@gnome.org>"])
-            .build();
-
-        dialog.show();
+            .build()
+            .present();
     }
 
     pub fn run(&self) {

@@ -10,6 +10,6 @@ pretty_env_logger = "0.4"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 once_cell = "1.5"
 gtk = { version = "0.6", package = "gtk4" }
-adw = { version = "0.3", package = "libadwaita" }
+adw = { version = "0.3", package = "libadwaita", features = ["v1_2"] }
 gst = { version = "0.20", package = "gstreamer" }
 gst_player = { version = "0.20", package = "gstreamer-player" }
