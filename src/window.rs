@@ -63,7 +63,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            Self::bind_template(klass);
+            klass.bind_template();
 
             klass.install_action("win.decrease-bpm", None, |win, _, _| {
                 win.add_beats_per_minute(-1);
