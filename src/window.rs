@@ -81,8 +81,8 @@ mod imp {
 
         // You must call `Widget`'s `init_template()` within `instance_init()`.
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
-            MtrTimerButton::static_type();
-            MtrTimer::static_type();
+            MtrTimerButton::ensure_type();
+            MtrTimer::ensure_type();
             obj.init_template();
         }
     }
