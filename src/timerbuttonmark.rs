@@ -43,8 +43,7 @@ mod imp {
             let widget = self.obj();
             let width = widget.width() as f32;
             let height = widget.height() as f32;
-            let style_ctx = widget.style_context();
-            let fg_color = style_ctx.color();
+            let fg_color = widget.color();
             snapshot.rotate(widget.angle() + 180.0);
             snapshot.append_color(
                 &fg_color,

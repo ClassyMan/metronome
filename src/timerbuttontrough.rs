@@ -43,9 +43,7 @@ mod imp {
             let widget = self.obj();
             let width = widget.width() as f64;
             let height = widget.height() as f64;
-            let style_ctx = widget.style_context();
-
-            let fg_color = style_ctx.color();
+            let fg_color = widget.color();
             let transparent = gdk::RGBA::new(0.0, 0.0, 0.0, 0.0);
 
             let progress = widget.progress() as f32;

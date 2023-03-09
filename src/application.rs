@@ -34,7 +34,6 @@ mod imp {
             let app = self.obj();
             if let Some(window) = self.window.get() {
                 let window = window.upgrade().unwrap();
-                window.show();
                 window.present();
                 return;
             }
