@@ -20,14 +20,14 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                player: gst_player::Player::new(None, None),
+                player: gst_player::Player::new(None::<gst_player::PlayerVideoRenderer>, None::<gst_player::PlayerSignalDispatcher>),
             }
         }
     }
 
     impl ObjectImpl for MtrClicker {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
         }
     }
 }
@@ -38,21 +38,18 @@ glib::wrapper! {
 
 impl MtrClicker {
     pub fn new() -> Self {
-        let this: Self =
-            glib::Object::new(&[]).expect("Failed to create MtrClicker");
-
-        this
+        glib::Object::new()
     }
 
     pub fn high(&self) {
         let imp = imp::MtrClicker::from_instance(&self);
-        imp.player.set_uri(AUDIO_CLICKER_HIGH_URI);
+        imp.player.set_uri(Some(AUDIO_CLICKER_HIGH_URI));
         imp.player.play();
     }
 
     pub fn low(&self) {
         let imp = imp::MtrClicker::from_instance(&self);
-        imp.player.set_uri(AUDIO_CLICKER_LOW_URI);
+        imp.player.set_uri(Some(AUDIO_CLICKER_LOW_URI));
         imp.player.play();
     }
 }

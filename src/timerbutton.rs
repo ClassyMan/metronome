@@ -65,8 +65,9 @@ mod imp {
     }
 
     impl ObjectImpl for MtrTimerButton {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
+            let obj = self.obj();
 
             obj.setup_signals();
             obj.update_marks();
@@ -106,7 +107,8 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn property(&self, obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            let obj = self.obj();
             match pspec.name() {
                 "active" => obj.active().to_value(),
                 "beats-per-bar" => self.beats_per_bar.get().to_value(),
@@ -115,13 +117,8 @@ mod imp {
             }
         }
 
-        fn set_property(
-            &self,
-            obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &glib::ParamSpec,
-        ) {
+        fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            let obj = self.obj();
             match pspec.name() {
                 "beats-per-bar" => obj.set_beats_per_bar(value.get::<u32>().unwrap()),
                 "beats-per-minute" => obj.set_beats_per_minute(value.get::<u32>().unwrap()),
@@ -131,7 +128,7 @@ mod imp {
     }
 
     impl WidgetImpl for MtrTimerButton {
-        fn snapshot(&self, widget: &Self::Type, snapshot: &gtk::Snapshot) {
+        fn snapshot(&self, snapshot: &gtk::Snapshot) {
             let s_per_beat = 60.0 / self.beats_per_minute.get() as f64;
             let s_per_bar = s_per_beat * self.beats_per_bar.get() as f64;
 
@@ -148,7 +145,7 @@ mod imp {
 
             self.trough.set_progress(progress);
 
-            self.parent_snapshot(widget, snapshot);
+            self.parent_snapshot(snapshot);
         }
     }
 }
@@ -160,9 +157,7 @@ glib::wrapper! {
 
 impl MtrTimerButton {
     pub fn new() -> Self {
-        let this: Self = glib::Object::new(&[]).expect("Failed to create MtrTimerButton");
-
-        this
+        glib::Object::new()
     }
 
     fn update_marks(&self) {

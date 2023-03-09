@@ -30,13 +30,14 @@ mod imp {
     }
 
     impl ObjectImpl for MtrTimerButtonMark {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
         }
     }
 
     impl WidgetImpl for MtrTimerButtonMark {
-        fn snapshot(&self, widget: &Self::Type, snapshot: &gtk::Snapshot) {
+        fn snapshot(&self, snapshot: &gtk::Snapshot) {
+            let widget = self.obj();
             let width = widget.width() as f32;
             let height = widget.height() as f32;
             let style_ctx = widget.style_context();
@@ -46,7 +47,7 @@ mod imp {
                 &fg_color,
                 &graphene::Rect::new(0.0, 0.0, width, height - 1.0),
             );
-            self.parent_snapshot(widget, snapshot);
+            self.parent_snapshot(snapshot);
         }
     }
 }
@@ -58,9 +59,7 @@ glib::wrapper! {
 
 impl MtrTimerButtonMark {
     pub fn new() -> Self {
-        let this: Self = glib::Object::new(&[]).expect("Failed to create MtrTimerButtonMark");
-
-        this
+        glib::Object::new()
     }
 
     pub fn set_angle(&self, angle: f32) {

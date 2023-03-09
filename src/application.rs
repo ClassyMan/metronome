@@ -1,6 +1,5 @@
 use crate::config;
 use crate::window::MtrApplicationWindow;
-use gio::ApplicationFlags;
 use glib::clone;
 use glib::WeakRef;
 use gtk::prelude::*;
@@ -28,11 +27,11 @@ mod imp {
     impl ObjectImpl for MtrApplication {}
 
     impl gio::subclass::prelude::ApplicationImpl for MtrApplication {
-        fn activate(&self, app: &Self::Type) {
+        fn activate(&self) {
             debug!("GtkApplication<MtrApplication>::activate");
-
-            let priv_ = MtrApplication::from_instance(app);
-            if let Some(window) = priv_.window.get() {
+            self.parent_activate();
+            let app = self.obj();
+            if let Some(window) = self.window.get() {
                 let window = window.upgrade().unwrap();
                 window.show();
                 window.present();
@@ -42,7 +41,7 @@ mod imp {
             app.set_resource_base_path(Some("/com/adrienplazas/Metronome/"));
             app.setup_css();
 
-            let window = MtrApplicationWindow::new(app);
+            let window = MtrApplicationWindow::new(&app);
             self.window
                 .set(window.downgrade())
                 .expect("Window already set.");
@@ -53,9 +52,9 @@ mod imp {
             app.get_main_window().present();
         }
 
-        fn startup(&self, app: &Self::Type) {
+        fn startup(&self) {
             debug!("GtkApplication<MtrApplication>::startup");
-            self.parent_startup(app);
+            self.parent_startup();
         }
     }
 
@@ -69,11 +68,9 @@ glib::wrapper! {
 
 impl MtrApplication {
     pub fn new() -> Self {
-        glib::Object::new(&[
-            ("application-id", &Some(config::APP_ID)),
-            ("flags", &ApplicationFlags::empty()),
-        ])
-        .expect("Application initialization failed...")
+        glib::Object::builder()
+            .property("application-id", config::APP_ID)
+            .build()
     }
 
     fn get_main_window(&self) -> MtrApplicationWindow {
@@ -124,7 +121,7 @@ impl MtrApplication {
     }
 
     fn show_about_dialog(&self) {
-        let dialog = gtk::builders::AboutDialogBuilder::new()
+        let dialog = gtk::AboutDialog::builder()
             .program_name("Metronome")
             .logo_icon_name(config::APP_ID)
             .license_type(gtk::License::Gpl30)
@@ -132,8 +129,8 @@ impl MtrApplication {
             .version(config::VERSION)
             .transient_for(&self.get_main_window())
             .modal(true)
-            .authors(vec!["Adrien Plazas <kekun.plazas@laposte.net>".into()])
-            .artists(vec!["Tobias Bernard <tbernard@gnome.org>".into()])
+            .authors(vec!["Adrien Plazas <kekun.plazas@laposte.net>"])
+            .artists(vec!["Tobias Bernard <tbernard@gnome.org>"])
             .build();
 
         dialog.show();

@@ -41,8 +41,8 @@ mod imp {
     }
 
     impl ObjectImpl for MtrTimer {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
         }
 
         fn properties() -> &'static [glib::ParamSpec] {
@@ -81,18 +81,15 @@ mod imp {
 
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder(
-                    "beat",
-                    &[SignalType::from(bool::static_type())],
-                    SignalType::from(Type::UNIT),
-                )
-                .build()]
+                vec![Signal::builder("beat")
+                    .param_types([SignalType::from(bool::static_type())])
+                    .build()]
             });
 
             SIGNALS.as_ref()
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
                 "beats-per-bar" => self.beats_per_bar.get().to_value(),
                 "beats-per-minute" => self.beats_per_minute.get().to_value(),
@@ -100,15 +97,9 @@ mod imp {
             }
         }
 
-        fn set_property(
-            &self,
-            obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &glib::ParamSpec,
-        ) {
+        fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
             match pspec.name() {
-                "active" => obj.set_active(value.get::<bool>().unwrap()),
+                "active" => self.obj().set_active(value.get::<bool>().unwrap()),
                 "beats-per-bar" => self.beats_per_bar.set(value.get::<u32>().unwrap()),
                 "beats-per-minute" => self.beats_per_minute.set(value.get::<u32>().unwrap()),
                 _ => unimplemented!(),
@@ -123,9 +114,7 @@ glib::wrapper! {
 
 impl MtrTimer {
     pub fn new() -> Self {
-        let this: Self = glib::Object::new(&[]).expect("Failed to create MtrTimer");
-
-        this
+        glib::Object::new()
     }
 
     fn set_active(&self, active: bool) {

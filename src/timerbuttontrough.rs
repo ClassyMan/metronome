@@ -32,8 +32,8 @@ mod imp {
     }
 
     impl ObjectImpl for MtrTimerButtonTrough {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
         }
 
         fn properties() -> &'static [glib::ParamSpec] {
@@ -52,20 +52,15 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
                 "progress" => self.progress.get().to_value(),
                 _ => unimplemented!(),
             }
         }
 
-        fn set_property(
-            &self,
-            obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &glib::ParamSpec,
-        ) {
+        fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            let obj = self.obj();
             match pspec.name() {
                 "progress" => obj.set_progress(value.get::<f64>().unwrap()),
                 _ => unimplemented!(),
@@ -74,7 +69,8 @@ mod imp {
     }
 
     impl WidgetImpl for MtrTimerButtonTrough {
-        fn snapshot(&self, widget: &Self::Type, snapshot: &gtk::Snapshot) {
+        fn snapshot(&self, snapshot: &gtk::Snapshot) {
+            let widget = self.obj();
             let width = widget.width() as f64;
             let height = widget.height() as f64;
             let style_ctx = widget.style_context();
@@ -99,7 +95,7 @@ mod imp {
                 &stops,
             );
 
-            self.parent_snapshot(widget, snapshot);
+            self.parent_snapshot(snapshot);
         }
     }
 }
@@ -111,9 +107,7 @@ glib::wrapper! {
 
 impl MtrTimerButtonTrough {
     pub fn new() -> Self {
-        let this: Self = glib::Object::new(&[]).expect("Failed to create MtrTimerButtonTrough");
-
-        this
+        glib::Object::new()
     }
 
     pub fn set_progress(&self, progress: f64) {

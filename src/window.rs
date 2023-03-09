@@ -74,8 +74,9 @@ mod imp {
     }
 
     impl ObjectImpl for MtrApplicationWindow {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
+            let obj = self.obj();
 
             let builder =
                 gtk::Builder::from_resource("/com/adrienplazas/Metronome/ui/shortcuts.ui");
@@ -171,7 +172,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+        fn property(&self, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
                 "beats-per-bar" => self.beats_per_bar.get().to_value(),
                 "beats-per-minute" => self.beats_per_minute.get().to_value(),
@@ -179,13 +180,8 @@ mod imp {
             }
         }
 
-        fn set_property(
-            &self,
-            obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &glib::ParamSpec,
-        ) {
+        fn set_property(&self, _id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            let obj = self.obj();
             match pspec.name() {
                 "beats-per-bar" => obj.set_beats_per_bar(value.get::<u32>().unwrap()),
                 "beats-per-minute" => obj.set_beats_per_minute(value.get::<u32>().unwrap()),
@@ -210,7 +206,7 @@ glib::wrapper! {
 
 impl MtrApplicationWindow {
     pub fn new(app: &MtrApplication) -> Self {
-        let window: Self = glib::Object::new(&[]).expect("Failed to create MtrApplicationWindow");
+        let window = glib::Object::new::<Self>();
         window.set_application(Some(app));
 
         window.setup_actions();
