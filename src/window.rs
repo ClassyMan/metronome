@@ -222,7 +222,7 @@ impl MtrApplicationWindow {
         button: &gtk::ToggleButton,
     ) {
         if button.is_active() {
-            self.set_beats_per_bar(8);
+            self.set_beats_per_bar(6);
         }
     }
 
