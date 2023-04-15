@@ -53,6 +53,7 @@ button.large label {
 .display label.bpm {
   font-size: 8em;
   font-weight: 300;
+  font-variant: tabular-nums;
 }
 
 .display box.bpm > :not(:last-child) {
