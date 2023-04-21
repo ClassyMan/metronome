@@ -135,7 +135,7 @@ mod imp {
             self.obj().pause();
         }
 
-        fn active(&self) -> bool {
+        pub fn active(&self) -> bool {
             match self.stack.visible_child() {
                 Some(child) => child == self.pause_button.get(),
                 None => false,
@@ -167,7 +167,7 @@ impl MtrTimerButton {
     }
 
     #[template_callback]
-    fn start(&self) {
+    pub fn start(&self) {
         let imp = self.imp();
 
         imp.start_time.set(Instant::now());
@@ -186,7 +186,7 @@ impl MtrTimerButton {
     }
 
     #[template_callback]
-    fn pause(&self) {
+    pub fn pause(&self) {
         let imp = self.imp();
 
         if let Some(id) = imp.running_id.take() {

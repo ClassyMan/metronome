@@ -89,7 +89,20 @@ impl MtrApplication {
             })
             .build();
 
-        self.add_action_entries([quit_action, about_action]);
+        //Start and stop playing
+        let sound_control_action = gio::ActionEntry::builder("sound-control")
+            .activate(|app: &Self, _, _| {
+                let window = app.get_main_window();
+                let timer = &window.imp().timer_button;
+                if timer.active() {
+                    timer.pause();
+                } else {
+                    timer.start();
+                }
+            })
+            .build();
+
+        self.add_action_entries([quit_action, about_action, sound_control_action]);
     }
 
     // Sets up keyboard shortcuts
@@ -97,6 +110,7 @@ impl MtrApplication {
         self.set_accels_for_action("app.quit", &["<primary>q"]);
         self.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         self.set_accels_for_action("win.tap", &["t"]);
+        self.set_accels_for_action("app.sound-control", &["space"]);
     }
 
     fn show_about_dialog(&self) {
