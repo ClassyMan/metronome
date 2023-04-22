@@ -4,23 +4,24 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Matej Urbančič <mateju@svn.gnome.org>, 2021–.
+# Martin Srebotnjak <miles@filmsi.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2021-10-16 06:17+0000\n"
-"PO-Revision-Date: 2021-10-16 21:48+0200\n"
-"Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
+"POT-Creation-Date: 2023-04-21 19:37+0000\n"
+"PO-Revision-Date: 2023-04-22 09:45+0200\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -42,6 +43,11 @@ msgctxt "shortcut window"
 msgid "Tap"
 msgstr "Udarjanje"
 
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Predvajaj / premor"
+
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
@@ -50,7 +56,7 @@ msgstr "_Tipkovne bližnjice"
 msgid "_About Metronome"
 msgstr "_O programu"
 
-#: data/resources/ui/window.ui:58
+#: data/resources/ui/window.ui:59
 msgid ""
 "2\n"
 "4"
@@ -58,7 +64,7 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:77
+#: data/resources/ui/window.ui:79
 msgid ""
 "3\n"
 "4"
@@ -66,7 +72,7 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:96
+#: data/resources/ui/window.ui:99
 msgid ""
 "4\n"
 "4"
@@ -74,7 +80,7 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:115
+#: data/resources/ui/window.ui:119
 msgid ""
 "6\n"
 "8"
@@ -82,12 +88,12 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:207
+#: data/resources/ui/window.ui:211
 msgid "TAP"
 msgstr "TAP"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
 msgid "Metronome"
 msgstr "Metronom"
 
@@ -149,6 +155,6 @@ msgstr "Glavno okno"
 msgid "Main window, narrow and running"
 msgstr "Glavno okno, ozko in dejavno"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
 msgid "Adrien Plazas"
 msgstr "Adrien Plazas"
