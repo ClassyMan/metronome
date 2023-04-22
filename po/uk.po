@@ -2,13 +2,13 @@
 # Copyright (C) 2021 metronome's COPYRIGHT HOLDER
 # This file is distributed under the same license as the metronome package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2021-10-16 06:17+0000\n"
-"PO-Revision-Date: 2021-10-16 15:41+0300\n"
+"POT-Creation-Date: 2023-04-21 19:37+0000\n"
+"PO-Revision-Date: 2023-04-22 21:21+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -39,6 +39,11 @@ msgctxt "shortcut window"
 msgid "Tap"
 msgstr "Натисніть"
 
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Пуск/Пауза"
+
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавіатурні скорочення"
@@ -47,7 +52,7 @@ msgstr "_Клавіатурні скорочення"
 msgid "_About Metronome"
 msgstr "_Про «Метроном»"
 
-#: data/resources/ui/window.ui:58
+#: data/resources/ui/window.ui:59
 msgid ""
 "2\n"
 "4"
@@ -55,7 +60,7 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:77
+#: data/resources/ui/window.ui:79
 msgid ""
 "3\n"
 "4"
@@ -63,7 +68,7 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:96
+#: data/resources/ui/window.ui:99
 msgid ""
 "4\n"
 "4"
@@ -71,7 +76,7 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:115
+#: data/resources/ui/window.ui:119
 msgid ""
 "6\n"
 "8"
@@ -79,12 +84,12 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:207
+#: data/resources/ui/window.ui:211
 msgid "TAP"
 msgstr "TAP"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
 msgid "Metronome"
 msgstr "Метроном"
 
@@ -97,8 +102,8 @@ msgstr "Зберігайте ритм"
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
 msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
 msgstr ""
-"Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;ритм;біт;такт;вимірювання;х"
-"вилина;темп;"
+"Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;ритм;біт;такт;вимірювання;"
+"хвилина;темп;"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -129,15 +134,15 @@ msgid ""
 "Metronome beats the rhythm for you, you simply need to tell it the required "
 "time signature and beats per minutes."
 msgstr ""
-"«Метроном» відбиває для вас ритм. Вам достатньо вказати програмі належний"
-" проміжок часту і кількість бітів на хвилину."
+"«Метроном» відбиває для вас ритм. Вам достатньо вказати програмі належний "
+"проміжок часту і кількість бітів на хвилину."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
 msgid ""
 "You can also tap to let the application guess the required beats per minute."
 msgstr ""
-"Крім того, ви можете вказати ритм тактильно, надавши програмі змогу вгадати"
-" потрібне значення бітів на хвилину."
+"Крім того, ви можете вказати ритм тактильно, надавши програмі змогу вгадати "
+"потрібне значення бітів на хвилину."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
 msgid "Main window"
@@ -147,6 +152,6 @@ msgstr "Головне вікно"
 msgid "Main window, narrow and running"
 msgstr "Головне вікно, вузьке, програму запущено"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
 msgid "Adrien Plazas"
 msgstr "Адріен Плацас"
