@@ -1,15 +1,15 @@
 # Polish translation for metronome.
-# Copyright © 2022 the metronome authors.
+# Copyright © 2022-2023 the metronome authors.
 # This file is distributed under the same license as the metronome package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2022.
-# Aviary.pl <community-poland@mozilla.org>, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2022-2023.
+# Aviary.pl <community-poland@mozilla.org>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2022-01-10 17:47+0000\n"
-"PO-Revision-Date: 2022-01-23 13:15+0100\n"
+"POT-Creation-Date: 2023-04-21 19:37+0000\n"
+"PO-Revision-Date: 2023-04-23 15:18+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -39,6 +39,11 @@ msgctxt "shortcut window"
 msgid "Tap"
 msgstr "Stuknięcie"
 
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Odtworzenie/wstrzymanie"
+
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
 msgstr "_Skróty klawiszowe"
@@ -47,7 +52,7 @@ msgstr "_Skróty klawiszowe"
 msgid "_About Metronome"
 msgstr "_O programie"
 
-#: data/resources/ui/window.ui:58
+#: data/resources/ui/window.ui:59
 msgid ""
 "2\n"
 "4"
@@ -55,7 +60,7 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:77
+#: data/resources/ui/window.ui:79
 msgid ""
 "3\n"
 "4"
@@ -63,7 +68,7 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:96
+#: data/resources/ui/window.ui:99
 msgid ""
 "4\n"
 "4"
@@ -71,7 +76,7 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:115
+#: data/resources/ui/window.ui:119
 msgid ""
 "6\n"
 "8"
@@ -79,7 +84,7 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:207
+#: data/resources/ui/window.ui:211
 msgid "TAP"
 msgstr "Stuknij"
 
@@ -145,6 +150,6 @@ msgstr "Główne okno"
 msgid "Main window, narrow and running"
 msgstr "Główne okno, wąskie i uruchomione"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
 msgid "Adrien Plazas"
 msgstr "Adrien Plazas"
