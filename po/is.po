@@ -1,0 +1,154 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Ingirafn <ingirafn@this.is>, 2023.
+# Sveinn í Felli <sv1@fellsnet.is>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
+"POT-Creation-Date: 2023-04-23 13:19+0000\n"
+"PO-Revision-Date: 2023-04-26 14:54+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic\n"
+"Language: is\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Almennt"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Sýna flýtilykla"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Hætta"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Ásláttur"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Spila / Bíða"
+
+#: data/resources/ui/window.ui:5
+msgid "_Keyboard Shortcuts"
+msgstr "Flýtily_klar"
+
+#: data/resources/ui/window.ui:9
+msgid "_About Metronome"
+msgstr "_Um Metronome"
+
+#: data/resources/ui/window.ui:59
+msgid ""
+"2\n"
+"4"
+msgstr ""
+"2\n"
+"4"
+
+#: data/resources/ui/window.ui:79
+msgid ""
+"3\n"
+"4"
+msgstr ""
+"3\n"
+"4"
+
+#: data/resources/ui/window.ui:99
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
+
+#: data/resources/ui/window.ui:119
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.ui:211
+msgid "TAP"
+msgstr "SLÁ"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Taktmælir"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "Haltu takti"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr "Taktur;Slag;Slög á mínútu;Mæla;Mínúta,Hljóðfall;Ásláttur;Hraði;"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Sjálfgefin breidd glugga"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Sjálfgefin hæð glugga"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Sjálfgefin hámörkuð gluggastærð"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Sjálfgefin slög í hverjum takti"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Sjálfgefin slög á mínútu"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Metroneome slær taktinn fyrir þig, þú þarft aðeins að stilla taktvísinn og "
+"slög á mínútu."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Þú getur líka slegið taktinn og látið forritið giskað á nauðsynleg slög á"
+" mínútu."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Aðalgluggi"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Aðalgluggi, mjótt og keyrandi"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
