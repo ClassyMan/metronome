@@ -49,7 +49,7 @@
       <description>
         <p>First version of the application, offering the following features:</p>
         <ul>
-          <li>Beat the rythm to 2/4, 3/4, 4/4 or 6/8.</li>
+          <li>Beat the rhythm to 2/4, 3/4, 4/4 or 6/8.</li>
           <li>High and low click sounds.</li>
           <li>Set the beats-per-minute in the 20–260 interval.</li>
           <li>Tap to set the beating interval.</li>
