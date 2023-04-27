@@ -7,7 +7,7 @@ window.application {
   margin: 0 12px 18px 12px;
 }
 
-.time-signature > :not(:last-child) {
+.time-signature> :not(:last-child) {
   margin-right: 18px;
 }
 
@@ -15,7 +15,7 @@ window.application {
   margin: 18px 12px 0 12px;
 }
 
-.controls > :not(:last-child) {
+.controls> :not(:last-child) {
   margin-right: 36px;
 }
 
@@ -42,11 +42,11 @@ button.large label {
   margin: 0;
 }
 
-.display > box.horizontal {
+.display>box.horizontal {
   margin: 0 12px;
 }
 
-.display > box.horizontal > :not(:last-child) {
+.display>box.horizontal> :not(:last-child) {
   margin-right: 12px;
 }
 
@@ -56,7 +56,7 @@ button.large label {
   font-variant: tabular-nums;
 }
 
-.display box.bpm > :not(:last-child) {
+.display box.bpm> :not(:last-child) {
   margin-bottom: 6px;
 }
 
@@ -65,7 +65,7 @@ button.large label {
 }
 
 timerbutton {
-  /* Mimicks Adwaita's private $dark_fill color. */
+  /* Mimics Adwaita's private $dark_fill color. */
   background-color: mix(@borders, @theme_bg_color, 0.5);
   border-radius: 100%;
   color: @accent_bg_color;
@@ -100,33 +100,43 @@ timerbuttonmark {
 }
 
 @keyframes reject {
-  0% { background: radial-gradient(transparent 100%, @accent_bg_color 100%); }
-  100% { background: radial-gradient(transparent 0%, @accent_bg_color 0%); }
+  0% {
+    background: radial-gradient(transparent 100%, @accent_bg_color 100%);
+  }
+
+  100% {
+    background: radial-gradient(transparent 0%, @accent_bg_color 0%);
+  }
 }
 
 @keyframes inject {
-  0% { background: radial-gradient(transparent 0%, @accent_bg_color 0%); }
-  100% { background: radial-gradient(transparent 100%, @accent_bg_color 100%); }
+  0% {
+    background: radial-gradient(transparent 0%, @accent_bg_color 0%);
+  }
+
+  100% {
+    background: radial-gradient(transparent 100%, @accent_bg_color 100%);
+  }
 }
 
-timerbutton:not(:checked) stack > button:first-child image {
+timerbutton:not(:checked) stack>button:first-child image {
   animation: reject ease-out 200ms;
   border-radius: 100%;
-  /* Mimicks Adwaita's button.suggested-action. */
+  /* Mimics Adwaita's button.suggested-action. */
   background-color: @accent_bg_color;
   color: white;
 }
 
-timerbutton stack > button {
+timerbutton stack>button {
   outline-offset: 5px;
 }
 
-timerbutton:not(:checked) stack > button:first-child:hover image {
-  /* Mimicks Adwaita's button.suggested-action:hover. */
+timerbutton:not(:checked) stack>button:first-child:hover image {
+  /* Mimics Adwaita's button.suggested-action:hover. */
   background-color: mix(@accent_bg_color, black, 0.08);
 }
 
-timerbutton:checked stack > button:last-child image {
+timerbutton:checked stack>button:last-child image {
   animation: inject ease-out 200ms;
   border-radius: 100%;
   color: @theme_fg_color;
