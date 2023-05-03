@@ -1,14 +1,14 @@
 # Swedish translation for metronome.
-# Copyright © 2021 metronome's COPYRIGHT HOLDER
+# Copyright © 2021-2023 metronome's COPYRIGHT HOLDER
 # This file is distributed under the same license as the metronome package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2021, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2021-10-16 06:17+0000\n"
-"PO-Revision-Date: 2021-10-17 22:18+0200\n"
+"POT-Creation-Date: 2023-04-21 19:37+0000\n"
+"PO-Revision-Date: 2023-04-23 11:33+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -38,6 +38,11 @@ msgctxt "shortcut window"
 msgid "Tap"
 msgstr "Klicka"
 
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Spela/Pausa"
+
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
@@ -46,7 +51,7 @@ msgstr "_Tangentbordsgenvägar"
 msgid "_About Metronome"
 msgstr "_Om Metronom"
 
-#: data/resources/ui/window.ui:58
+#: data/resources/ui/window.ui:59
 msgid ""
 "2\n"
 "4"
@@ -54,7 +59,7 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:77
+#: data/resources/ui/window.ui:79
 msgid ""
 "3\n"
 "4"
@@ -62,7 +67,7 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:96
+#: data/resources/ui/window.ui:99
 msgid ""
 "4\n"
 "4"
@@ -70,7 +75,7 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:115
+#: data/resources/ui/window.ui:119
 msgid ""
 "6\n"
 "8"
@@ -78,12 +83,12 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:207
+#: data/resources/ui/window.ui:211
 msgid "TAP"
 msgstr "KLICKA"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
 msgid "Metronome"
 msgstr "Metronom"
 
@@ -126,8 +131,8 @@ msgid ""
 "Metronome beats the rhythm for you, you simply need to tell it the required "
 "time signature and beats per minutes."
 msgstr ""
-"Metronom slår rytmen åt dig, du behöver bara ge det tidssignaturen som "
-"krävs och antalet slag per minut."
+"Metronom slår rytmen åt dig, du behöver bara ge det tidssignaturen som krävs "
+"och antalet slag per minut."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
 msgid ""
@@ -144,6 +149,6 @@ msgstr "Huvudfönster"
 msgid "Main window, narrow and running"
 msgstr "Huvudfönster, smalt och under körning"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
 msgid "Adrien Plazas"
 msgstr "Adrien Plazas"
