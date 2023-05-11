@@ -22,5 +22,15 @@
       <foaf:mbox rdf:resource="mailto:kekun.plazas@laposte.net" />
       <gnome:userid>aplazas</gnome:userid>
     </foaf:Person>
+    <foaf:Person>
+      <foaf:name>Clara Hobbs</foaf:name>
+      <foaf:mbox rdf:resource="mailto:clara@clarahobbs.com" />
+      <foaf:account>
+        <foaf:OnlineAccount>
+          <foaf:accountServiceHomepage rdf:resource="https://gitlab.gnome.org"/>
+          <foaf:accountName>cghobbs</foaf:accountName>
+        </foaf:OnlineAccount>
+      </foaf:account>
+    </foaf:Person>
   </maintainer>
 </Project>
