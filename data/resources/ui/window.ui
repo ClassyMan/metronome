@@ -133,8 +133,7 @@
                         <property name="orientation">vertical</property>
                         <style>
                           <class name="display"/>
-                          <class name="frame"/>
-                          <class name="view"/>
+                          <class name="card"/>
                         </style>
                         <child>
                           <object class="GtkBox">
