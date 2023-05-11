@@ -27,6 +27,12 @@
       <foaf:mbox rdf:resource="mailto:clara@clarahobbs.com" />
       <foaf:account>
         <foaf:OnlineAccount>
+          <foaf:accountServiceHomepage rdf:resource="https://github.com/" />
+          <foaf:accountName>Ratfink</foaf:accountName>
+        </foaf:OnlineAccount>
+      </foaf:account>
+      <foaf:account>
+        <foaf:OnlineAccount>
           <foaf:accountServiceHomepage rdf:resource="https://gitlab.gnome.org"/>
           <foaf:accountName>cghobbs</foaf:accountName>
         </foaf:OnlineAccount>
