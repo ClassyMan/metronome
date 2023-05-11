@@ -118,7 +118,8 @@ impl MtrApplication {
             .application_name("Metronome")
             .application_icon(config::APP_ID)
             .license_type(gtk::License::Gpl30)
-            .website("https://gitlab.gnome.org/aplazas/metronome/")
+            .website("https://gitlab.gnome.org/World/metronome/")
+            .issue_url("https://gitlab.gnome.org/World/metronome/-/issues")
             .version(config::VERSION)
             .transient_for(&self.get_main_window())
             .modal(true)
@@ -145,3 +146,4 @@ impl Default for MtrApplication {
             .build()
     }
 }
+
