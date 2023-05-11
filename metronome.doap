@@ -22,6 +22,8 @@
       <foaf:mbox rdf:resource="mailto:kekun.plazas@laposte.net" />
       <gnome:userid>aplazas</gnome:userid>
     </foaf:Person>
+  </maintainer>
+  <maintainer>
     <foaf:Person>
       <foaf:name>Clara Hobbs</foaf:name>
       <foaf:mbox rdf:resource="mailto:clara@clarahobbs.com" />
@@ -38,6 +40,8 @@
         </foaf:OnlineAccount>
       </foaf:account>
     </foaf:Person>
+  </maintainer>
+  <maintainer>
     <foaf:Person>
       <foaf:name>FineFindus</foaf:name>
       <foaf:mbox rdf:resource="mailto:finefindus@proton.me" />
