@@ -40,10 +40,11 @@
             "sources": [
                 {
                     "type": "archive",
-                    "path": "/home/jtb/Documents/dev/git/metronome/_build/meson-dist/metronome-1.2.1.tar.xz",
-                    "sha256": "af1f1bd24cebceea253170fbdbfb96ad66d65ee54dd2521609240b49e5f54e01"
+                    "url": "https://gitlab.gnome.org/World/metronome/uploads/5efb0bac0bd09a15c5b027de4e4e4e32/metronome-1.2.1.tar.xz",
+                    "sha256": "3896e6e0a97be7071a42fbf416db8a88d1e89cf662d0ccc7f007e09e13ac2f77"
                 }
             ]
         }
     ]
 }
+
