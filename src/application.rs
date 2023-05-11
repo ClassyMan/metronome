@@ -123,7 +123,11 @@ impl MtrApplication {
             .version(config::VERSION)
             .transient_for(&self.get_main_window())
             .modal(true)
-            .developers(vec!["Adrien Plazas <kekun.plazas@laposte.net>"])
+            .developers(vec![
+                "Adrien Plazas <kekun.plazas@laposte.net>",
+                "Clara Hobbs <clara@clarahobbs.com>",
+                "FineFindus https://gitlab.gnome.org/FineFindus",
+            ])
             .artists(vec!["Tobias Bernard <tbernard@gnome.org>"])
             .build()
             .present();
@@ -146,4 +150,3 @@ impl Default for MtrApplication {
             .build()
     }
 }
-
