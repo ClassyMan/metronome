@@ -160,6 +160,7 @@
                                     <property name="halign">center</property>
                                     <property name="icon-name">value-increase-symbolic</property>
                                     <property name="valign">center</property>
+                                    <property name="label" translatable="yes">Increase BPM</property>
                                     <style>
                                       <class name="circular"/>
                                     </style>
@@ -171,6 +172,7 @@
                                     <property name="halign">center</property>
                                     <property name="icon-name">value-decrease-symbolic</property>
                                     <property name="valign">center</property>
+                                    <property name="label" translatable="yes">Decrease BPM</property>
                                     <style>
                                       <class name="circular"/>
                                     </style>
