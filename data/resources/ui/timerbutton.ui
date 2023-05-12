@@ -24,6 +24,7 @@
         <property name="valign">center</property>
         <child>
           <object class="GtkButton" id="start_button">
+            <property name="tooltip-text" translatable="yes">Play</property>
             <signal name="clicked" handler="start" swapped="true" />
             <style>
               <class name="circular"/>
@@ -39,6 +40,7 @@
         </child>
         <child>
           <object class="GtkButton" id="pause_button">
+            <property name="tooltip-text" translatable="yes">Pause</property>
             <signal name="clicked" handler="pause" swapped="true" />
             <style>
               <class name="circular"/>
