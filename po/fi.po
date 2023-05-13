@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2021-10-18 12:55+0000\n"
-"PO-Revision-Date: 2021-10-18 18:38+0300\n"
+"POT-Creation-Date: 2023-05-12 16:15+0000\n"
+"PO-Revision-Date: 2023-05-13 11:50+0300\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -38,6 +38,11 @@ msgctxt "shortcut window"
 msgid "Tap"
 msgstr "Napauta"
 
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Toista/keskeytä"
+
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
 msgstr "_Pikanäppäimet"
@@ -46,7 +51,11 @@ msgstr "_Pikanäppäimet"
 msgid "_About Metronome"
 msgstr "_Tietoja - Metronomi"
 
-#: data/resources/ui/window.ui:58
+#: data/resources/ui/window.ui:49
+msgid "2/4 Time"
+msgstr "2/4 aika"
+
+#: data/resources/ui/window.ui:60
 msgid ""
 "2\n"
 "4"
@@ -54,7 +63,11 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:77
+#: data/resources/ui/window.ui:69
+msgid "3/4 Time"
+msgstr "3/4 aika"
+
+#: data/resources/ui/window.ui:81
 msgid ""
 "3\n"
 "4"
@@ -62,7 +75,11 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:96
+#: data/resources/ui/window.ui:90
+msgid "4/4 Time"
+msgstr "4/4 aika"
+
+#: data/resources/ui/window.ui:102
 msgid ""
 "4\n"
 "4"
@@ -70,7 +87,11 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:115
+#: data/resources/ui/window.ui:112
+msgid "6/8 Time"
+msgstr "6/8 aika"
+
+#: data/resources/ui/window.ui:123
 msgid ""
 "6\n"
 "8"
@@ -78,9 +99,21 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:207
+#: data/resources/ui/window.ui:167
+msgid "Increase BPM"
+msgstr "Lisää tahtia"
+
+#: data/resources/ui/window.ui:179
+msgid "Decrease BPM"
+msgstr "Vähennä tahtia"
+
+#: data/resources/ui/window.ui:219
 msgid "TAP"
 msgstr "NAPAUTA"
+
+#: data/resources/ui/window.ui:236
+msgid "Main Menu"
+msgstr "Päävalikko"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -140,6 +173,6 @@ msgstr "Pääikkuna"
 msgid "Main window, narrow and running"
 msgstr "Pääikkuna, kapea ja käynnissä"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
 msgid "Adrien Plazas"
 msgstr "Adrien Plazas"
