@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-05-12 16:15+0000\n"
-"PO-Revision-Date: 2023-05-13 06:18+0200\n"
+"POT-Creation-Date: 2023-05-14 13:10+0000\n"
+"PO-Revision-Date: 2023-05-15 05:28+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -17,6 +17,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.3\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Metronome"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "ტემპის შენარჩუნება"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Metronome ჩვეულებრივი მეტრონომია. უბრალოდ მიუთითეთ დრო და დარტყმების "
+"რაოდენობა წუთში."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"დააჭირეთ აქ, რომ აპლიკაცია თვითონ მიხვდეს, რამდენი ტაქტია საჭირო წუთში."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "მთავარი ფანჯარა"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "მთავარი ფანჯარა, ვიწრო და გაშვებული"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "ფანჯრის ნაგულისხმები სიგანე"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "ფანჯრის ნაგულისხმები სიგრძე"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "ფანჯრის ქცევა სრულად გაშლისას"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "ნაგულისხმები დარტყმა ტაქტში"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "ნაგულისხმები დარტყმა წუთში"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -42,6 +107,14 @@ msgstr "დააჭირეთ"
 msgctxt "shortcut window"
 msgid "Play/Pause"
 msgstr "დაკვრა/პაუზა"
+
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "დაკვრა"
+
+#: data/resources/ui/timerbutton.ui:43
+msgid "Pause"
+msgstr "შეჩერება"
 
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
@@ -114,68 +187,3 @@ msgstr "TAP"
 #: data/resources/ui/window.ui:236
 msgid "Main Menu"
 msgstr "მთავარი მენიუ"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
-msgid "Metronome"
-msgstr "Metronome"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
-msgid "Keep the tempo"
-msgstr "ტემპის შენარჩუნება"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:6
-#: data/com.adrienplazas.Metronome.gschema.xml.in:7
-msgid "Default window width"
-msgstr "ფანჯრის ნაგულისხმები სიგანე"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:11
-#: data/com.adrienplazas.Metronome.gschema.xml.in:12
-msgid "Default window height"
-msgstr "ფანჯრის ნაგულისხმები სიგრძე"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:16
-msgid "Default window maximized behaviour"
-msgstr "ფანჯრის ქცევა სრულად გაშლისას"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:22
-#: data/com.adrienplazas.Metronome.gschema.xml.in:23
-msgid "Default beats per bar"
-msgstr "ნაგულისხმები დარტყმა ტაქტში"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:28
-#: data/com.adrienplazas.Metronome.gschema.xml.in:29
-msgid "Default beats per minute"
-msgstr "ნაგულისხმები დარტყმა წუთში"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
-msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
-msgstr ""
-"Metronome ჩვეულებრივი მეტრონომია. უბრალოდ მიუთითეთ დრო და დარტყმების "
-"რაოდენობა წუთში."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
-msgid ""
-"You can also tap to let the application guess the required beats per minute."
-msgstr ""
-"დააჭირეთ აქ, რომ აპლიკაცია თვითონ მიხვდეს, რამდენი ტაქტია საჭირო წუთში."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "მთავარი ფანჯარა"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "მთავარი ფანჯარა, ვიწრო და გაშვებული"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
