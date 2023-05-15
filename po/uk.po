@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-05-12 16:15+0000\n"
-"PO-Revision-Date: 2023-05-12 21:03+0300\n"
+"POT-Creation-Date: 2023-05-14 13:10+0000\n"
+"PO-Revision-Date: 2023-05-15 20:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -18,6 +18,74 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.12.0\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Метроном"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "Зберігайте ритм"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr ""
+"Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;ритм;біт;такт;вимірювання;"
+"хвилина;темп;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"«Метроном» відбиває для вас ритм. Вам достатньо вказати програмі належний "
+"проміжок часту і кількість бітів на хвилину."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Крім того, ви можете вказати ритм тактильно, надавши програмі змогу вгадати "
+"потрібне значення бітів на хвилину."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Головне вікно"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Головне вікно, вузьке, програму запущено"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "Адріен Плацас"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Типова ширина вікна програми"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Типова висота вікна програми"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Типова поведінка щодо максимізації вікна"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Типова кількість бітів на такт"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Типова кількість бітів на хвилину"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -43,6 +111,16 @@ msgstr "Натисніть"
 msgctxt "shortcut window"
 msgid "Play/Pause"
 msgstr "Пуск/Пауза"
+
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "Пуск"
+
+#: data/resources/ui/timerbutton.ui:43
+#| msgctxt "shortcut window"
+#| msgid "Play/Pause"
+msgid "Pause"
+msgstr "Пауза"
 
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
@@ -113,74 +191,5 @@ msgid "TAP"
 msgstr "TAP"
 
 #: data/resources/ui/window.ui:236
-#| msgid "Main window"
 msgid "Main Menu"
 msgstr "Головне меню"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
-msgid "Metronome"
-msgstr "Метроном"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
-msgid "Keep the tempo"
-msgstr "Зберігайте ритм"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr ""
-"Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;ритм;біт;такт;вимірювання;"
-"хвилина;темп;"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:6
-#: data/com.adrienplazas.Metronome.gschema.xml.in:7
-msgid "Default window width"
-msgstr "Типова ширина вікна програми"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:11
-#: data/com.adrienplazas.Metronome.gschema.xml.in:12
-msgid "Default window height"
-msgstr "Типова висота вікна програми"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:16
-msgid "Default window maximized behaviour"
-msgstr "Типова поведінка щодо максимізації вікна"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:22
-#: data/com.adrienplazas.Metronome.gschema.xml.in:23
-msgid "Default beats per bar"
-msgstr "Типова кількість бітів на такт"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:28
-#: data/com.adrienplazas.Metronome.gschema.xml.in:29
-msgid "Default beats per minute"
-msgstr "Типова кількість бітів на хвилину"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
-msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
-msgstr ""
-"«Метроном» відбиває для вас ритм. Вам достатньо вказати програмі належний "
-"проміжок часту і кількість бітів на хвилину."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
-msgid ""
-"You can also tap to let the application guess the required beats per minute."
-msgstr ""
-"Крім того, ви можете вказати ритм тактильно, надавши програмі змогу вгадати "
-"потрібне значення бітів на хвилину."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Головне вікно"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Головне вікно, вузьке, програму запущено"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
-msgid "Adrien Plazas"
-msgstr "Адріен Плацас"
