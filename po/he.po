@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-04-21 19:37+0000\n"
-"PO-Revision-Date: 2023-04-29 21:49+0300\n"
+"POT-Creation-Date: 2023-05-14 13:10+0000\n"
+"PO-Revision-Date: 2023-05-16 12:32+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
@@ -19,6 +19,70 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3)\n"
 "X-Generator: Gtranslator 42.0\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "מטרונום"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "לשמור על קצב"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr "תיבה;פעימה;קצב;פעימות;פעמן;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"מטרונום שומר על קצב בשבילך, עליך להגיד לו את חותמת השעה הנחוצה ואת הפעימות "
+"לדקה."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr "אפשר גם להקיש כדי לאפשר ליישום לנחש את הפעימות לדקה הנחוצות."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "חלון ראשי"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "חלון ראשי, צר ופעיל"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "אדריין פלזאס"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "רוחב החלון כברירת מחדל"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "גובה החלון כברירת מחדל"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "התנהגות חלון מוגדל כברירת מחדל"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "פעימות לתיבה כברירת מחדל"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "פעימות לדקה כברירת מחדל"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -45,6 +109,15 @@ msgctxt "shortcut window"
 msgid "Play/Pause"
 msgstr "ניגון/השהיה"
 
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "ניגון"
+
+#: data/resources/ui/timerbutton.ui:43
+# msgctxt "shortcut window"
+msgid "Pause"
+msgstr "השהיה"
+
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
 msgstr "קי_צורי מקלדת"
@@ -53,7 +126,11 @@ msgstr "קי_צורי מקלדת"
 msgid "_About Metronome"
 msgstr "_על המטרונום"
 
-#: data/resources/ui/window.ui:59
+#: data/resources/ui/window.ui:49
+msgid "2/4 Time"
+msgstr "מקצב ‎2/4"
+
+#: data/resources/ui/window.ui:60
 msgid ""
 "2\n"
 "4"
@@ -61,7 +138,11 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:79
+#: data/resources/ui/window.ui:69
+msgid "3/4 Time"
+msgstr "מקצב ‎3/4"
+
+#: data/resources/ui/window.ui:81
 msgid ""
 "3\n"
 "4"
@@ -69,7 +150,11 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:99
+#: data/resources/ui/window.ui:90
+msgid "4/4 Time"
+msgstr "מקצב ‏4/4"
+
+#: data/resources/ui/window.ui:102
 msgid ""
 "4\n"
 "4"
@@ -77,7 +162,11 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:119
+#: data/resources/ui/window.ui:112
+msgid "6/8 Time"
+msgstr "מקצב ‎6/8"
+
+#: data/resources/ui/window.ui:123
 msgid ""
 "6\n"
 "8"
@@ -85,70 +174,18 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:211
+#: data/resources/ui/window.ui:167
+msgid "Increase BPM"
+msgstr "הגדלת BPM"
+
+#: data/resources/ui/window.ui:179
+msgid "Decrease BPM"
+msgstr "הקטנת BPM"
+
+#: data/resources/ui/window.ui:219
 msgid "TAP"
 msgstr "נקישה"
 
-#: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
-msgid "Metronome"
-msgstr "מטרונום"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
-msgid "Keep the tempo"
-msgstr "לשמור על קצב"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "תיבה;פעימה;קצב;פעימות;"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:6
-#: data/com.adrienplazas.Metronome.gschema.xml.in:7
-msgid "Default window width"
-msgstr "רוחב החלון כברירת מחדל"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:11
-#: data/com.adrienplazas.Metronome.gschema.xml.in:12
-msgid "Default window height"
-msgstr "גובה החלון כברירת מחדל"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:16
-msgid "Default window maximized behaviour"
-msgstr "התנהגות חלון מוגדל כברירת מחדל"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:22
-#: data/com.adrienplazas.Metronome.gschema.xml.in:23
-msgid "Default beats per bar"
-msgstr "פעימות לתיבה כברירת מחדל"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:28
-#: data/com.adrienplazas.Metronome.gschema.xml.in:29
-msgid "Default beats per minute"
-msgstr "פעימות לדקה כברירת מחדל"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
-msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
-msgstr ""
-"מטרונום שומר על קצב בשבילך, עליך להגיד לו את חותמת השעה הנחוצה ואת הפעימות "
-"לדקה."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
-msgid ""
-"You can also tap to let the application guess the required beats per minute."
-msgstr "אפשר גם להקיש כדי לאפשר ליישום לנחש את הפעימות לדקה הנחוצות."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "חלון ראשי"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "חלון ראשי, צר ופעיל"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
-msgid "Adrien Plazas"
-msgstr "אדריין פלזאס"
+#: data/resources/ui/window.ui:236
+msgid "Main Menu"
+msgstr "תפריט ראשי"
