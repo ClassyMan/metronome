@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-04-21 19:37+0000\n"
-"PO-Revision-Date: 2023-04-21 23:34+0300\n"
-"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
+"POT-Creation-Date: 2023-05-14 13:48+0000\n"
+"PO-Revision-Date: 2023-05-15 06:45+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,76 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
-
-#: data/resources/ui/shortcuts.ui:11
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Общие"
-
-#: data/resources/ui/shortcuts.ui:14
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Показать комбинации клавиш"
-
-#: data/resources/ui/shortcuts.ui:20
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Закрыть"
-
-#: data/resources/ui/shortcuts.ui:26
-msgctxt "shortcut window"
-msgid "Tap"
-msgstr "Нажатие"
-
-#: data/resources/ui/shortcuts.ui:32
-msgctxt "shortcut window"
-msgid "Play/Pause"
-msgstr "Воспроизведение / Пауза"
-
-#: data/resources/ui/window.ui:5
-msgid "_Keyboard Shortcuts"
-msgstr "_Комбинации клавиш"
-
-#: data/resources/ui/window.ui:9
-msgid "_About Metronome"
-msgstr "_О приложении"
-
-#: data/resources/ui/window.ui:59
-msgid ""
-"2\n"
-"4"
-msgstr ""
-"2\n"
-"4"
-
-#: data/resources/ui/window.ui:79
-msgid ""
-"3\n"
-"4"
-msgstr ""
-"3\n"
-"4"
-
-#: data/resources/ui/window.ui:99
-msgid ""
-"4\n"
-"4"
-msgstr ""
-"4\n"
-"4"
-
-#: data/resources/ui/window.ui:119
-msgid ""
-"6\n"
-"8"
-msgstr ""
-"6\n"
-"8"
-
-#: data/resources/ui/window.ui:211
-msgid "TAP"
-msgstr "Нажатие"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -101,7 +32,36 @@ msgstr "Сохраняйте темп"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
 msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr ""
+"Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;такт;ритм;удары;бит;"
+"минута;темп;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Метроном отбивает ритм за вас, вам просто нужно указать нужный тактовый "
+"размер и число ударов в минуту."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Вы также можете понажимать на кнопку, чтобы приложение угадало необходимое "
+"количество ударов в минуту."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Главное окно"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Главное окно, узкое и работающее"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -127,29 +87,107 @@ msgstr "Ударов на такт по умолчанию"
 msgid "Default beats per minute"
 msgstr "Ударов в минуту по умолчанию"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Общие"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Показать комбинации клавиш"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Закрыть"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Нажать"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Запуск / Пауза"
+
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "Запуск"
+
+#: data/resources/ui/timerbutton.ui:43
+msgid "Pause"
+msgstr "Пауза"
+
+#: data/resources/ui/window.ui:5
+msgid "_Keyboard Shortcuts"
+msgstr "_Комбинации клавиш"
+
+#: data/resources/ui/window.ui:9
+msgid "_About Metronome"
+msgstr "_О приложении"
+
+#: data/resources/ui/window.ui:49
+msgid "2/4 Time"
+msgstr "Тактовый размер 2/4"
+
+#: data/resources/ui/window.ui:60
 msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
+"2\n"
+"4"
 msgstr ""
-"Метроном отбивает ритм за вас, вам просто нужно указать нужный тактовый "
-"размер и число ударов в минуту."
+"2\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+#: data/resources/ui/window.ui:69
+msgid "3/4 Time"
+msgstr "Тактовый размер 3/4"
+
+#: data/resources/ui/window.ui:81
 msgid ""
-"You can also tap to let the application guess the required beats per minute."
+"3\n"
+"4"
 msgstr ""
-"Вы также можете понажимать на кнопку, чтобы приложение угадало необходимое "
-"количество ударов в минуту."
+"3\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Главное окно"
+#: data/resources/ui/window.ui:90
+msgid "4/4 Time"
+msgstr "Тактовый размер 4/4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Главное окно, узкое и работающее"
+#: data/resources/ui/window.ui:102
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
+#: data/resources/ui/window.ui:112
+msgid "6/8 Time"
+msgstr "Тактовый размер 6/8"
+
+#: data/resources/ui/window.ui:123
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.ui:167
+msgid "Increase BPM"
+msgstr "Ускорить темп"
+
+#: data/resources/ui/window.ui:179
+msgid "Decrease BPM"
+msgstr "Замедлить темп"
+
+#: data/resources/ui/window.ui:219
+msgid "TAP"
+msgstr "Нажать"
+
+#: data/resources/ui/window.ui:236
+msgid "Main Menu"
+msgstr "Главное меню"
