@@ -1,14 +1,14 @@
 # Italian translation for metronome.
-# Copyright (C) 2021 metronome's COPYRIGHT HOLDER
+# Copyright (C) 2023 metronome's COPYRIGHT HOLDER
 # This file is distributed under the same license as the metronome package.
-# Davide Ferracin <davide.ferracin@protonmail.com>, 2021.
+# Davide Ferracin <davide.ferracin@protonmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2022-02-03 18:25+0000\n"
-"PO-Revision-Date: 2022-02-06 23:59+0100\n"
+"POT-Creation-Date: 2023-05-21 12:49+0000\n"
+"PO-Revision-Date: 2023-05-25 11:44+0200\n"
 "Last-Translator: Davide Ferracin <davide.ferracin@protonmail.com>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -16,70 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: data/resources/ui/shortcuts.ui:11
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Generale"
-
-#: data/resources/ui/shortcuts.ui:14
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Mostra scorciatoie"
-
-#: data/resources/ui/shortcuts.ui:20
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Esce"
-
-#: data/resources/ui/shortcuts.ui:26
-msgctxt "shortcut window"
-msgid "Tap"
-msgstr "Tap"
-
-#: data/resources/ui/window.ui:5
-msgid "_Keyboard Shortcuts"
-msgstr "_Scorciatoie da tastiera"
-
-#: data/resources/ui/window.ui:9
-msgid "_About Metronome"
-msgstr "_Informazioni su Metronomo"
-
-#: data/resources/ui/window.ui:58
-msgid ""
-"2\n"
-"4"
-msgstr ""
-"2\n"
-"4"
-
-#: data/resources/ui/window.ui:77
-msgid ""
-"3\n"
-"4"
-msgstr ""
-"3\n"
-"4"
-
-#: data/resources/ui/window.ui:96
-msgid ""
-"4\n"
-"4"
-msgstr ""
-"4\n"
-"4"
-
-#: data/resources/ui/window.ui:115
-msgid ""
-"6\n"
-"8"
-msgstr ""
-"6\n"
-"8"
-
-#: data/resources/ui/window.ui:207
-msgid "TAP"
-msgstr "TAP"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -95,6 +31,33 @@ msgstr "Tieni il tempo"
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
 msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
 msgstr "Battuta;Battito;Battiti;BPM;Misura;Minuto;Ritmo;Tap;Tempo;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Metronomo tiene il ritmo per te, bisogna solo dirgli l'indicazione di tempo "
+"e i battiti al minuto."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Si può anche fare tap a ritmo su un apposito pulsante e lasciare che sia "
+"l'applicazione a individuare i battiti al minuto corrispondenti."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Finestra principale"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Finestra principale, stretta e in esecuzione"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -120,29 +83,107 @@ msgstr "Numero predefinito di battiti per battuta"
 msgid "Default beats per minute"
 msgstr "Numero predefinito di battiti al minuto"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generale"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Mostra scorciatoie"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Esce"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Tap"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Riproduci/Pausa"
+
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "Riproduci"
+
+#: data/resources/ui/timerbutton.ui:43
+msgid "Pause"
+msgstr "Pausa"
+
+#: data/resources/ui/window.ui:5
+msgid "_Keyboard Shortcuts"
+msgstr "_Scorciatoie da tastiera"
+
+#: data/resources/ui/window.ui:9
+msgid "_About Metronome"
+msgstr "_Informazioni su Metronomo"
+
+#: data/resources/ui/window.ui:49
+msgid "2/4 Time"
+msgstr "Tempo 2/4"
+
+#: data/resources/ui/window.ui:60
 msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
+"2\n"
+"4"
 msgstr ""
-"Metronomo tiene il ritmo per te, bisogna solo dirgli l'indicazione di tempo "
-"e i battiti al minuto." 
+"2\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+#: data/resources/ui/window.ui:69
+msgid "3/4 Time"
+msgstr "Tempo 3/4"
+
+#: data/resources/ui/window.ui:81
 msgid ""
-"You can also tap to let the application guess the required beats per minute."
+"3\n"
+"4"
 msgstr ""
-"Si può anche fare tap a ritmo su un apposito pulsante e lasciare che "
-"sia l'applicazione a individuare i battiti al minuto corrispondenti."
+"3\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Finestra principale"
+#: data/resources/ui/window.ui:90
+msgid "4/4 Time"
+msgstr "Tempo 4/4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Finestra principale, stretta e in esecuzione"
+#: data/resources/ui/window.ui:102
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
+#: data/resources/ui/window.ui:112
+msgid "6/8 Time"
+msgstr "Tempo 6/8"
+
+#: data/resources/ui/window.ui:123
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.ui:167
+msgid "Increase BPM"
+msgstr "Aumenta i bpm"
+
+#: data/resources/ui/window.ui:179
+msgid "Decrease BPM"
+msgstr "Riduce i bpm"
+
+#: data/resources/ui/window.ui:219
+msgid "TAP"
+msgstr "TAP"
+
+#: data/resources/ui/window.ui:236
+msgid "Main Menu"
+msgstr "Menù principale"
