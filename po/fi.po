@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-05-12 16:15+0000\n"
-"PO-Revision-Date: 2023-05-13 11:50+0300\n"
+"POT-Creation-Date: 2023-05-14 13:10+0000\n"
+"PO-Revision-Date: 2023-06-06 18:56+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -16,7 +16,69 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Metronomi"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "Säilytä tahti"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;tahti;rytmi;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr "Metronomi muodostaa sinulle tahdin vaaditun tahtilajin mukaisesti."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr "Voit myös napauttaa, jolloin sovellus arvaa vaaditun tahdin."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Pääikkuna"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Pääikkuna, kapea ja käynnissä"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Ikkunan oletusleveys"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Ikkunan oletuskorkeus"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Ikkunan suurennetun tilan oletustoiminta"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Oletusarvoinen biittiä per palkki"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Oletusarvoinen biittiä per minuutti"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -42,6 +104,14 @@ msgstr "Napauta"
 msgctxt "shortcut window"
 msgid "Play/Pause"
 msgstr "Toista/keskeytä"
+
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "Toista"
+
+#: data/resources/ui/timerbutton.ui:43
+msgid "Pause"
+msgstr "Keskeytä"
 
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
@@ -114,65 +184,3 @@ msgstr "NAPAUTA"
 #: data/resources/ui/window.ui:236
 msgid "Main Menu"
 msgstr "Päävalikko"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
-msgid "Metronome"
-msgstr "Metronomi"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
-msgid "Keep the tempo"
-msgstr "Säilytä tahti"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;tahti;rytmi;"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:6
-#: data/com.adrienplazas.Metronome.gschema.xml.in:7
-msgid "Default window width"
-msgstr "Ikkunan oletusleveys"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:11
-#: data/com.adrienplazas.Metronome.gschema.xml.in:12
-msgid "Default window height"
-msgstr "Ikkunan oletuskorkeus"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:16
-msgid "Default window maximized behaviour"
-msgstr "Ikkunan suurennetun tilan oletustoiminta"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:22
-#: data/com.adrienplazas.Metronome.gschema.xml.in:23
-msgid "Default beats per bar"
-msgstr "Oletusarvoinen biittiä per palkki"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:28
-#: data/com.adrienplazas.Metronome.gschema.xml.in:29
-msgid "Default beats per minute"
-msgstr "Oletusarvoinen biittiä per minuutti"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
-msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
-msgstr "Metronomi muodostaa sinulle tahdin vaaditun tahtilajin mukaisesti."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
-msgid ""
-"You can also tap to let the application guess the required beats per minute."
-msgstr "Voit myös napauttaa, jolloin sovellus arvaa vaaditun tahdin."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Pääikkuna"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Pääikkuna, kapea ja käynnissä"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
