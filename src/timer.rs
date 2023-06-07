@@ -3,13 +3,19 @@ use gtk::{
     glib::{self, clone},
     prelude::*,
 };
+use std::thread;
 use std::time::Instant;
+use crate::clicker::MtrClicker;
+
+enum TimerCommand {
+    Stop,
+}
 
 mod imp {
     use super::*;
     use glib::subclass::Signal;
     use once_cell::sync::Lazy;
-    use std::cell::{Cell, RefCell};
+    use std::cell::Cell;
 
     #[derive(Debug, glib::Properties)]
     #[properties(wrapper_type = super::MtrTimer)]
@@ -22,7 +28,8 @@ mod imp {
         pub beats_per_minute: Cell<u32>,
         pub beat_in_bar: Cell<u32>,
         pub start_time: Cell<Instant>,
-        pub click_id: RefCell<Option<glib::SourceId>>,
+        pub clicker: MtrClicker,
+        thread_cmd: std::cell::RefCell<std::sync::mpsc::Sender<TimerCommand>>,
     }
 
     #[glib::object_subclass]
@@ -31,13 +38,15 @@ mod imp {
         type Type = super::MtrTimer;
 
         fn new() -> Self {
+            let (tx, _rx) = std::sync::mpsc::channel();
             Self {
                 active: Default::default(),
                 beats_per_bar: std::cell::Cell::new(4),
                 beats_per_minute: std::cell::Cell::new(100),
                 beat_in_bar: Default::default(),
                 start_time: std::cell::Cell::new(Instant::now()),
-                click_id: Default::default(),
+                clicker: Default::default(),
+                thread_cmd: std::cell::RefCell::new(tx),
             }
         }
     }
@@ -69,27 +78,42 @@ mod imp {
     impl MtrTimer {
         fn set_active(&self, active: bool) {
             self.active.set(active);
-            let obj = self.obj();
             if active {
-                let ms_per_beat = 60000 / (obj.beats_per_minute() as u64);
-                let click_id = glib::timeout_add_local(
-                    std::time::Duration::from_millis(ms_per_beat),
-                    clone!(@strong obj => move || {
-                        let imp = obj.imp();
+                let mut beat_in_bar = self.beat_in_bar.get();
+                let beats_per_bar = self.beats_per_bar.get();
+                let ns_per_beat = 60_000_000_000 / (self.beats_per_minute.get() as u64);
+                let clicker = &self.clicker;
+                let (tx, rx) = std::sync::mpsc::channel();
+                self.thread_cmd.set(tx);
+                thread::spawn(clone!(@strong clicker => move || {
+                    let period = std::time::Duration::from_millis(1);
+                    let ticktime = std::time::Duration::from_nanos(ns_per_beat);
+                    let mut lasttick = std::time::Instant::now() - ticktime;
 
-                        let beat_in_bar = (imp.beat_in_bar.get() + 1) % obj.beats_per_bar();
-                        imp.beat_in_bar.set(beat_in_bar);
-
-                        obj.emit_by_name::<()>("beat", &[&(beat_in_bar == 0)]);
-                        glib::Continue(true)
-                    }),
-                );
-                self.click_id.replace(Some(click_id));
+                    loop {
+                        let msg = rx.recv_timeout(period);
+                        match msg {
+                            Ok(command) => match command {
+                                TimerCommand::Stop => break,
+                            },
+                            Err(_e) => (),
+                        }
+                        let elapsed = lasttick.elapsed();
+                        if elapsed > ticktime {
+                            if beat_in_bar == 0 {
+                                clicker.high();
+                            } else {
+                                clicker.low();
+                            }
+                            beat_in_bar = (beat_in_bar + 1) % beats_per_bar;
+                            lasttick += ticktime;
+                        }
+                    }
+                }));
 
                 self.beat_in_bar.set(0);
-                obj.emit_by_name::<()>("beat", &[&true]);
-            } else if let Some(id) = self.click_id.take() {
-                id.remove();
+            } else {
+                self.thread_cmd.borrow().send(TimerCommand::Stop);
             }
         }
     }

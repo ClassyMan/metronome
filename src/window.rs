@@ -1,5 +1,4 @@
 use crate::application::MtrApplication;
-use crate::clicker::MtrClicker;
 use crate::config::{APP_ID, PROFILE};
 use crate::timer::MtrTimer;
 use crate::timerbutton::MtrTimerButton;
@@ -27,7 +26,6 @@ mod imp {
         pub time_signature_4_4_button: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub time_signature_6_8_button: TemplateChild<gtk::ToggleButton>,
-        pub clicker: MtrClicker,
         #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
@@ -50,7 +48,6 @@ mod imp {
                 time_signature_3_4_button: Default::default(),
                 time_signature_4_4_button: Default::default(),
                 time_signature_6_8_button: Default::default(),
-                clicker: Default::default(),
                 beats_per_bar: std::cell::Cell::new(4),
                 beats_per_minute: std::cell::Cell::new(100),
                 tap_time: std::cell::Cell::new(Instant::now()),
@@ -173,7 +170,6 @@ impl MtrApplicationWindow {
         let bpm = 60.0 / duration.as_secs_f64();
         imp.tap_time.set(now);
         self.set_beats_per_minute((bpm as u32).clamp(20, 260));
-        imp.clicker.low();
     }
 
     fn load_settings(&self) {
@@ -223,16 +219,6 @@ impl MtrApplicationWindow {
     ) {
         if button.is_active() {
             self.set_beats_per_bar(6);
-        }
-    }
-
-    #[template_callback]
-    fn on_beat(&self, high: bool) {
-        let imp = self.imp();
-        if high {
-            imp.clicker.high();
-        } else {
-            imp.clicker.low();
         }
     }
 }
