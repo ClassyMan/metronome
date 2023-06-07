@@ -1,3 +1,4 @@
+use crate::clicker::MtrClicker;
 use adw::subclass::prelude::*;
 use gtk::{
     glib::{self, clone},
@@ -5,7 +6,6 @@ use gtk::{
 };
 use std::thread;
 use std::time::Instant;
-use crate::clicker::MtrClicker;
 
 enum TimerCommand {
     Stop,
