@@ -15,7 +15,7 @@ mod imp {
     use super::*;
     use glib::subclass::Signal;
     use once_cell::sync::Lazy;
-    use std::cell::Cell;
+    use std::cell::{Cell, RefCell};
 
     #[derive(Debug, glib::Properties)]
     #[properties(wrapper_type = super::MtrTimer)]
@@ -29,7 +29,7 @@ mod imp {
         pub beat_in_bar: Cell<u32>,
         pub start_time: Cell<Instant>,
         pub clicker: MtrClicker,
-        thread_cmd: std::cell::RefCell<std::sync::mpsc::Sender<TimerCommand>>,
+        thread_cmd: RefCell<std::sync::mpsc::Sender<TimerCommand>>,
     }
 
     #[glib::object_subclass]
@@ -41,12 +41,12 @@ mod imp {
             let (tx, _rx) = std::sync::mpsc::channel();
             Self {
                 active: Default::default(),
-                beats_per_bar: std::cell::Cell::new(4),
-                beats_per_minute: std::cell::Cell::new(100),
+                beats_per_bar: Cell::new(4),
+                beats_per_minute: Cell::new(100),
                 beat_in_bar: Default::default(),
-                start_time: std::cell::Cell::new(Instant::now()),
+                start_time: Cell::new(Instant::now()),
                 clicker: Default::default(),
-                thread_cmd: std::cell::RefCell::new(tx),
+                thread_cmd: RefCell::new(tx),
             }
         }
     }
@@ -113,7 +113,7 @@ mod imp {
 
                 self.beat_in_bar.set(0);
             } else {
-                self.thread_cmd.borrow().send(TimerCommand::Stop);
+                self.thread_cmd.borrow().send(TimerCommand::Stop).unwrap_or(());
             }
         }
     }
