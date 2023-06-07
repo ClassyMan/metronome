@@ -113,7 +113,10 @@ mod imp {
 
                 self.beat_in_bar.set(0);
             } else {
-                self.thread_cmd.borrow().send(TimerCommand::Stop).unwrap_or(());
+                self.thread_cmd
+                    .borrow()
+                    .send(TimerCommand::Stop)
+                    .unwrap_or(());
             }
         }
     }
