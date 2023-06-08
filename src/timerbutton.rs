@@ -127,7 +127,8 @@ mod imp {
 
             let beat_pos = (self.trough.progress() * self.beats_per_bar.get() as f64).fract();
             self.beats_per_bar.set(beats_per_bar);
-            self.trough.set_progress(2.0 - (1.0 - beat_pos) / beats_per_bar as f64);
+            let bar_remaining = (1.0 - beat_pos) / beats_per_bar as f64;
+            self.trough.set_progress(2.0 - bar_remaining);
             obj.update_marks();
         }
 
