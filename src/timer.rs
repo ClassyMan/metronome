@@ -80,13 +80,13 @@ mod imp {
                 let (tx, rx) = std::sync::mpsc::channel();
                 self.thread_cmd.set(tx);
                 thread::spawn(clone!(@strong clicker => move || {
-                    let period = std::time::Duration::from_millis(1);
+                    let recv_period = std::time::Duration::from_millis(1);
                     let ticktime = std::time::Duration::from_nanos(ns_per_beat);
                     let mut lasttick = std::time::Instant::now() - ticktime;
                     let mut beat_in_bar = 0;
 
                     loop {
-                        let msg = rx.recv_timeout(period);
+                        let msg = rx.recv_timeout(recv_period);
                         match msg {
                             Ok(command) => match command {
                                 TimerCommand::Stop => break,
