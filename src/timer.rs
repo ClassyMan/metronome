@@ -5,7 +5,6 @@ use gtk::{
     prelude::*,
 };
 use std::thread;
-use std::time::Instant;
 
 enum TimerCommand {
     Stop,
