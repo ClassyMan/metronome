@@ -89,12 +89,11 @@ mod imp {
 
                     loop {
                         let msg = rx.recv_timeout(recv_period);
-                        match msg {
-                            Ok(command) => match command {
+                        if msg.is_ok() {
+                            match msg.unwrap() {
                                 TimerCommand::Stop => break,
                                 TimerCommand::BPM(bpm) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm),
-                            },
-                            Err(_e) => (),
+                            }
                         }
                         let elapsed = lastiter.elapsed();
                         lastiter = std::time::Instant::now();
