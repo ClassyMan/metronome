@@ -26,7 +26,6 @@ mod imp {
         pub beats_per_bar: Cell<u32>,
         #[property(get, set, minimum = 20, maximum = 260, default = 100)]
         pub beats_per_minute: Cell<u32>,
-        pub beat_in_bar: Cell<u32>,
         pub start_time: Cell<Instant>,
         pub clicker: MtrClicker,
         thread_cmd: RefCell<std::sync::mpsc::Sender<TimerCommand>>,
@@ -43,7 +42,6 @@ mod imp {
                 active: Default::default(),
                 beats_per_bar: Cell::new(4),
                 beats_per_minute: Cell::new(100),
-                beat_in_bar: Default::default(),
                 start_time: Cell::new(Instant::now()),
                 clicker: Default::default(),
                 thread_cmd: RefCell::new(tx),
@@ -79,7 +77,6 @@ mod imp {
         fn set_active(&self, active: bool) {
             self.active.set(active);
             if active {
-                let mut beat_in_bar = self.beat_in_bar.get();
                 let beats_per_bar = self.beats_per_bar.get();
                 let ns_per_beat = 60_000_000_000 / (self.beats_per_minute.get() as u64);
                 let clicker = &self.clicker;
@@ -89,6 +86,7 @@ mod imp {
                     let period = std::time::Duration::from_millis(1);
                     let ticktime = std::time::Duration::from_nanos(ns_per_beat);
                     let mut lasttick = std::time::Instant::now() - ticktime;
+                    let mut beat_in_bar = 0;
 
                     loop {
                         let msg = rx.recv_timeout(period);
@@ -110,8 +108,6 @@ mod imp {
                         }
                     }
                 }));
-
-                self.beat_in_bar.set(0);
             } else {
                 self.thread_cmd
                     .borrow()
