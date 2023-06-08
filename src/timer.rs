@@ -26,7 +26,6 @@ mod imp {
         pub beats_per_bar: Cell<u32>,
         #[property(get, set, minimum = 20, maximum = 260, default = 100)]
         pub beats_per_minute: Cell<u32>,
-        pub start_time: Cell<Instant>,
         pub clicker: MtrClicker,
         thread_cmd: RefCell<std::sync::mpsc::Sender<TimerCommand>>,
     }
@@ -42,7 +41,6 @@ mod imp {
                 active: Default::default(),
                 beats_per_bar: Cell::new(4),
                 beats_per_minute: Cell::new(100),
-                start_time: Cell::new(Instant::now()),
                 clicker: Default::default(),
                 thread_cmd: RefCell::new(tx),
             }
