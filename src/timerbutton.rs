@@ -125,8 +125,9 @@ mod imp {
         fn set_beats_per_bar(&self, beats_per_bar: u32) {
             let obj = self.obj();
 
+            let beat_pos = (self.trough.progress() * self.beats_per_bar.get() as f64).fract();
             self.beats_per_bar.set(beats_per_bar);
-            obj.pause();
+            self.trough.set_progress(2.0 - (1.0 - beat_pos) / beats_per_bar as f64);
             obj.update_marks();
         }
 

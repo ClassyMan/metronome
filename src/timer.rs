@@ -8,7 +8,8 @@ use std::thread;
 
 enum TimerCommand {
     Stop,
-    BPM(u64),
+    BPM(u32),
+    BeatsPerBar(u32),
 }
 
 mod imp {
@@ -22,7 +23,7 @@ mod imp {
     pub struct MtrTimer {
         #[property(get, set = Self::set_active)]
         pub active: Cell<bool>,
-        #[property(get, set, minimum = 1, maximum = 9, default = 4)]
+        #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
         pub beats_per_minute: Cell<u32>,
@@ -75,7 +76,7 @@ mod imp {
         fn set_active(&self, active: bool) {
             self.active.set(active);
             if active {
-                let beats_per_bar = self.beats_per_bar.get();
+                let mut beats_per_bar = self.beats_per_bar.get();
                 let ns_per_beat = 60_000_000_000 / (self.beats_per_minute.get() as u64);
                 let clicker = &self.clicker;
                 let (tx, rx) = std::sync::mpsc::channel();
@@ -92,7 +93,11 @@ mod imp {
                         if msg.is_ok() {
                             match msg.unwrap() {
                                 TimerCommand::Stop => break,
-                                TimerCommand::BPM(bpm) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm),
+                                TimerCommand::BPM(bpm) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm as u64),
+                                TimerCommand::BeatsPerBar(bpb) => {
+                                    beat_in_bar = 0;
+                                    beats_per_bar = bpb;
+                                }
                             }
                         }
                         let elapsed = lastiter.elapsed();
@@ -117,11 +122,19 @@ mod imp {
             }
         }
 
+        fn set_beats_per_bar(&self, bpb: u32) {
+            self.beats_per_bar.set(bpb);
+            self.thread_cmd
+                .borrow()
+                .send(TimerCommand::BeatsPerBar(bpb))
+                .unwrap_or(());
+        }
+
         fn set_beats_per_minute(&self, bpm: u32) {
             self.beats_per_minute.set(bpm);
             self.thread_cmd
                 .borrow()
-                .send(TimerCommand::BPM(bpm as u64))
+                .send(TimerCommand::BPM(bpm))
                 .unwrap_or(());
         }
     }
