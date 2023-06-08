@@ -8,6 +8,7 @@ use std::thread;
 
 enum TimerCommand {
     Stop,
+    BPM(u64),
 }
 
 mod imp {
@@ -23,7 +24,7 @@ mod imp {
         pub active: Cell<bool>,
         #[property(get, set, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
-        #[property(get, set, minimum = 20, maximum = 260, default = 100)]
+        #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
         pub beats_per_minute: Cell<u32>,
         pub clicker: MtrClicker,
         thread_cmd: RefCell<std::sync::mpsc::Sender<TimerCommand>>,
@@ -81,8 +82,9 @@ mod imp {
                 self.thread_cmd.set(tx);
                 thread::spawn(clone!(@strong clicker => move || {
                     let recv_period = std::time::Duration::from_millis(1);
-                    let ticktime = std::time::Duration::from_nanos(ns_per_beat);
-                    let mut lasttick = std::time::Instant::now() - ticktime;
+                    let mut ticktime = std::time::Duration::from_nanos(ns_per_beat);
+                    let mut lastiter = std::time::Instant::now() - ticktime;
+                    let mut bar_position = 0.0;
                     let mut beat_in_bar = 0;
 
                     loop {
@@ -90,18 +92,21 @@ mod imp {
                         match msg {
                             Ok(command) => match command {
                                 TimerCommand::Stop => break,
+                                TimerCommand::BPM(bpm) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm),
                             },
                             Err(_e) => (),
                         }
-                        let elapsed = lasttick.elapsed();
-                        if elapsed > ticktime {
+                        let elapsed = lastiter.elapsed();
+                        lastiter = std::time::Instant::now();
+                        bar_position += elapsed.as_secs_f64() / ticktime.as_secs_f64();
+                        if bar_position > 1.0 {
                             if beat_in_bar == 0 {
                                 clicker.high();
                             } else {
                                 clicker.low();
                             }
                             beat_in_bar = (beat_in_bar + 1) % beats_per_bar;
-                            lasttick += ticktime;
+                            bar_position -= 1.0;
                         }
                     }
                 }));
@@ -111,6 +116,14 @@ mod imp {
                     .send(TimerCommand::Stop)
                     .unwrap_or(());
             }
+        }
+
+        fn set_beats_per_minute(&self, bpm: u32) {
+            self.beats_per_minute.set(bpm);
+            self.thread_cmd
+                .borrow()
+                .send(TimerCommand::BPM(bpm as u64))
+                .unwrap_or(());
         }
     }
 }

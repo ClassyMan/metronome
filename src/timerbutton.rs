@@ -31,7 +31,7 @@ mod imp {
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
         pub beats_per_minute: Cell<u32>,
-        pub start_time: Cell<Instant>,
+        pub snapshot_time: Cell<Instant>,
         pub running_id: RefCell<Option<gtk::TickCallbackId>>,
         #[property(get = Self::active)]
         pub active: PhantomData<bool>,
@@ -53,7 +53,7 @@ mod imp {
                 marks_container: Default::default(),
                 beats_per_bar: std::cell::Cell::new(4),
                 beats_per_minute: std::cell::Cell::new(100),
-                start_time: std::cell::Cell::new(Instant::now()),
+                snapshot_time: std::cell::Cell::new(Instant::now()),
                 running_id: Default::default(),
                 active: Default::default(),
             }
@@ -104,11 +104,11 @@ mod imp {
             let s_per_beat = 60.0 / widget.beats_per_minute() as f64;
             let s_per_bar = s_per_beat * widget.beats_per_bar() as f64;
 
-            let now = Instant::now();
-            let elapsed = now - self.start_time.get();
+            let elapsed = self.snapshot_time.get().elapsed();
+            self.snapshot_time.set(Instant::now());
 
             let progress = if self.running_id.borrow().is_some() {
-                let progress = elapsed.as_secs_f64() / s_per_bar;
+                let progress = self.trough.progress() + elapsed.as_secs_f64() / s_per_bar;
                 // Perform a kind of floating point modulus between 0 and 2.
                 progress.fract() + (progress as i32 % 2) as f64
             } else {
@@ -132,7 +132,6 @@ mod imp {
 
         fn set_beats_per_minute(&self, beats_per_minute: u32) {
             self.beats_per_minute.set(beats_per_minute);
-            self.obj().pause();
         }
 
         pub fn active(&self) -> bool {
@@ -170,7 +169,7 @@ impl MtrTimerButton {
     pub fn start(&self) {
         let imp = self.imp();
 
-        imp.start_time.set(Instant::now());
+        imp.snapshot_time.set(Instant::now());
         imp.stack.set_visible_child(&*imp.pause_button);
 
         let source_id = self.add_tick_callback(move |this, _clock| {
