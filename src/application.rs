@@ -7,7 +7,7 @@ use gtk::{gio, glib};
 mod imp {
     use super::*;
     use glib::WeakRef;
-    use once_cell::sync::OnceCell;
+    use std::cell::OnceCell;
 
     #[derive(Debug, Default)]
     pub struct MtrApplication {
