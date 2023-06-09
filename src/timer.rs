@@ -90,15 +90,14 @@ mod imp {
 
                     loop {
                         let msg = rx.recv_timeout(recv_period);
-                        if msg.is_ok() {
-                            match msg.unwrap() {
-                                TimerCommand::Stop => break,
-                                TimerCommand::BPM(bpm) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm as u64),
-                                TimerCommand::BeatsPerBar(bpb) => {
-                                    beat_in_bar = 0;
-                                    beats_per_bar = bpb;
-                                }
-                            }
+                        match msg {
+                            Ok(TimerCommand::Stop) => break,
+                            Ok(TimerCommand::BPM(bpm)) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm as u64),
+                            Ok(TimerCommand::BeatsPerBar(bpb)) => {
+                                beat_in_bar = 0;
+                                beats_per_bar = bpb;
+                            },
+                            Err(_) => {}
                         }
                         let elapsed = lastiter.elapsed();
                         lastiter = std::time::Instant::now();
