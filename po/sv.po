@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-04-21 19:37+0000\n"
-"PO-Revision-Date: 2023-04-23 11:33+0200\n"
+"POT-Creation-Date: 2023-05-14 13:10+0000\n"
+"PO-Revision-Date: 2023-05-14 15:38+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,6 +17,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Metronom"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "Håll tempot"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgstr "Takt;Bar;Beat;Beats;Slag;BPM;Mätning;Minut;Rytm;Klicka;Knacka;Tempo;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Metronom slår rytmen åt dig, du behöver bara ge det tidssignaturen som krävs "
+"och antalet slag per minut."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Du kan också klicka för att låta programmet gissa de slag per minut som "
+"krävs."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Huvudfönster"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Huvudfönster, smalt och under körning"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Standardbredd för fönster"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Standardhöjd för fönster"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Standardmaximeringsbeteende för fönster"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Standardslag per takt"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Standardslag per minut"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -43,6 +109,14 @@ msgctxt "shortcut window"
 msgid "Play/Pause"
 msgstr "Spela/Pausa"
 
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "Spela"
+
+#: data/resources/ui/timerbutton.ui:43
+msgid "Pause"
+msgstr "Pausa"
+
 #: data/resources/ui/window.ui:5
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
@@ -51,7 +125,11 @@ msgstr "_Tangentbordsgenvägar"
 msgid "_About Metronome"
 msgstr "_Om Metronom"
 
-#: data/resources/ui/window.ui:59
+#: data/resources/ui/window.ui:49
+msgid "2/4 Time"
+msgstr "2/4-takt"
+
+#: data/resources/ui/window.ui:60
 msgid ""
 "2\n"
 "4"
@@ -59,7 +137,11 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:79
+#: data/resources/ui/window.ui:69
+msgid "3/4 Time"
+msgstr "3/4-takt"
+
+#: data/resources/ui/window.ui:81
 msgid ""
 "3\n"
 "4"
@@ -67,7 +149,11 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:99
+#: data/resources/ui/window.ui:90
+msgid "4/4 Time"
+msgstr "4/4-takt"
+
+#: data/resources/ui/window.ui:102
 msgid ""
 "4\n"
 "4"
@@ -75,7 +161,11 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:119
+#: data/resources/ui/window.ui:112
+msgid "6/8 Time"
+msgstr "6/8-takt"
+
+#: data/resources/ui/window.ui:123
 msgid ""
 "6\n"
 "8"
@@ -83,72 +173,18 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:211
+#: data/resources/ui/window.ui:167
+msgid "Increase BPM"
+msgstr "Öka slag/minut"
+
+#: data/resources/ui/window.ui:179
+msgid "Decrease BPM"
+msgstr "Minska slag/minut"
+
+#: data/resources/ui/window.ui:219
 msgid "TAP"
 msgstr "KLICKA"
 
-#: data/com.adrienplazas.Metronome.desktop.in.in:3
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
-msgid "Metronome"
-msgstr "Metronom"
-
-#: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
-msgid "Keep the tempo"
-msgstr "Håll tempot"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Takt;Bar;Beat;Beats;Slag;BPM;Mätning;Minut;Rytm;Klicka;Knacka;Tempo;"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:6
-#: data/com.adrienplazas.Metronome.gschema.xml.in:7
-msgid "Default window width"
-msgstr "Standardbredd för fönster"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:11
-#: data/com.adrienplazas.Metronome.gschema.xml.in:12
-msgid "Default window height"
-msgstr "Standardhöjd för fönster"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:16
-msgid "Default window maximized behaviour"
-msgstr "Standardmaximeringsbeteende för fönster"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:22
-#: data/com.adrienplazas.Metronome.gschema.xml.in:23
-msgid "Default beats per bar"
-msgstr "Standardslag per takt"
-
-#: data/com.adrienplazas.Metronome.gschema.xml.in:28
-#: data/com.adrienplazas.Metronome.gschema.xml.in:29
-msgid "Default beats per minute"
-msgstr "Standardslag per minut"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
-msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
-msgstr ""
-"Metronom slår rytmen åt dig, du behöver bara ge det tidssignaturen som krävs "
-"och antalet slag per minut."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
-msgid ""
-"You can also tap to let the application guess the required beats per minute."
-msgstr ""
-"Du kan också klicka för att låta programmet gissa de slag per minut som "
-"krävs."
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Huvudfönster"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Huvudfönster, smalt och under körning"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
+#: data/resources/ui/window.ui:236
+msgid "Main Menu"
+msgstr "Huvudmeny"
