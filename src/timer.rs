@@ -63,50 +63,50 @@ mod imp {
     impl MtrTimer {
         fn set_active(&self, active: bool) {
             self.active.set(active);
-            if active {
-                let mut beats_per_bar = self.beats_per_bar.get();
-                let ns_per_beat = 60_000_000_000 / (self.beats_per_minute.get() as u64);
-                let clicker = &self.clicker;
-                let (tx, rx) = std::sync::mpsc::channel();
-                self.thread_cmd.set(tx);
-                thread::spawn(clone!(@strong clicker => move || {
-                    let recv_period = std::time::Duration::from_millis(1);
-                    let mut ticktime = std::time::Duration::from_nanos(ns_per_beat);
-                    let mut lastiter = std::time::Instant::now() - ticktime;
-                    let mut bar_position = 0.0;
-                    let mut beat_in_bar = 0;
-
-                    loop {
-                        let msg = rx.recv_timeout(recv_period);
-                        match msg {
-                            Ok(TimerCommand::Stop) => break,
-                            Ok(TimerCommand::BPM(bpm)) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm as u64),
-                            Ok(TimerCommand::BeatsPerBar(bpb)) => {
-                                beat_in_bar = 0;
-                                beats_per_bar = bpb;
-                            },
-                            Err(_) => {}
-                        }
-                        let elapsed = lastiter.elapsed();
-                        lastiter = std::time::Instant::now();
-                        bar_position += elapsed.as_secs_f64() / ticktime.as_secs_f64();
-                        if bar_position > 1.0 {
-                            if beat_in_bar == 0 {
-                                clicker.high();
-                            } else {
-                                clicker.low();
-                            }
-                            beat_in_bar = (beat_in_bar + 1) % beats_per_bar;
-                            bar_position -= 1.0;
-                        }
-                    }
-                }));
-            } else {
+            if !active {
                 self.thread_cmd
                     .borrow()
                     .send(TimerCommand::Stop)
                     .unwrap_or(());
+                return;
             }
+            let mut beats_per_bar = self.beats_per_bar.get();
+            let ns_per_beat = 60_000_000_000 / (self.beats_per_minute.get() as u64);
+            let clicker = &self.clicker;
+            let (tx, rx) = std::sync::mpsc::channel();
+            self.thread_cmd.set(tx);
+            thread::spawn(clone!(@strong clicker => move || {
+                let recv_period = std::time::Duration::from_millis(1);
+                let mut ticktime = std::time::Duration::from_nanos(ns_per_beat);
+                let mut lastiter = std::time::Instant::now() - ticktime;
+                let mut bar_position = 0.0;
+                let mut beat_in_bar = 0;
+
+                loop {
+                    let msg = rx.recv_timeout(recv_period);
+                    match msg {
+                        Ok(TimerCommand::Stop) => break,
+                        Ok(TimerCommand::BPM(bpm)) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm as u64),
+                        Ok(TimerCommand::BeatsPerBar(bpb)) => {
+                            beat_in_bar = 0;
+                            beats_per_bar = bpb;
+                        },
+                        Err(_) => {}
+                    }
+                    let elapsed = lastiter.elapsed();
+                    lastiter = std::time::Instant::now();
+                    bar_position += elapsed.as_secs_f64() / ticktime.as_secs_f64();
+                    if bar_position > 1.0 {
+                        if beat_in_bar == 0 {
+                            clicker.high();
+                        } else {
+                            clicker.low();
+                        }
+                        beat_in_bar = (beat_in_bar + 1) % beats_per_bar;
+                        bar_position -= 1.0;
+                    }
+                }
+            }));
         }
 
         fn set_beats_per_bar(&self, bpb: u32) {
