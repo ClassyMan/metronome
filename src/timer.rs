@@ -14,8 +14,6 @@ enum TimerCommand {
 
 mod imp {
     use super::*;
-    use glib::subclass::Signal;
-    use once_cell::sync::Lazy;
     use std::cell::{Cell, RefCell};
 
     #[derive(Debug, glib::Properties)]
@@ -51,16 +49,6 @@ mod imp {
     impl ObjectImpl for MtrTimer {
         fn properties() -> &'static [glib::ParamSpec] {
             Self::derived_properties()
-        }
-
-        fn signals() -> &'static [Signal] {
-            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder("beat")
-                    .param_types([bool::static_type()])
-                    .build()]
-            });
-
-            SIGNALS.as_ref()
         }
 
         fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
