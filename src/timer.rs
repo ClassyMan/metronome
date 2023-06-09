@@ -67,7 +67,7 @@ mod imp {
                 self.thread_cmd
                     .borrow()
                     .send(TimerCommand::Stop)
-                    .unwrap_or(());
+                    .unwrap_or_default();
                 return;
             }
             let mut beats_per_bar = self.beats_per_bar.get();
@@ -114,7 +114,7 @@ mod imp {
             self.thread_cmd
                 .borrow()
                 .send(TimerCommand::BeatsPerBar(bpb))
-                .unwrap_or(());
+                .unwrap_or_default();
         }
 
         fn set_beats_per_minute(&self, bpm: u32) {
@@ -122,7 +122,7 @@ mod imp {
             self.thread_cmd
                 .borrow()
                 .send(TimerCommand::BPM(bpm))
-                .unwrap_or(());
+                .unwrap_or_default();
         }
     }
 }
