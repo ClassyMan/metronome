@@ -115,6 +115,15 @@ impl MtrApplication {
     }
 
     fn show_about_dialog(&self) {
+        let mut details = String::new();
+        details.push_str("<b>");
+        details.push_str(&gettext("Keep the tempo"));
+        details.push_str("</b>\n");
+        details.push_str(&gettext("Metronome beats the rhythm for you, you simply need to tell it the required time signature and beats per minutes.\n"));
+        details.push_str(&gettext(
+            "You can also tap to let the application guess the required beats per minute",
+        ));
+
         adw::AboutWindow::builder()
             .application_name("Metronome")
             .application_icon(config::APP_ID)
@@ -122,6 +131,7 @@ impl MtrApplication {
             .website("https://gitlab.gnome.org/World/metronome/")
             .issue_url("https://gitlab.gnome.org/World/metronome/-/issues")
             .version(config::VERSION)
+            .comments(details)
             .transient_for(&self.get_main_window())
             .modal(true)
             .developers(vec![
