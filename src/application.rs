@@ -1,6 +1,7 @@
 use crate::config;
 use crate::window::MtrApplicationWindow;
 use adw::subclass::prelude::*;
+use gettextrs::gettext;
 use gtk::prelude::*;
 use gtk::{gio, glib};
 
@@ -129,6 +130,8 @@ impl MtrApplication {
                 "FineFindus https://gitlab.gnome.org/FineFindus",
             ])
             .artists(vec!["Tobias Bernard <tbernard@gnome.org>"])
+            // Translators: Please enter your credits here (format: "Name https://example.com" or "Name <email@example.com>", no quotes)
+            .translator_credits(gettext("translator-credits"))
             .build()
             .present();
     }
