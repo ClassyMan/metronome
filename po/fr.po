@@ -7,80 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2021-10-18 11:02+0000\n"
-"PO-Revision-Date: 2021-10-31 21:36+0100\n"
-"Last-Translator: Adrien Plazas <kekun.plazas@laposte.net>\n"
+"POT-Creation-Date: 2023-05-14 13:10+0000\n"
+"PO-Revision-Date: 2023-06-10 08:24+0200\n"
+"Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 41.0\n"
-
-#: data/resources/ui/shortcuts.ui:11
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Général"
-
-#: data/resources/ui/shortcuts.ui:14
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Afficher les raccourcis"
-
-#: data/resources/ui/shortcuts.ui:20
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Quitter"
-
-#: data/resources/ui/shortcuts.ui:26
-msgctxt "shortcut window"
-msgid "Tap"
-msgstr "Taper"
-
-#: data/resources/ui/window.ui:5
-msgid "_Keyboard Shortcuts"
-msgstr "_Raccourcis clavier"
-
-#: data/resources/ui/window.ui:9
-msgid "_About Metronome"
-msgstr "À _propos de Métronome"
-
-#: data/resources/ui/window.ui:58
-msgid ""
-"2\n"
-"4"
-msgstr ""
-"2\n"
-"4"
-
-#: data/resources/ui/window.ui:77
-msgid ""
-"3\n"
-"4"
-msgstr ""
-"3\n"
-"4"
-
-#: data/resources/ui/window.ui:96
-msgid ""
-"4\n"
-"4"
-msgstr ""
-"4\n"
-"4"
-
-#: data/resources/ui/window.ui:115
-msgid ""
-"6\n"
-"8"
-msgstr ""
-"6\n"
-"8"
-
-#: data/resources/ui/window.ui:207
-msgid "TAP"
-msgstr "TAP"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -97,6 +33,33 @@ msgstr "Gardez le tempo"
 msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
 msgstr ""
 "Mesure;Battement;Battements;BPM;Mesurer;Minute;Rythme;Taper;Battre;Tempo;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes."
+msgstr ""
+"Métronome bat le rythme pour vous, il vous suffit de lui indiquer la "
+"signature temps et les battements par minute."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Vous pouvez également taper pour laisser l’application deviner le nombre de "
+"battements par mesure requis."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Fenêtre principale"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Fenêtre principale, étroite et en cours d’utilisation"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -122,29 +85,107 @@ msgstr "Battements par mesure par défaut"
 msgid "Default beats per minute"
 msgstr "Battements par minute par défaut"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Général"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Afficher les raccourcis"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Quitter"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Taper"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Jouer / Pause"
+
+#: data/resources/ui/timerbutton.ui:27
+msgid "Play"
+msgstr "Jouer"
+
+#: data/resources/ui/timerbutton.ui:43
+msgid "Pause"
+msgstr "Pause"
+
+#: data/resources/ui/window.ui:5
+msgid "_Keyboard Shortcuts"
+msgstr "_Raccourcis clavier"
+
+#: data/resources/ui/window.ui:9
+msgid "_About Metronome"
+msgstr "À _propos de Métronome"
+
+#: data/resources/ui/window.ui:49
+msgid "2/4 Time"
+msgstr "Mesure en 2/4"
+
+#: data/resources/ui/window.ui:60
 msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
+"2\n"
+"4"
 msgstr ""
-"Métronome bat le rythme pour vous, il vous suffit de lui indiquer la "
-"signature temps et les battements par minute."
+"2\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+#: data/resources/ui/window.ui:69
+msgid "3/4 Time"
+msgstr "Mesure en 3/4"
+
+#: data/resources/ui/window.ui:81
 msgid ""
-"You can also tap to let the application guess the required beats per minute."
+"3\n"
+"4"
 msgstr ""
-"Vous pouvez également taper pour laisser l’application deviner le nombre de "
-"battements par mesure requis."
+"3\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Fenêtre principale"
+#: data/resources/ui/window.ui:90
+msgid "4/4 Time"
+msgstr "Mesure en 4/4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Fenêtre principale, étroite et en cours d’utilisation"
+#: data/resources/ui/window.ui:102
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
+#: data/resources/ui/window.ui:112
+msgid "6/8 Time"
+msgstr "Mesure en 6/8"
+
+#: data/resources/ui/window.ui:123
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.ui:167
+msgid "Increase BPM"
+msgstr "Augmenter les BPM"
+
+#: data/resources/ui/window.ui:179
+msgid "Decrease BPM"
+msgstr "Diminuer les BPM"
+
+#: data/resources/ui/window.ui:219
+msgid "TAP"
+msgstr "TAP"
+
+#: data/resources/ui/window.ui:236
+msgid "Main Menu"
+msgstr "Menu principal"
