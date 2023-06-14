@@ -25,6 +25,16 @@
   <url type="donation">https://liberapay.com/adrienplazas</url>
   <content_rating type="oars-1.0" />
   <releases>
+    <release version="1.3.0" date="2023-06-14">
+      <description>
+        <p>The 1.3.0 release of Metronome brings bug fixes and general improvements.</p>
+        <ul>
+          <li>Added tooltips to various buttons</li>
+          <li>Change the BPM without pausing</li>
+          <li>Fixed a bug with ticks being off-beat</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.1" date="2023-05-11">
       <description>
         <p>The 1.2.1 release of Metronome brings bug fixes.</p>
