@@ -138,6 +138,11 @@ mod imp {
                 log::warn!("Failed to save the beats per minute, {}", &err);
             }
 
+            self.obj()
+                .action_set_enabled("win.decrease-bpm", bpm != BPM_MIN);
+            self.obj()
+                .action_set_enabled("win.increase-bpm", bpm != BPM_MAX);
+
             self.obj().notify_beats_per_minute();
         }
     }
