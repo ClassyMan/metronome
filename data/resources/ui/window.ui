@@ -263,20 +263,6 @@
     <property name="step-increment">1</property>
     <property name="value" bind-source="MtrApplicationWindow" bind-property="beats-per-minute" bind-flags="bidirectional">100</property>
   </object>
-  <object class="GtkSizeGroup">
-    <property name="mode">vertical</property>
-    <widgets>
-      <widget name="time_signature"/>
-      <widget name="controls"/>
-    </widgets>
-  </object>
-  <object class="GtkSizeGroup">
-    <property name="mode">vertical</property>
-    <widgets>
-      <widget name="header"/>
-      <widget name="footer"/>
-    </widgets>
-  </object>
   <object class="MtrTimer" id="timer">
     <property name="active" bind-source="timer_button" bind-property="active" bind-flags="sync-create"/>
     <property name="beats-per-bar" bind-source="MtrApplicationWindow" bind-property="beats-per-bar" bind-flags="sync-create"/>
