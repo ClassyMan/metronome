@@ -3,9 +3,11 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
     "command": "metronome",
-    "finish-args" : [
+    "finish-args": [
         "--socket=fallback-x11",
         "--socket=wayland",
         "--socket=pulseaudio",
@@ -14,25 +16,38 @@
         "--env=RUST_LOG=metronome=debug",
         "--env=G_MESSAGES_DEBUG=none"
     ],
-    "build-options" : {
-        "append-path" : "/usr/lib/sdk/rust-stable/bin",
-        "build-args" : [
+    "build-options": {
+        "append-path": "/usr/lib/sdk/rust-stable/bin",
+        "build-args": [
             "--share=network"
         ],
         "test-args": [
             "--socket=x11",
             "--share=network"
         ],
-        "env" : {
+        "env": {
             "RUST_BACKTRACE": "1"
         }
     },
     "modules": [
         {
+            "name": "blueprint-compiler",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
+                    "tag": "v0.8.1"
+                }
+            ]
+        },
+        {
             "name": "metronome",
             "buildsystem": "meson",
             "run-tests": true,
-            "config-opts": ["-Dprofile=development"],
+            "config-opts": [
+                "-Dprofile=development"
+            ],
             "sources": [
                 {
                     "type": "dir",
