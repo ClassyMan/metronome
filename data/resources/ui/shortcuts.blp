@@ -1,0 +1,37 @@
+using Gtk 4.0;
+
+
+ShortcutsWindow help_overlay {
+  modal: true;
+  hide-on-close: true;
+
+  ShortcutsSection {
+    section-name: "shortcuts";
+    max-height: 10;
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "General");
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Show Shortcuts");
+        action-name: "win.show-help-overlay";
+      }
+      
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Quit");
+        action-name: "app.quit";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Tap");
+        action-name: "win.showtap";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Play/Pause");
+        action-name: "app.sound-control";
+      }
+
+    }
+  }
+}

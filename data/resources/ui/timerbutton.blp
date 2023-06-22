@@ -1,0 +1,52 @@
+using Gtk 4.0;
+
+template $MtrTimerButton : Widget {
+  $MtrTimerButtonTrough trough {
+    overflow: "hidden";
+  }
+
+  Box marks_container {
+    halign: center;
+    homogeneous: true;
+    orientation: vertical;
+
+    $GtkGizmo {}
+
+    Overlay marks_overlay {}
+  }
+
+  Stack stack {
+    halign: center;
+    valign: center;
+
+    Button start_button {
+      tooltip-text: _("Play");
+      clicked => $start() swapped;
+
+      styles [
+        "circular",
+        "image-button",
+      ]
+
+      Image {
+        valign: fill;
+        icon-name: "media-playback-start-symbolic";
+      }
+    }
+
+    Button pause_button {
+      tooltip-text: _("Pause");
+      clicked => $pause() swapped;
+
+      styles [
+        "circular",
+        "image-button",
+      ]
+
+      Image {
+        valign: fill;
+        icon-name: "media-playback-pause-symbolic";
+      }
+    }
+  }
+}
