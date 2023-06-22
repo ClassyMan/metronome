@@ -27,7 +27,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
       orientation: vertical;
 
       [start]
-      HeaderBar header {
+      HeaderBar {
         [title]
         Box {
           visible: false;
@@ -42,7 +42,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
       Box {
         orientation: vertical;
 
-        Box time_signature {
+        Box {
           halign: center;
 
           styles [
@@ -184,7 +184,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
               }
             }
 
-            Scale bpm_scale {
+            Scale {
               adjustment: bpm_adjustment;
               digits: 0;
               margin-bottom: 8;
@@ -202,14 +202,14 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
           }
         }
 
-        Box controls {
+        Box {
           halign: center;
 
           styles [
             "controls",
           ]
 
-          Button tap_button {
+          Button {
             action-name: "win.tap";
             halign: center;
             label: _("TAP");
@@ -227,7 +227,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
           }
 
           [end]
-          MenuButton appmenu_button {
+          MenuButton {
             primary: true;
             tooltip-text: _("Main Menu");
             halign: center;
