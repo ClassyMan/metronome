@@ -27,7 +27,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
       orientation: vertical;
 
       [start]
-      Adw.HeaderBar {
+      Adw.HeaderBar header {
         [title]
         Box {
           visible: false;
@@ -42,7 +42,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
       Box {
         orientation: vertical;
 
-        Box {
+        Box time_signature {
           halign: center;
 
           styles [
@@ -202,7 +202,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
           }
         }
 
-        Box {
+        Box controls {
           halign: center;
 
           styles [
@@ -242,8 +242,23 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
           }
         }
       }
+
+      [end]
+      Box footer {
+      }
+
     }
   }
+}
+
+SizeGroup {
+  mode: vertical;
+  widgets [time_signature, controls]
+}
+
+SizeGroup {
+  mode: vertical;
+  widgets [header, footer]
 }
 
 Adjustment bpm_adjustment {
