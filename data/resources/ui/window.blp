@@ -23,230 +23,226 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
   ]
 
   WindowHandle {
-    CenterBox {
-      orientation: vertical;
-
-      [start]
+    $AdwToolbarView {
+      [top]
       Adw.HeaderBar header {
         [title]
         Box {
           visible: false;
         }
-
-        styles [
-          "flat",
-        ]
       }
 
-      [center]
-      Box {
-        orientation: vertical;
+      content: CenterBox {
+          orientation: vertical;
 
-        Box time_signature {
-          halign: center;
-
-          styles [
-            "time-signature",
-          ]
-
-          ToggleButton time_signature_2_4_button {
-            notify::active => $on_time_signature_2_4_button_active() swapped;
-            group: time_signature_4_4_button;
-            tooltip-text: _("2/4 Time");
-            halign: center;
-            valign: center;
-
-            styles [
-              "circular",
-              "large",
-              "text-button",
-            ]
-
-            Label {
-              justify: center;
-              label: _("2\n4");
-            }
-          }
-
-          ToggleButton time_signature_3_4_button {
-            notify::active => $on_time_signature_3_4_button_active() swapped;
-            tooltip-text: _("3/4 Time");
-            group: time_signature_4_4_button;
-            halign: center;
-            valign: center;
-
-            styles [
-              "circular",
-              "large",
-              "text-button",
-            ]
-
-            Label {
-              justify: center;
-              label: _("3\n4");
-            }
-          }
-
-          ToggleButton time_signature_4_4_button {
-            notify::active => $on_time_signature_4_4_button_active() swapped;
-            tooltip-text: _("4/4 Time");
-            active: true;
-            halign: center;
-            valign: center;
-
-            styles [
-              "circular",
-              "large",
-              "text-button",
-            ]
-
-            Label {
-              justify: center;
-              label: _("4\n4");
-            }
-          }
-
-          ToggleButton time_signature_6_8_button {
-            notify::active => $on_time_signature_6_8_button_active() swapped;
-            group: time_signature_4_4_button;
-            tooltip-text: _("6/8 Time");
-            halign: center;
-            valign: center;
-
-            styles [
-              "circular",
-              "large",
-              "text-button",
-            ]
-
-            Label {
-              justify: center;
-              label: _("6\n8");
-            }
-          }
-        }
-
-        Adw.Clamp {
-          tightening-threshold: 360;
-          maximum-size: 480;
-
+          [center]
           Box {
-            orientation: vertical;
+          orientation: vertical;
+
+          Box time_signature {
+            halign: center;
 
             styles [
-              "display",
-              "card",
+              "time-signature",
             ]
 
-            Box {
+            ToggleButton time_signature_2_4_button {
+              notify::active => $on_time_signature_2_4_button_active() swapped;
+              group: time_signature_4_4_button;
+              tooltip-text: _("2/4 Time");
               halign: center;
+              valign: center;
+
+              styles [
+                "circular",
+                "large",
+                "text-button",
+              ]
 
               Label {
-                label: bind-property template.beats-per-minute;
-                width-chars: 3;
-
-                styles [
-                  "bpm",
-                ]
-              }
-
-              Box {
-                orientation: vertical;
-                valign: center;
-
-                styles [
-                  "bpm",
-                ]
-
-                Button {
-                  action-name: "win.increase-bpm";
-                  halign: center;
-                  icon-name: "value-increase-symbolic";
-                  valign: center;
-                  tooltip-text: _("Increase BPM");
-
-                  styles [
-                    "circular",
-                  ]
-                }
-
-                Button {
-                  action-name: "win.decrease-bpm";
-                  halign: center;
-                  icon-name: "value-decrease-symbolic";
-                  valign: center;
-                  tooltip-text: _("Decrease BPM");
-
-                  styles [
-                    "circular",
-                  ]
-                }
+                justify: center;
+                label: _("2\n4");
               }
             }
 
-            Scale {
-              adjustment: bpm_adjustment;
-              digits: 0;
-              margin-bottom: 8;
-              margin-start: 8;
-              margin-end: 8;
+            ToggleButton time_signature_3_4_button {
+              notify::active => $on_time_signature_3_4_button_active() swapped;
+              tooltip-text: _("3/4 Time");
+              group: time_signature_4_4_button;
+              halign: center;
+              valign: center;
 
-              marks [
-                mark (20, bottom, "20"),
-                mark (80, bottom, "80"),
-                mark (140, bottom, "140"),
-                mark (200, bottom, "200"),
-                mark (260, bottom, "260"),
+              styles [
+                "circular",
+                "large",
+                "text-button",
+              ]
+
+              Label {
+                justify: center;
+                label: _("3\n4");
+              }
+            }
+
+            ToggleButton time_signature_4_4_button {
+              notify::active => $on_time_signature_4_4_button_active() swapped;
+              tooltip-text: _("4/4 Time");
+              active: true;
+              halign: center;
+              valign: center;
+
+              styles [
+                "circular",
+                "large",
+                "text-button",
+              ]
+
+              Label {
+                justify: center;
+                label: _("4\n4");
+              }
+            }
+
+            ToggleButton time_signature_6_8_button {
+              notify::active => $on_time_signature_6_8_button_active() swapped;
+              group: time_signature_4_4_button;
+              tooltip-text: _("6/8 Time");
+              halign: center;
+              valign: center;
+
+              styles [
+                "circular",
+                "large",
+                "text-button",
+              ]
+
+              Label {
+                justify: center;
+                label: _("6\n8");
+              }
+            }
+          }
+
+          Adw.Clamp {
+            tightening-threshold: 360;
+            maximum-size: 480;
+
+            Box {
+              orientation: vertical;
+
+              styles [
+                "display",
+                "card",
+              ]
+
+              Box {
+                halign: center;
+
+                Label {
+                  label: bind-property template.beats-per-minute;
+                  width-chars: 3;
+
+                  styles [
+                    "bpm",
+                  ]
+                }
+
+                Box {
+                  orientation: vertical;
+                  valign: center;
+
+                  styles [
+                    "bpm",
+                  ]
+
+                  Button {
+                    action-name: "win.increase-bpm";
+                    halign: center;
+                    icon-name: "value-increase-symbolic";
+                    valign: center;
+                    tooltip-text: _("Increase BPM");
+
+                    styles [
+                      "circular",
+                    ]
+                  }
+
+                  Button {
+                    action-name: "win.decrease-bpm";
+                    halign: center;
+                    icon-name: "value-decrease-symbolic";
+                    valign: center;
+                    tooltip-text: _("Decrease BPM");
+
+                    styles [
+                      "circular",
+                    ]
+                  }
+                }
+              }
+
+              Scale {
+                adjustment: bpm_adjustment;
+                digits: 0;
+                margin-bottom: 8;
+                margin-start: 8;
+                margin-end: 8;
+
+                marks [
+                  mark (20, bottom, "20"),
+                  mark (80, bottom, "80"),
+                  mark (140, bottom, "140"),
+                  mark (200, bottom, "200"),
+                  mark (260, bottom, "260"),
+                ]
+              }
+            }
+          }
+
+          Box controls {
+            halign: center;
+
+            styles [
+              "controls",
+            ]
+
+            Button {
+              action-name: "win.tap";
+              halign: center;
+              label: _("TAP");
+              valign: center;
+
+              styles [
+                "circular",
+                "large",
+              ]
+            }
+
+            $MtrTimerButton timer_button {
+              beats-per-bar: bind-property template.beats-per-bar;
+              beats-per-minute: bind-property template.beats-per-minute;
+            }
+
+            [end]
+            MenuButton {
+              primary: true;
+              tooltip-text: _("Main Menu");
+              halign: center;
+              icon-name: "open-menu-symbolic";
+              menu-model: primary_menu;
+              valign: center;
+
+              styles [
+                "circular",
+                "large",
               ]
             }
           }
         }
 
-        Box controls {
-          halign: center;
-
-          styles [
-            "controls",
-          ]
-
-          Button {
-            action-name: "win.tap";
-            halign: center;
-            label: _("TAP");
-            valign: center;
-
-            styles [
-              "circular",
-              "large",
-            ]
-          }
-
-          $MtrTimerButton timer_button {
-            beats-per-bar: bind-property template.beats-per-bar;
-            beats-per-minute: bind-property template.beats-per-minute;
-          }
-
-          [end]
-          MenuButton {
-            primary: true;
-            tooltip-text: _("Main Menu");
-            halign: center;
-            icon-name: "open-menu-symbolic";
-            menu-model: primary_menu;
-            valign: center;
-
-            styles [
-              "circular",
-              "large",
-            ]
-          }
-        }
-      }
-
-      [end]
-      Box footer {
-      }
-
+        [end]
+        Box footer {}
+      };
     }
   }
 }
