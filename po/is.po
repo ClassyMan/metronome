@@ -1,5 +1,5 @@
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2023 Icelandic translators of GNOME
+# This file is distributed under the same license as the metronome package.
 #
 # Ingirafn <ingirafn@this.is>, 2023.
 # Sveinn í Felli <sv1@fellsnet.is>, 2023.
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-04-23 13:19+0000\n"
-"PO-Revision-Date: 2023-04-26 14:54+0000\n"
+"POT-Creation-Date: 2023-06-25 13:13+0000\n"
+"PO-Revision-Date: 2023-06-29 13:57+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -17,75 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 21.12.3\n"
-
-#: data/resources/ui/shortcuts.ui:11
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Almennt"
-
-#: data/resources/ui/shortcuts.ui:14
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Sýna flýtilykla"
-
-#: data/resources/ui/shortcuts.ui:20
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Hætta"
-
-#: data/resources/ui/shortcuts.ui:26
-msgctxt "shortcut window"
-msgid "Tap"
-msgstr "Ásláttur"
-
-#: data/resources/ui/shortcuts.ui:32
-msgctxt "shortcut window"
-msgid "Play/Pause"
-msgstr "Spila / Bíða"
-
-#: data/resources/ui/window.ui:5
-msgid "_Keyboard Shortcuts"
-msgstr "Flýtily_klar"
-
-#: data/resources/ui/window.ui:9
-msgid "_About Metronome"
-msgstr "_Um Metronome"
-
-#: data/resources/ui/window.ui:59
-msgid ""
-"2\n"
-"4"
-msgstr ""
-"2\n"
-"4"
-
-#: data/resources/ui/window.ui:79
-msgid ""
-"3\n"
-"4"
-msgstr ""
-"3\n"
-"4"
-
-#: data/resources/ui/window.ui:99
-msgid ""
-"4\n"
-"4"
-msgstr ""
-"4\n"
-"4"
-
-#: data/resources/ui/window.ui:119
-msgid ""
-"6\n"
-"8"
-msgstr ""
-"6\n"
-"8"
-
-#: data/resources/ui/window.ui:211
-msgid "TAP"
-msgstr "SLÁ"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -99,8 +30,34 @@ msgstr "Haltu takti"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Taktur;Slag;Slög á mínútu;Mæla;Mínúta,Hljóðfall;Ásláttur;Hraði;"
+#| msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
+msgstr "Taktur;Slag;Slög á mínútu;Mæla;Mínúta;Æfing;Hljóðfall;Ásláttur;Hraði;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minute."
+msgstr ""
+"Metroneome slær taktinn fyrir þig, þú þarft aðeins að stilla taktvísinn og "
+"slög á mínútu."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr "Þú getur líka slegið taktinn og látið forritið giskað á slög á mínútu."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Aðalgluggi"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Aðalgluggi, mjór og keyrandi"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:93
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -126,29 +83,110 @@ msgstr "Sjálfgefin slög í hverjum takti"
 msgid "Default beats per minute"
 msgstr "Sjálfgefin slög á mínútu"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+#: data/resources/ui/shortcuts.blp:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Almennt"
+
+#: data/resources/ui/shortcuts.blp:16
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Sýna flýtilykla"
+
+#: data/resources/ui/shortcuts.blp:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Hætta"
+
+#: data/resources/ui/shortcuts.blp:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Ásláttur"
+
+#: data/resources/ui/shortcuts.blp:31
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Spila / Bíða"
+
+#: data/resources/ui/timerbutton.blp:23
+msgid "Play"
+msgstr "Spila"
+
+#: data/resources/ui/timerbutton.blp:38
+#| msgctxt "shortcut window"
+#| msgid "Play/Pause"
+msgid "Pause"
+msgstr "Bíða"
+
+#: data/resources/ui/window.blp:7
+msgid "_Keyboard Shortcuts"
+msgstr "Flýtily_klar"
+
+#: data/resources/ui/window.blp:12
+msgid "_About Metronome"
+msgstr "_Um Metronome"
+
+#: data/resources/ui/window.blp:55
+msgid "2/4 Time"
+msgstr "2/4 taktur"
+
+#: data/resources/ui/window.blp:67
 msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
+"2\n"
+"4"
 msgstr ""
-"Metroneome slær taktinn fyrir þig, þú þarft aðeins að stilla taktvísinn og "
-"slög á mínútu."
+"2\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+#: data/resources/ui/window.blp:73
+msgid "3/4 Time"
+msgstr "3/4 taktur"
+
+#: data/resources/ui/window.blp:86
 msgid ""
-"You can also tap to let the application guess the required beats per minute."
+"3\n"
+"4"
 msgstr ""
-"Þú getur líka slegið taktinn og látið forritið giskað á nauðsynleg slög á"
-" mínútu."
+"3\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Aðalgluggi"
+#: data/resources/ui/window.blp:92
+msgid "4/4 Time"
+msgstr "4/4 taktur"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Aðalgluggi, mjótt og keyrandi"
+#: data/resources/ui/window.blp:105
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
+#: data/resources/ui/window.blp:112
+msgid "6/8 Time"
+msgstr "6/8 taktur"
+
+#: data/resources/ui/window.blp:124
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.blp:166
+msgid "Increase BPM"
+msgstr "Fjölga slögum á mínútu"
+
+#: data/resources/ui/window.blp:178
+msgid "Decrease BPM"
+msgstr "Fækka slögum á mínútu"
+
+#: data/resources/ui/window.blp:215
+msgid "TAP"
+msgstr "SLÁ"
+
+#: data/resources/ui/window.blp:232
+#| msgid "Main window"
+msgid "Main Menu"
+msgstr "Aðalvalmynd"
