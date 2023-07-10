@@ -25,7 +25,6 @@ fn main() -> glib::ExitCode {
     gtk::glib::set_application_name(&gettext("Metronome"));
     gtk::glib::set_prgname(Some("metronome"));
 
-    adw::init().expect("Unable to start libadwaita");
     gst::init().expect("Unable to start GStreamer");
 
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
