@@ -9,7 +9,7 @@ mod imp {
 
     #[derive(Debug)]
     pub struct MtrClicker {
-        pub player: gst_player::Player,
+        pub player: gstreamer_play::Play,
     }
 
     #[glib::object_subclass]
@@ -19,9 +19,8 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                player: gst_player::Player::new(
-                    None::<gst_player::PlayerVideoRenderer>,
-                    None::<gst_player::PlayerSignalDispatcher>,
+                player: gstreamer_play::Play::new(
+                    None::<gstreamer_play::PlayVideoRenderer>,
                 ),
             }
         }
