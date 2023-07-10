@@ -6,6 +6,10 @@ use adw::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*};
 use std::time::Instant;
 
+pub const BPM_DEFAULT: u32 = 100;
+pub const BPM_MIN: u32 = 20;
+pub const BPM_MAX: u32 = 260;
+
 mod imp {
     use super::*;
     use std::cell::Cell;
@@ -28,7 +32,7 @@ mod imp {
         pub time_signature_6_8_button: TemplateChild<gtk::ToggleButton>,
         #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
-        #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
+        #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
         pub beats_per_minute: Cell<u32>,
         pub tap_time: Cell<Instant>,
         pub settings: gio::Settings,
@@ -49,7 +53,7 @@ mod imp {
                 time_signature_4_4_button: Default::default(),
                 time_signature_6_8_button: Default::default(),
                 beats_per_bar: std::cell::Cell::new(4),
-                beats_per_minute: std::cell::Cell::new(100),
+                beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
                 tap_time: std::cell::Cell::new(Instant::now()),
                 settings: gio::Settings::new(APP_ID),
             }
@@ -148,7 +152,7 @@ impl MtrApplicationWindow {
     }
 
     fn add_beats_per_minute(&self, value: i32) {
-        let bpm = (self.beats_per_minute() as i32 + value).clamp(20, 260);
+        let bpm = (self.beats_per_minute() as i32 + value).clamp(BPM_MIN as i32, BPM_MAX as i32);
         self.set_beats_per_minute(bpm as u32);
     }
 
@@ -158,7 +162,7 @@ impl MtrApplicationWindow {
         let duration = now - imp.tap_time.get();
         let bpm = 60.0 / duration.as_secs_f64();
         imp.tap_time.set(now);
-        self.set_beats_per_minute((bpm as u32).clamp(20, 260));
+        self.set_beats_per_minute((bpm as u32).clamp(BPM_MIN, BPM_MAX));
     }
 
     fn load_settings(&self) {

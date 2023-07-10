@@ -14,6 +14,7 @@ enum TimerCommand {
 
 mod imp {
     use super::*;
+    use crate::window::{BPM_DEFAULT, BPM_MAX, BPM_MIN};
     use std::cell::{Cell, RefCell};
 
     #[derive(Debug, glib::Properties)]
@@ -23,7 +24,7 @@ mod imp {
         pub active: Cell<bool>,
         #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
-        #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
+        #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
         pub beats_per_minute: Cell<u32>,
         pub clicker: MtrClicker,
         thread_cmd: RefCell<std::sync::mpsc::Sender<TimerCommand>>,
@@ -39,7 +40,7 @@ mod imp {
             Self {
                 active: Default::default(),
                 beats_per_bar: Cell::new(4),
-                beats_per_minute: Cell::new(100),
+                beats_per_minute: Cell::new(BPM_DEFAULT),
                 clicker: Default::default(),
                 thread_cmd: RefCell::new(tx),
             }

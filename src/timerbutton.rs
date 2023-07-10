@@ -5,6 +5,8 @@ use gtk::{glib, prelude::*};
 use std::time::Instant;
 
 mod imp {
+    use crate::window::{BPM_DEFAULT, BPM_MAX, BPM_MIN};
+
     use super::*;
     use std::{
         cell::{Cell, RefCell},
@@ -29,7 +31,7 @@ mod imp {
         marks_container: TemplateChild<gtk::Box>,
         #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
         pub beats_per_bar: Cell<u32>,
-        #[property(get, set = Self::set_beats_per_minute, minimum = 20, maximum = 260, default = 100)]
+        #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
         pub beats_per_minute: Cell<u32>,
         pub snapshot_time: Cell<Instant>,
         pub running_id: RefCell<Option<gtk::TickCallbackId>>,
@@ -52,7 +54,7 @@ mod imp {
                 stack: Default::default(),
                 marks_container: Default::default(),
                 beats_per_bar: std::cell::Cell::new(4),
-                beats_per_minute: std::cell::Cell::new(100),
+                beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
                 snapshot_time: std::cell::Cell::new(Instant::now()),
                 running_id: Default::default(),
                 active: Default::default(),
