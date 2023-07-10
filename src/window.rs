@@ -6,9 +6,13 @@ use adw::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*};
 use std::time::Instant;
 
-pub const BPM_DEFAULT: u32 = 100;
+pub const BPB_MIN: u32 = 1;
+pub const BPB_MAX: u32 = 9;
+pub const BPB_DEFAULT: u32 = 4;
+
 pub const BPM_MIN: u32 = 20;
 pub const BPM_MAX: u32 = 260;
+pub const BPM_DEFAULT: u32 = 100;
 
 mod imp {
     use super::*;
@@ -30,7 +34,7 @@ mod imp {
         pub time_signature_4_4_button: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub time_signature_6_8_button: TemplateChild<gtk::ToggleButton>,
-        #[property(get, set = Self::set_beats_per_bar, minimum = 1, maximum = 9, default = 4)]
+        #[property(get, set = Self::set_beats_per_bar, minimum = BPB_MIN, maximum = BPB_MAX, default = BPB_DEFAULT)]
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
         pub beats_per_minute: Cell<u32>,
@@ -52,7 +56,7 @@ mod imp {
                 time_signature_3_4_button: Default::default(),
                 time_signature_4_4_button: Default::default(),
                 time_signature_6_8_button: Default::default(),
-                beats_per_bar: std::cell::Cell::new(4),
+                beats_per_bar: std::cell::Cell::new(BPB_DEFAULT),
                 beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
                 tap_time: std::cell::Cell::new(Instant::now()),
                 settings: gio::Settings::new(APP_ID),
