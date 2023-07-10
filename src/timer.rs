@@ -8,7 +8,7 @@ use std::thread;
 
 enum TimerCommand {
     Stop,
-    BPM(u32),
+    Bpm(u32),
     BeatsPerBar(u32),
 }
 
@@ -75,7 +75,7 @@ mod imp {
                     let msg = rx.recv_timeout(recv_period);
                     match msg {
                         Ok(TimerCommand::Stop) => break,
-                        Ok(TimerCommand::BPM(bpm)) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm as u64),
+                        Ok(TimerCommand::Bpm(bpm)) => ticktime = std::time::Duration::from_nanos(60_000_000_000 / bpm as u64),
                         Ok(TimerCommand::BeatsPerBar(bpb)) => {
                             beat_in_bar = 0;
                             beats_per_bar = bpb;
@@ -110,7 +110,7 @@ mod imp {
             self.beats_per_minute.set(bpm);
             self.thread_cmd
                 .borrow()
-                .send(TimerCommand::BPM(bpm))
+                .send(TimerCommand::Bpm(bpm))
                 .unwrap_or_default();
         }
     }
