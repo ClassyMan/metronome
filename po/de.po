@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-04-21 19:37+0000\n"
-"PO-Revision-Date: 2023-05-08 13:18+0200\n"
+"POT-Creation-Date: 2023-06-23 21:20+0000\n"
+"PO-Revision-Date: 2023-07-27 21:11+0200\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,76 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
-
-#: data/resources/ui/shortcuts.ui:11
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Allgemein"
-
-#: data/resources/ui/shortcuts.ui:14
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Tastenkürzel anzeigen"
-
-#: data/resources/ui/shortcuts.ui:20
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Beenden"
-
-#: data/resources/ui/shortcuts.ui:26
-msgctxt "shortcut window"
-msgid "Tap"
-msgstr "Klopfen"
-
-#: data/resources/ui/shortcuts.ui:32
-msgctxt "shortcut window"
-msgid "Play/Pause"
-msgstr "Wiedergabe/Pause"
-
-#: data/resources/ui/window.ui:5
-msgid "_Keyboard Shortcuts"
-msgstr "_Tastenkürzel"
-
-#: data/resources/ui/window.ui:9
-msgid "_About Metronome"
-msgstr "_Info zu Metronom"
-
-#: data/resources/ui/window.ui:59
-msgid ""
-"2\n"
-"4"
-msgstr ""
-"2\n"
-"4"
-
-#: data/resources/ui/window.ui:79
-msgid ""
-"3\n"
-"4"
-msgstr ""
-"3\n"
-"4"
-
-#: data/resources/ui/window.ui:99
-msgid ""
-"4\n"
-"4"
-msgstr ""
-"4\n"
-"4"
-
-#: data/resources/ui/window.ui:119
-msgid ""
-"6\n"
-"8"
-msgstr ""
-"6\n"
-"8"
-
-#: data/resources/ui/window.ui:211
-msgid "TAP"
-msgstr "TAP"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -99,8 +30,37 @@ msgstr "Das Tempo halten"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Takt;Schlag;Schläge;BPM;Zeitmaß;Minute;Rhythmus;Klopfen;Tempo;"
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
+msgstr ""
+"Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;Takt;Schlag;"
+"Schläge;Zeitmaß;Minute;Üben;Übung;Rhythmus;Klopfen;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minute."
+msgstr ""
+"Metronom gibt Ihnen den Rhythmus vor. Wählen Sie einfach die Taktart und "
+"die Schläge pro Minute."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Sie können auch einfach klopfen. Die Applikation ermittelt dann die Schläge "
+"pro Minute."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Hauptfenster"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Hauptfenster, schmal und laufend"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:93
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -126,29 +86,107 @@ msgstr "Voreingestellte Schläge pro Takt"
 msgid "Default beats per minute"
 msgstr "Voreingestellte Schläge pro Minute"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+#: data/resources/ui/shortcuts.blp:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Allgemein"
+
+#: data/resources/ui/shortcuts.blp:16
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Tastenkürzel anzeigen"
+
+#: data/resources/ui/shortcuts.blp:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Beenden"
+
+#: data/resources/ui/shortcuts.blp:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Klopfen"
+
+#: data/resources/ui/shortcuts.blp:31
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Wiedergabe/Pause"
+
+#: data/resources/ui/timerbutton.blp:23
+msgid "Play"
+msgstr "Wiedergabe"
+
+#: data/resources/ui/timerbutton.blp:38
+msgid "Pause"
+msgstr "Pause"
+
+#: data/resources/ui/window.blp:7
+msgid "_Keyboard Shortcuts"
+msgstr "_Tastenkürzel"
+
+#: data/resources/ui/window.blp:12
+msgid "_About Metronome"
+msgstr "_Info zu Metronom"
+
+#: data/resources/ui/window.blp:55
+msgid "2/4 Time"
+msgstr "2/4-Takt"
+
+#: data/resources/ui/window.blp:67
 msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
+"2\n"
+"4"
 msgstr ""
-"Metronom macht den Rhythmus für dich, gib einfach die Taktbezeichnung und "
-"die Schläge pro Minute vor."
+"2\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+#: data/resources/ui/window.blp:73
+msgid "3/4 Time"
+msgstr "3/4-Takt"
+
+#: data/resources/ui/window.blp:86
 msgid ""
-"You can also tap to let the application guess the required beats per minute."
+"3\n"
+"4"
 msgstr ""
-"Sie können auch einfach klopfen. Die Applikation ermittelt dann die Schläge "
-"pro Minute."
+"3\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Hauptfenster"
+#: data/resources/ui/window.blp:92
+msgid "4/4 Time"
+msgstr "4/4-Takt"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Hauptfenster, schmal und laufend"
+#: data/resources/ui/window.blp:105
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:73
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
+#: data/resources/ui/window.blp:112
+msgid "6/8 Time"
+msgstr "6/8-Takt"
+
+#: data/resources/ui/window.blp:124
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.blp:166
+msgid "Increase BPM"
+msgstr "BPM erhöhen"
+
+#: data/resources/ui/window.blp:178
+msgid "Decrease BPM"
+msgstr "BPM verringern"
+
+#: data/resources/ui/window.blp:215
+msgid "TAP"
+msgstr "TAP"
+
+#: data/resources/ui/window.blp:232
+msgid "Main Menu"
+msgstr "Hauptmenü"
