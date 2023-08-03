@@ -176,7 +176,7 @@ impl MtrTimerButton {
 
         let source_id = self.add_tick_callback(move |this, _clock| {
             this.queue_draw();
-            Continue(true)
+            glib::ControlFlow::Continue
         });
 
         imp.running_id.replace(Some(source_id));
