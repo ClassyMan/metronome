@@ -73,24 +73,13 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for MtrTimerButton {
         fn constructed(&self) {
             self.parent_constructed();
             let obj = self.obj();
 
             obj.update_marks();
-        }
-
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
         }
 
         fn dispose(&self) {

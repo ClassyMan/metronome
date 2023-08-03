@@ -80,6 +80,7 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for MtrApplicationWindow {
         fn constructed(&self) {
             self.parent_constructed();
@@ -90,18 +91,6 @@ mod imp {
                 obj.add_css_class("devel");
             }
             obj.load_settings();
-        }
-
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
         }
     }
 
