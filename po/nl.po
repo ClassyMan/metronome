@@ -2,85 +2,22 @@
 # Copyright (C) 2022 metronome's COPYRIGHT HOLDER
 # This file is distributed under the same license as the metronome package.
 # Philip Goto <Philip.goto@gmail.com>, 2022.
+# Nathan Follens <nfollens@gnome.org>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2022-03-11 20:00+0000\n"
-"PO-Revision-Date: 2022-03-15 18:00+0100\n"
-"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"POT-Creation-Date: 2023-06-23 21:20+0000\n"
+"PO-Revision-Date: 2023-08-27 18:12+0200\n"
+"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
+"Language-Team: GNOME-NL https://matrix.to/#/#nl:gnome.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
-
-#: data/resources/ui/shortcuts.ui:11
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Algemeen"
-
-#: data/resources/ui/shortcuts.ui:14
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Sneltoetsen tonen"
-
-#: data/resources/ui/shortcuts.ui:20
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr "Afsluiten"
-
-#: data/resources/ui/shortcuts.ui:26
-msgctxt "shortcut window"
-msgid "Tap"
-msgstr "Tikken"
-
-#: data/resources/ui/window.ui:5
-msgid "_Keyboard Shortcuts"
-msgstr "_Sneltoetsen"
-
-#: data/resources/ui/window.ui:9
-msgid "_About Metronome"
-msgstr "_Over Metronoom"
-
-#: data/resources/ui/window.ui:58
-msgid ""
-"2\n"
-"4"
-msgstr ""
-"2\n"
-"4"
-
-#: data/resources/ui/window.ui:77
-msgid ""
-"3\n"
-"4"
-msgstr ""
-"3\n"
-"4"
-
-#: data/resources/ui/window.ui:96
-msgid ""
-"4\n"
-"4"
-msgstr ""
-"4\n"
-"4"
-
-#: data/resources/ui/window.ui:115
-msgid ""
-"6\n"
-"8"
-msgstr ""
-"6\n"
-"8"
-
-#: data/resources/ui/window.ui:207
-msgid "TAP"
-msgstr "TIK"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -94,9 +31,38 @@ msgstr "Behoud het tempo"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+#| msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
 msgstr ""
-"Bar;Maat;Slag;Beat;Beats;BPM;Maat;Meten;Minuut;Minute;Ritme;Tik;Tempo;"
+"Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;Maat;Slag;Maat;"
+"Meten;Minuut;Ritme;Tik;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minute."
+msgstr ""
+"Metronoom slaat het ritme voor u, u hoeft het alleen de maatsoort en tellen "
+"per minuut te vertellen."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"U kunt ook tikken om de toepassing het aantal tellen per minuut te laten "
+"raden."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Hoofdvenster"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Hoofdvenster, smal en bezig"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:93
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -115,36 +81,114 @@ msgstr "Standaardgedrag van gemaximaliseerd venster"
 #: data/com.adrienplazas.Metronome.gschema.xml.in:22
 #: data/com.adrienplazas.Metronome.gschema.xml.in:23
 msgid "Default beats per bar"
-msgstr "Standaardaantal slagen per maat"
+msgstr "Standaardaantal tellen per maat"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:28
 #: data/com.adrienplazas.Metronome.gschema.xml.in:29
 msgid "Default beats per minute"
-msgstr "Standaardaantal slagen per minuut"
+msgstr "Standaardaantal tellen per minuut"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+#: data/resources/ui/shortcuts.blp:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Algemeen"
+
+#: data/resources/ui/shortcuts.blp:16
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Sneltoetsen tonen"
+
+#: data/resources/ui/shortcuts.blp:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: data/resources/ui/shortcuts.blp:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Tikken"
+
+#: data/resources/ui/shortcuts.blp:31
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Afspelen/pauzeren"
+
+#: data/resources/ui/timerbutton.blp:23
+msgid "Play"
+msgstr "Afspelen"
+
+#: data/resources/ui/timerbutton.blp:38
+msgid "Pause"
+msgstr "Pauzeren"
+
+#: data/resources/ui/window.blp:7
+msgid "_Keyboard Shortcuts"
+msgstr "_Sneltoetsen"
+
+#: data/resources/ui/window.blp:12
+msgid "_About Metronome"
+msgstr "_Over Metronoom"
+
+#: data/resources/ui/window.blp:55
+msgid "2/4 Time"
+msgstr "2/4-maat"
+
+#: data/resources/ui/window.blp:67
 msgid ""
-"Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
+"2\n"
+"4"
 msgstr ""
-"Metronoom slaat het ritme voor u, u hoeft het alleen de maatsoort en slagen "
-"per seconde te vertellen."
+"2\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+#: data/resources/ui/window.blp:73
+msgid "3/4 Time"
+msgstr "3/4-maat"
+
+#: data/resources/ui/window.blp:86
 msgid ""
-"You can also tap to let the application guess the required beats per minute."
+"3\n"
+"4"
 msgstr ""
-"U kunt ook tikken om de toepassing het aantal slagen per minuut te laten "
-"raden."
+"3\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
-msgid "Main window"
-msgstr "Hoofdvenster"
+#: data/resources/ui/window.blp:92
+msgid "4/4 Time"
+msgstr "4/4-maat"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
-msgid "Main window, narrow and running"
-msgstr "Hoofdvenster, smal en bezig"
+#: data/resources/ui/window.blp:105
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
 
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:63
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
+#: data/resources/ui/window.blp:112
+msgid "6/8 Time"
+msgstr "6/8-maat"
+
+#: data/resources/ui/window.blp:124
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.blp:166
+msgid "Increase BPM"
+msgstr "Bpm verhogen"
+
+#: data/resources/ui/window.blp:178
+msgid "Decrease BPM"
+msgstr "Bpm verlagen"
+
+#: data/resources/ui/window.blp:215
+msgid "TAP"
+msgstr "TIK"
+
+#: data/resources/ui/window.blp:232
+msgid "Main Menu"
+msgstr "Hoofdmenu"
