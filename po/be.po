@@ -1,0 +1,195 @@
+# Belarusian translation for metronome.
+# Copyright (C) 2023 metronome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the metronome package.
+# Yahor Haurylenka <k1llo2810@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: metronome master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
+"POT-Creation-Date: 2023-10-19 17:02+0000\n"
+"PO-Revision-Date: 2023-10-26 18:18+0300\n"
+"Last-Translator: Yahor Haurylenka <k1llo2810@gmail.com>\n"
+"Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Метраном"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:4
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+msgid "Keep the tempo"
+msgstr "Захоўвайце тэмп"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:10
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
+msgstr ""
+"Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;такт;рытм;удары;"
+"біт;хвіліна;тэмп;час;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minute."
+msgstr ""
+"Метраном адбівае для вас рытм, трэба толькі задаць неабходны тактавы памер "
+"і колькасць удараў за хвіліну."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Таксама можна задаваць тэмп націсканнямі, праз іх праграма падбярэ "
+"патрэбную колькасць удараў за хвіліну."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
+msgid "Main window"
+msgstr "Галоўнае акно"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window, narrow and running"
+msgstr "Галоўнае акно, вузкае і працоўнае"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:93
+msgid "Adrien Plazas"
+msgstr "Adrien Plazas"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Прадвызначаная шырыня акна"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Прадвызначаная вышыня акна"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Прадвызначаныя паводзіны для разгортвання акна"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Прадвызначаная колькасць удараў за такт"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Прадвызначаная колькасць удараў за хвіліну"
+
+#: data/resources/ui/shortcuts.blp:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Агульныя"
+
+#: data/resources/ui/shortcuts.blp:16
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Паказаць спалучэнні клавіш"
+
+#: data/resources/ui/shortcuts.blp:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Закрыць"
+
+#: data/resources/ui/shortcuts.blp:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Націснуць"
+
+#: data/resources/ui/shortcuts.blp:31
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Запуск/Паўза"
+
+#: data/resources/ui/timerbutton.blp:23
+msgid "Play"
+msgstr "Запуск"
+
+#: data/resources/ui/timerbutton.blp:38
+msgid "Pause"
+msgstr "Паўза"
+
+#: data/resources/ui/window.blp:7
+msgid "_Keyboard Shortcuts"
+msgstr "_Спалучэнні клавіш"
+
+#: data/resources/ui/window.blp:12
+msgid "_About Metronome"
+msgstr "_Пра Метраном"
+
+#: data/resources/ui/window.blp:53
+msgid "2/4 Time"
+msgstr "Тактавы памер 2/4"
+
+#: data/resources/ui/window.blp:65
+msgid ""
+"2\n"
+"4"
+msgstr ""
+"2\n"
+"4"
+
+#: data/resources/ui/window.blp:71
+msgid "3/4 Time"
+msgstr "Тактавы памер 3/4"
+
+#: data/resources/ui/window.blp:84
+msgid ""
+"3\n"
+"4"
+msgstr ""
+"3\n"
+"4"
+
+#: data/resources/ui/window.blp:90
+msgid "4/4 Time"
+msgstr "Тактавы памер 4/4"
+
+#: data/resources/ui/window.blp:103
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
+
+#: data/resources/ui/window.blp:110
+msgid "6/8 Time"
+msgstr "Тактавы памер 6/8"
+
+#: data/resources/ui/window.blp:122
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.blp:164
+msgid "Increase BPM"
+msgstr "Паскорыць тэмп"
+
+#: data/resources/ui/window.blp:176
+msgid "Decrease BPM"
+msgstr "Запаволіць тэмп"
+
+# Круглая кароткая кнопка, два націсканні на яе – вызначаецца тэмп метранома (залежыць ад прамежку паміж націсканнямі)
+# Сэнс падобны на туп, тык, цюк-цюк.
+#: data/resources/ui/window.blp:213
+msgid "TAP"
+msgstr "Націснуць"
+
+#: data/resources/ui/window.blp:230
+msgid "Main Menu"
+msgstr "Галоўнае меню"
