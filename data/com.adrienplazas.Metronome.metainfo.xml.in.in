@@ -23,6 +23,8 @@
   <url type="homepage">https://gitlab.gnome.org/World/metronome</url>
   <url type="bugtracker">https://gitlab.gnome.org/World/metronome/issues</url>
   <url type="donation">https://liberapay.com/adrienplazas</url>
+  <url type="vcs-browser">https://gitlab.gnome.org/World/metronome</url>
+  <url type="translate">https://l10n.gnome.org/module/metronome/</url>
   <content_rating type="oars-1.0" />
   <releases>
     <release version="1.3.0" date="2023-06-14">
@@ -77,6 +79,23 @@
       </description>
     </release>
   </releases>
+  <categories>
+    <category>GNOME</category>
+    <category>GTK</category>
+    <category>Utility</category>
+  </categories>
+  <keywords>
+    <keyword>Bar</keyword>
+    <keyword>Beats</keyword>
+    <keyword>BPM</keyword>
+    <keyword>Measure</keyword>
+    <keyword>Minute</keyword>
+    <keyword>Practice</keyword>
+    <keyword>Rhythm</keyword>
+    <keyword>Tap</keyword>
+    <keyword>Tempo</keyword>
+    <keyword>Time</keyword>
+  </keywords>
   <kudos>
     <kudo>HighContrast</kudo>
     <kudo>HiDpiIcon</kudo>
@@ -90,12 +109,11 @@
   <requires>
     <display_length compare="ge">360</display_length>
   </requires>
-  <developer_name>Adrien Plazas</developer_name>
+  <developer_name translatable="no">Adrien Plazas</developer_name>
   <update_contact>kekun.plazas@laposte.net</update_contact>
   <translation type="gettext">@gettext-package@</translation>
   <launchable type="desktop-id">@app-id@.desktop</launchable>
   <custom>
-    <value key="Purism::form_factor">workstation</value>
     <value key="Purism::form_factor">mobile</value>
     <value key="GnomeSoftware::key-colors">[(124, 220, 168)]</value>
   </custom>
