@@ -79,23 +79,6 @@
       </description>
     </release>
   </releases>
-  <categories>
-    <category>GNOME</category>
-    <category>GTK</category>
-    <category>Utility</category>
-  </categories>
-  <keywords>
-    <keyword>Bar</keyword>
-    <keyword>Beats</keyword>
-    <keyword>BPM</keyword>
-    <keyword>Measure</keyword>
-    <keyword>Minute</keyword>
-    <keyword>Practice</keyword>
-    <keyword>Rhythm</keyword>
-    <keyword>Tap</keyword>
-    <keyword>Tempo</keyword>
-    <keyword>Time</keyword>
-  </keywords>
   <kudos>
     <kudo>HighContrast</kudo>
     <kudo>HiDpiIcon</kudo>
