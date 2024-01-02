@@ -4,4 +4,5 @@ data/com.adrienplazas.Metronome.gschema.xml.in
 data/resources/ui/shortcuts.blp
 data/resources/ui/timerbutton.blp
 data/resources/ui/window.blp
+src/application.rs
 src/main.rs
