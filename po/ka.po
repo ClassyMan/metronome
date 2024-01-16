@@ -1,14 +1,14 @@
 # Georgian translation for metronome.
 # Copyright (C) 2023, metronome authors
 # This file is distributed under the same license as the metronome package.
-# Ekaterine Papava <papava.e@gtu.ge>, 2023
+# Ekaterine Papava <papava.e@gtu.ge>, 2023-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-06-23 21:20+0000\n"
-"PO-Revision-Date: 2023-06-24 07:57+0200\n"
+"POT-Creation-Date: 2024-01-06 20:40+0000\n"
+"PO-Revision-Date: 2024-01-16 21:15+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -24,13 +24,12 @@ msgid "Metronome"
 msgstr "Metronome"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8 src/application.rs:120
 msgid "Keep the tempo"
 msgstr "ტემპის შენარჩუნება"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
-#| msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
 msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
 msgstr ""
 "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;დრო;ტემპი;წუთი;"
@@ -48,7 +47,8 @@ msgstr ""
 msgid ""
 "You can also tap to let the application guess the required beats per minute."
 msgstr ""
-"დააჭირეთ აქ, რომ აპლიკაცია თვითონ მიხვდეს, რამდენი ტაქტია საჭირო წუთში."
+"დააჭირეთ აქ, რომ აპლიკაცია თვითონ მიხვდეს, რამდენი ტაქტია დარტყმაა საჭირო "
+"წუთში."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
 msgid "Main window"
@@ -57,10 +57,6 @@ msgstr "მთავარი ფანჯარა"
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
 msgid "Main window, narrow and running"
 msgstr "მთავარი ფანჯარა, ვიწრო და გაშვებული"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:93
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -127,11 +123,11 @@ msgstr "კლავიატურის მალსახმობები"
 msgid "_About Metronome"
 msgstr "Metronome-ის შესახებ"
 
-#: data/resources/ui/window.blp:55
+#: data/resources/ui/window.blp:53
 msgid "2/4 Time"
 msgstr "2/4 დრო"
 
-#: data/resources/ui/window.blp:67
+#: data/resources/ui/window.blp:65
 msgid ""
 "2\n"
 "4"
@@ -139,11 +135,11 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.blp:73
+#: data/resources/ui/window.blp:71
 msgid "3/4 Time"
 msgstr "3/4 დრო"
 
-#: data/resources/ui/window.blp:86
+#: data/resources/ui/window.blp:84
 msgid ""
 "3\n"
 "4"
@@ -151,11 +147,11 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.blp:92
+#: data/resources/ui/window.blp:90
 msgid "4/4 Time"
 msgstr "4/4 დრო"
 
-#: data/resources/ui/window.blp:105
+#: data/resources/ui/window.blp:103
 msgid ""
 "4\n"
 "4"
@@ -163,11 +159,11 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.blp:112
+#: data/resources/ui/window.blp:110
 msgid "6/8 Time"
 msgstr "6/8 დრო"
 
-#: data/resources/ui/window.blp:124
+#: data/resources/ui/window.blp:122
 msgid ""
 "6\n"
 "8"
@@ -175,18 +171,41 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.blp:166
+#: data/resources/ui/window.blp:164
 msgid "Increase BPM"
 msgstr "BPM-ის გაზრდა"
 
-#: data/resources/ui/window.blp:178
+#: data/resources/ui/window.blp:176
 msgid "Decrease BPM"
 msgstr "BPM-ის შემცირება"
 
-#: data/resources/ui/window.blp:215
+#: data/resources/ui/window.blp:213
 msgid "TAP"
 msgstr "TAP"
 
-#: data/resources/ui/window.blp:232
+#: data/resources/ui/window.blp:230
 msgid "Main Menu"
 msgstr "მთავარი მენიუ"
+
+#: src/application.rs:122
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes.\n"
+msgstr ""
+"Metronome ჩვეულებრივი მეტრონომია. უბრალოდ მიუთითეთ დრო და დარტყმების "
+"რაოდენობა წუთში.\n"
+
+#: src/application.rs:124
+msgid ""
+"You can also tap to let the application guess the required beats per minute"
+msgstr ""
+"დააჭირეთ აქ, რომ აპლიკაცია თვითონ მიხვდეს, რამდენი ტაქტია დარტყმაა საჭირო "
+"წუთში"
+
+#. Translators: Please enter your credits here (format: "Name https://example.com" or "Name <email@example.com>", no quotes)
+#: src/application.rs:144
+msgid "translator-credits"
+msgstr "ეკატერინე პაპავა"
+
+#~ msgid "Adrien Plazas"
+#~ msgstr "Adrien Plazas"
