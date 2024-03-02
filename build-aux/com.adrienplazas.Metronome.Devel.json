@@ -12,7 +12,6 @@
         "--socket=wayland",
         "--socket=pulseaudio",
         "--device=dri",
-        "--talk-name=org.a11y.Bus",
         "--env=RUST_LOG=metronome=debug",
         "--env=G_MESSAGES_DEBUG=none"
     ],
