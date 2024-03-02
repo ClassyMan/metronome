@@ -8,6 +8,7 @@
     ],
     "command": "metronome",
     "finish-args": [
+        "--share=ipc",
         "--socket=fallback-x11",
         "--socket=wayland",
         "--socket=pulseaudio",
