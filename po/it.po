@@ -1,14 +1,14 @@
 # Italian translation for metronome.
 # Copyright (C) 2023 metronome's COPYRIGHT HOLDER
 # This file is distributed under the same license as the metronome package.
-# Davide Ferracin <davide.ferracin@protonmail.com>, 2023.
+# Davide Ferracin <davide.ferracin@protonmail.com>, 2023, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-05-21 12:49+0000\n"
-"PO-Revision-Date: 2023-05-25 11:44+0200\n"
+"POT-Creation-Date: 2024-01-06 20:40+0000\n"
+"PO-Revision-Date: 2024-03-22 20:29+0200\n"
 "Last-Translator: Davide Ferracin <davide.ferracin@protonmail.com>\n"
 "Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
@@ -23,19 +23,19 @@ msgid "Metronome"
 msgstr "Metronomo"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8 src/application.rs:120
 msgid "Keep the tempo"
 msgstr "Tieni il tempo"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/com.adrienplazas.Metronome.desktop.in.in:10
-msgid "Bar;Beat;Beats;BPM;Measure;Minute;Rhythm;Tap;Tempo;"
-msgstr "Battuta;Battito;Battiti;BPM;Misura;Minuto;Ritmo;Tap;Tempo;"
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
+msgstr "Battuta;Battito;Battiti;BPM;Misura;Minuto;Allenamento;Ritmo;Tap;Tempo;"
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
 msgid ""
 "Metronome beats the rhythm for you, you simply need to tell it the required "
-"time signature and beats per minutes."
+"time signature and beats per minute."
 msgstr ""
 "Metronomo tiene il ritmo per te, bisogna solo dirgli l'indicazione di tempo "
 "e i battiti al minuto."
@@ -54,10 +54,6 @@ msgstr "Finestra principale"
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
 msgid "Main window, narrow and running"
 msgstr "Finestra principale, stretta e in esecuzione"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:83
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -83,52 +79,52 @@ msgstr "Numero predefinito di battiti per battuta"
 msgid "Default beats per minute"
 msgstr "Numero predefinito di battiti al minuto"
 
-#: data/resources/ui/shortcuts.ui:11
+#: data/resources/ui/shortcuts.blp:13
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Generale"
 
-#: data/resources/ui/shortcuts.ui:14
+#: data/resources/ui/shortcuts.blp:16
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Mostra scorciatoie"
 
-#: data/resources/ui/shortcuts.ui:20
+#: data/resources/ui/shortcuts.blp:21
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Esce"
 
-#: data/resources/ui/shortcuts.ui:26
+#: data/resources/ui/shortcuts.blp:26
 msgctxt "shortcut window"
 msgid "Tap"
 msgstr "Tap"
 
-#: data/resources/ui/shortcuts.ui:32
+#: data/resources/ui/shortcuts.blp:31
 msgctxt "shortcut window"
 msgid "Play/Pause"
 msgstr "Riproduci/Pausa"
 
-#: data/resources/ui/timerbutton.ui:27
+#: data/resources/ui/timerbutton.blp:23
 msgid "Play"
 msgstr "Riproduci"
 
-#: data/resources/ui/timerbutton.ui:43
+#: data/resources/ui/timerbutton.blp:38
 msgid "Pause"
 msgstr "Pausa"
 
-#: data/resources/ui/window.ui:5
+#: data/resources/ui/window.blp:7
 msgid "_Keyboard Shortcuts"
 msgstr "_Scorciatoie da tastiera"
 
-#: data/resources/ui/window.ui:9
+#: data/resources/ui/window.blp:12
 msgid "_About Metronome"
 msgstr "_Informazioni su Metronomo"
 
-#: data/resources/ui/window.ui:49
+#: data/resources/ui/window.blp:53
 msgid "2/4 Time"
 msgstr "Tempo 2/4"
 
-#: data/resources/ui/window.ui:60
+#: data/resources/ui/window.blp:65
 msgid ""
 "2\n"
 "4"
@@ -136,11 +132,11 @@ msgstr ""
 "2\n"
 "4"
 
-#: data/resources/ui/window.ui:69
+#: data/resources/ui/window.blp:71
 msgid "3/4 Time"
 msgstr "Tempo 3/4"
 
-#: data/resources/ui/window.ui:81
+#: data/resources/ui/window.blp:84
 msgid ""
 "3\n"
 "4"
@@ -148,11 +144,11 @@ msgstr ""
 "3\n"
 "4"
 
-#: data/resources/ui/window.ui:90
+#: data/resources/ui/window.blp:90
 msgid "4/4 Time"
 msgstr "Tempo 4/4"
 
-#: data/resources/ui/window.ui:102
+#: data/resources/ui/window.blp:103
 msgid ""
 "4\n"
 "4"
@@ -160,11 +156,11 @@ msgstr ""
 "4\n"
 "4"
 
-#: data/resources/ui/window.ui:112
+#: data/resources/ui/window.blp:110
 msgid "6/8 Time"
 msgstr "Tempo 6/8"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.blp:122
 msgid ""
 "6\n"
 "8"
@@ -172,18 +168,41 @@ msgstr ""
 "6\n"
 "8"
 
-#: data/resources/ui/window.ui:167
+#: data/resources/ui/window.blp:164
 msgid "Increase BPM"
 msgstr "Aumenta i bpm"
 
-#: data/resources/ui/window.ui:179
+#: data/resources/ui/window.blp:176
 msgid "Decrease BPM"
 msgstr "Riduce i bpm"
 
-#: data/resources/ui/window.ui:219
+#: data/resources/ui/window.blp:213
 msgid "TAP"
 msgstr "TAP"
 
-#: data/resources/ui/window.ui:236
+#: data/resources/ui/window.blp:230
 msgid "Main Menu"
 msgstr "Menù principale"
+
+#: src/application.rs:122
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes.\n"
+msgstr ""
+"Metronomo tiene il ritmo per te, bisogna solo dirgli l'indicazione di tempo "
+"e i battiti al minuto.\n"
+
+#: src/application.rs:124
+msgid ""
+"You can also tap to let the application guess the required beats per minute"
+msgstr ""
+"Si può anche fare tap a ritmo su un apposito pulsante e lasciare che sia "
+"l'applicazione a individuare i battiti al minuto corrispondenti."
+
+#. Translators: Please enter your credits here (format: "Name https://example.com" or "Name <email@example.com>", no quotes)
+#: src/application.rs:144
+msgid "translator-credits"
+msgstr "Davide Ferracin <davide.ferracin@protonmail.com>"
+
+#~ msgid "Adrien Plazas"
+#~ msgstr "Adrien Plazas"
