@@ -1,5 +1,6 @@
 use crate::config;
 use crate::window::MtrApplicationWindow;
+use adw::prelude::AdwDialogExt;
 use adw::subclass::prelude::*;
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -124,7 +125,7 @@ impl MtrApplication {
             "You can also tap to let the application guess the required beats per minute",
         ));
 
-        adw::AboutWindow::builder()
+        adw::AboutDialog::builder()
             .application_name("Metronome")
             .application_icon(config::APP_ID)
             .license_type(gtk::License::Gpl30)
@@ -132,8 +133,6 @@ impl MtrApplication {
             .issue_url("https://gitlab.gnome.org/World/metronome/-/issues")
             .version(config::VERSION)
             .comments(details)
-            .transient_for(&self.get_main_window())
-            .modal(true)
             .developers(vec![
                 "Adrien Plazas <kekun.plazas@laposte.net>",
                 "Clara Hobbs <clara@clarahobbs.com>",
@@ -143,7 +142,7 @@ impl MtrApplication {
             // Translators: Please enter your credits here (format: "Name https://example.com" or "Name <email@example.com>", no quotes)
             .translator_credits(gettext("translator-credits"))
             .build()
-            .present();
+            .present(&self.get_main_window());
     }
 
     pub fn run(&self) -> glib::ExitCode {
