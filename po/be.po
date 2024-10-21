@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: metronome master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/-/issues\n"
-"POT-Creation-Date: 2023-10-19 17:02+0000\n"
-"PO-Revision-Date: 2023-10-26 18:18+0300\n"
-"Last-Translator: Yahor Haurylenka <k1llo2810@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/issues\n"
+"POT-Creation-Date: 2024-08-17 10:42+0000\n"
+"PO-Revision-Date: 2024-10-21 12:36+0300\n"
+"Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:3
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
@@ -25,7 +25,7 @@ msgid "Metronome"
 msgstr "Метраном"
 
 #: data/com.adrienplazas.Metronome.desktop.in.in:4
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8 src/application.rs:121
 msgid "Keep the tempo"
 msgstr "Захоўвайце тэмп"
 
@@ -41,15 +41,15 @@ msgid ""
 "Metronome beats the rhythm for you, you simply need to tell it the required "
 "time signature and beats per minute."
 msgstr ""
-"Метраном адбівае для вас рытм, трэба толькі задаць неабходны тактавы памер "
-"і колькасць удараў за хвіліну."
+"Метраном адбівае для вас рытм, трэба толькі задаць неабходны тактавы памер і "
+"колькасць удараў за хвіліну."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
 msgid ""
 "You can also tap to let the application guess the required beats per minute."
 msgstr ""
-"Таксама можна задаваць тэмп націсканнямі, праз іх праграма падбярэ "
-"патрэбную колькасць удараў за хвіліну."
+"Таксама можна задаваць тэмп націсканнямі, праз іх праграма падбярэ патрэбную "
+"колькасць удараў за хвіліну."
 
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:16
 msgid "Main window"
@@ -58,10 +58,6 @@ msgstr "Галоўнае акно"
 #: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
 msgid "Main window, narrow and running"
 msgstr "Галоўнае акно, вузкае і працоўнае"
-
-#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:93
-msgid "Adrien Plazas"
-msgstr "Adrien Plazas"
 
 #: data/com.adrienplazas.Metronome.gschema.xml.in:6
 #: data/com.adrienplazas.Metronome.gschema.xml.in:7
@@ -193,3 +189,32 @@ msgstr "Націснуць"
 #: data/resources/ui/window.blp:230
 msgid "Main Menu"
 msgstr "Галоўнае меню"
+
+#: src/application.rs:123
+#| msgid ""
+#| "Metronome beats the rhythm for you, you simply need to tell it the "
+#| "required time signature and beats per minute."
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes.\n"
+msgstr ""
+"Метраном адбівае для вас рытм, трэба толькі задаць неабходны тактавы памер і "
+"колькасць удараў за хвіліну.\n"
+
+#: src/application.rs:125
+#| msgid ""
+#| "You can also tap to let the application guess the required beats per "
+#| "minute."
+msgid ""
+"You can also tap to let the application guess the required beats per minute"
+msgstr ""
+"Таксама можна задаваць тэмп націсканнямі, праз іх праграма падбярэ патрэбную "
+"колькасць удараў за хвіліну"
+
+#. Translators: Please enter your credits here (format: "Name https://example.com" or "Name <email@example.com>", no quotes)
+#: src/application.rs:143
+msgid "translator-credits"
+msgstr "Yahor Haurylenka <k1llo2810@gmail.com>"
+
+#~ msgid "Adrien Plazas"
+#~ msgstr "Adrien Plazas"
