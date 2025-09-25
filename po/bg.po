@@ -1,0 +1,216 @@
+# Bulgarian translation for metronome.
+# Copyright (C) 2025 metronome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the metronome package.
+# twlvnn kraftwerk <kraft_werk@tutanota.com>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: metronome main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/issues\n"
+"POT-Creation-Date: 2025-08-10 22:39+0000\n"
+"PO-Revision-Date: 2025-09-12 18:01+0200\n"
+"Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
+"Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:2
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Метроном"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8 src/application.rs:121
+msgid "Keep the tempo"
+msgstr "Поддържайте темпото"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:9
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
+msgstr ""
+"Такт;Удари;Удара в "
+"минута;Измерване;Минута;Упражняване;Ритъм;Натискане;Темпо;Време;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minute."
+msgstr ""
+"„Метроном“ отмерва ритъма за вас, просто трябва да му зададете желания такт "
+"и удари в минута."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Може също да натиснете, за да позволите на програмата да предположи "
+"необходимите удари в минута."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window"
+msgstr "Основен прозорец"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:24
+msgid "Main window, narrow and running"
+msgstr "Основният прозорец, тесен и работещ"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Стандартна широчина на прозореца"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Стандартна височина на прозореца"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Стандартно поведение на максимизиран прозорец"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Стандартни удари на такт"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Стандартни удари в минута"
+
+#: data/resources/ui/shortcuts.blp:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Общи"
+
+#: data/resources/ui/shortcuts.blp:16
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Показване на клавишните комбинации"
+
+#: data/resources/ui/shortcuts.blp:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Спиране на програмата"
+
+#: data/resources/ui/shortcuts.blp:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Натискане"
+
+#: data/resources/ui/shortcuts.blp:31
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Пускане/Пауза"
+
+#: data/resources/ui/timerbutton.blp:23
+msgid "Play"
+msgstr "Пускане"
+
+#: data/resources/ui/timerbutton.blp:38
+msgid "Pause"
+msgstr "Пауза"
+
+#: data/resources/ui/window.blp:7
+msgid "_Keyboard Shortcuts"
+msgstr "_Клавишни комбинации"
+
+#: data/resources/ui/window.blp:12
+msgid "_About Metronome"
+msgstr "_Относно „Метроном“"
+
+#: data/resources/ui/window.blp:53
+msgid "2/4 Time"
+msgstr "Размер 2/4"
+
+#: data/resources/ui/window.blp:65
+msgid ""
+"2\n"
+"4"
+msgstr ""
+"2\n"
+"4"
+
+#: data/resources/ui/window.blp:71
+msgid "3/4 Time"
+msgstr "Размер 3/4"
+
+#: data/resources/ui/window.blp:84
+msgid ""
+"3\n"
+"4"
+msgstr ""
+"3\n"
+"4"
+
+#: data/resources/ui/window.blp:90
+msgid "4/4 Time"
+msgstr "Размер 4/4"
+
+#: data/resources/ui/window.blp:103
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
+
+#: data/resources/ui/window.blp:110
+msgid "6/8 Time"
+msgstr "Размер 6/8"
+
+#: data/resources/ui/window.blp:122
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.blp:164
+msgid "Increase BPM"
+msgstr "Увеличаване на темпото"
+
+#: data/resources/ui/window.blp:176
+msgid "Decrease BPM"
+msgstr "Намаляване на темпото"
+
+# Не знам дали професионалистите наричат този термин тап или натискане или нещо друго..
+#: data/resources/ui/window.blp:213
+msgid "TAP"
+msgstr "ТАП"
+
+#: data/resources/ui/window.blp:230
+msgid "Main Menu"
+msgstr "Основно меню"
+
+#: src/application.rs:123
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes.\n"
+msgstr ""
+"„Метроном“ отмерва ритъма за вас, просто трябва да му зададете желания такт "
+"и удари в минута.\n"
+
+#: src/application.rs:125
+msgid ""
+"You can also tap to let the application guess the required beats per minute"
+msgstr ""
+"Може също да натиснете, за да позволите на програмата да предположи "
+"необходимите удари в минута"
+
+#. Translators: Please enter your credits here (format: "Name https://example.com" or "Name <email@example.com>", no quotes)
+#: src/application.rs:143
+msgid "translator-credits"
+msgstr ""
+"twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
+"\n"
+"Проектът за превод на GNOME има нужда от подкрепа.\n"
+"Научете повече за нас на <a href=\"http://gnome.cult.bg\">http://"
+"gnome.cult.bg</a>\n"
+"Докладвайте за грешки на <a href=\"http://gnome.cult.bg/bugs\">http://"
+"gnome.cult.bg/bugs</a>"
