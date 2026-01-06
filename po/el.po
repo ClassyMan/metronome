@@ -1,0 +1,211 @@
+# Greek translation for metronome.
+# Copyright (C) 2026 metronome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the metronome package.
+# Efstathios Iosifidis <eiosifidis@gnome.org>,  2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: metronome main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/issues\n"
+"POT-Creation-Date: 2025-12-10 21:16+0000\n"
+"PO-Revision-Date: 2025-12-10 21:16+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Greek <Greek>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:2
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Μετρονόμος"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8 src/application.rs:121
+msgid "Keep the tempo"
+msgstr "Κρατήστε τον ρυθμό"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:9
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
+msgstr "Μέτρο;Χτύποι;BPM;Λεπτό;Εξάσκηση;Ρυθμός;Χτύπημα;Τέμπο;Χρόνος;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minute."
+msgstr ""
+"Ο Μετρονόμος κρατά τον ρυθμό για εσάς, απλά πρέπει να του ορίσετε το "
+"απαιτούμενο μέτρο και τους χτύπους ανά λεπτό."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Μπορείτε επίσης να χτυπήσετε ρυθμικά για να επιτρέψετε στην εφαρμογή να "
+"μαντέψει τους απαιτούμενους χτύπους ανά λεπτό."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window"
+msgstr "Κύριο παράθυρο"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:24
+msgid "Main window, narrow and running"
+msgstr "Κύριο παράθυρο, στενό και σε λειτουργία"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Προεπιλεγμένο πλάτος παραθύρου"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Προεπιλεγμένο ύψος παραθύρου"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Προεπιλεγμένη συμπεριφορά μεγιστοποίησης παραθύρου"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Προεπιλεγμένοι χτύποι ανά μέτρο"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Προεπιλεγμένοι χτύποι ανά λεπτό"
+
+#: data/resources/ui/shortcuts.blp:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Γενικά"
+
+#: data/resources/ui/shortcuts.blp:16
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Εμφάνιση συντομεύσεων"
+
+#: data/resources/ui/shortcuts.blp:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Έξοδος"
+
+#: data/resources/ui/shortcuts.blp:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Χτύπημα"
+
+#: data/resources/ui/shortcuts.blp:31
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Αναπαραγωγή/Παύση"
+
+#: data/resources/ui/timerbutton.blp:23
+msgid "Play"
+msgstr "Αναπαραγωγή"
+
+#: data/resources/ui/timerbutton.blp:38
+msgid "Pause"
+msgstr "Παύση"
+
+#: data/resources/ui/window.blp:7
+msgid "_Keyboard Shortcuts"
+msgstr "_Συντομεύσεις πληκτρολογίου"
+
+#: data/resources/ui/window.blp:12
+msgid "_About Metronome"
+msgstr "_Περί Μετρονόμος"
+
+#: data/resources/ui/window.blp:53
+msgid "2/4 Time"
+msgstr "Μέτρο 2/4"
+
+#: data/resources/ui/window.blp:65
+msgid ""
+"2\n"
+"4"
+msgstr ""
+"2\n"
+"4"
+
+#: data/resources/ui/window.blp:71
+msgid "3/4 Time"
+msgstr "Μέτρο 3/4"
+
+#: data/resources/ui/window.blp:84
+msgid ""
+"3\n"
+"4"
+msgstr ""
+"3\n"
+"4"
+
+#: data/resources/ui/window.blp:90
+msgid "4/4 Time"
+msgstr "Μέτρο 4/4"
+
+#: data/resources/ui/window.blp:103
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
+
+#: data/resources/ui/window.blp:110
+msgid "6/8 Time"
+msgstr "Μέτρο 6/8"
+
+#: data/resources/ui/window.blp:122
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.blp:164
+msgid "Increase BPM"
+msgstr "Αύξηση BPM"
+
+#: data/resources/ui/window.blp:176
+msgid "Decrease BPM"
+msgstr "Μείωση BPM"
+
+#: data/resources/ui/window.blp:213
+msgid "TAP"
+msgstr "ΧΤΥΠΗΜΑ"
+
+#: data/resources/ui/window.blp:230
+msgid "Main Menu"
+msgstr "Κυρίως μενού"
+
+#: src/application.rs:123
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes.\n"
+msgstr ""
+"Ο Μετρονόμος κρατά τον ρυθμό για εσάς, απλά πρέπει να του ορίσετε το "
+"απαιτούμενο μέτρο και τους χτύπους ανά λεπτό.\n"
+
+#: src/application.rs:125
+msgid ""
+"You can also tap to let the application guess the required beats per minute"
+msgstr ""
+"Μπορείτε επίσης να χτυπήσετε ρυθμικά για να επιτρέψετε στην εφαρμογή να "
+"μαντέψει τους απαιτούμενους χτύπους ανά λεπτό"
+
+#. Translators: Please enter your credits here (format: "Name https://example.com" or "Name <email@example.com>", no quotes)
+#: src/application.rs:143
+msgid "translator-credits"
+msgstr ""
+"Ελληνική μεταφραστική ομάδα GNOME\n"
+" Ευστάθιος Ιωσηφίδης <iosifidis@opensuse.org>\n"
+"\n"
+"Για περισσότερες πληροφορίες, επισκεφθείτε τη σελίδα\n"
+"https://gr.gnome.org/"
+
