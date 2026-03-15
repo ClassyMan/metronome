@@ -1,0 +1,205 @@
+# Kazakh translation for metronome.
+# Copyright (C) 2026 metronome's COPYRIGHT HOLDER
+# This file is distributed under the same license as the metronome package.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>,  2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: metronome main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/metronome/issues\n"
+"POT-Creation-Date: 2024-10-15 09:47+0000\n"
+"PO-Revision-Date: 2026-03-15 12:44+0500\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <Kazakh>\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:2
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:7 src/main.rs:25
+msgid "Metronome"
+msgstr "Метроном"
+
+#: data/com.adrienplazas.Metronome.desktop.in.in:3
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:8 src/application.rs:121
+msgid "Keep the tempo"
+msgstr "Темпті сақтау"
+
+#. Translators: Search terms to find this application. Do NOT translate or
+#. localize the semicolons! The list MUST also end with a semicolon!
+#: data/com.adrienplazas.Metronome.desktop.in.in:9
+msgid "Bar;Beats;BPM;Measure;Minute;Practice;Rhythm;Tap;Tempo;Time;"
+msgstr "Такт;Соққылар;BPM;Өлшем;Минут;Жаттығу;Ырғақ;Түрту;Темп;Уақыт;"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:10
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minute."
+msgstr ""
+"Метроном сіз үшін ырғақты соғады, сізге тек қажетті өлшем мен минутына "
+"соққы санын көрсету керек."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:11
+msgid ""
+"You can also tap to let the application guess the required beats per minute."
+msgstr ""
+"Сондай-ақ, бағдарлама қажетті соққы санын анықтауы үшін түртуге болады."
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:20
+msgid "Main window"
+msgstr "Негізгі терезе"
+
+#: data/com.adrienplazas.Metronome.metainfo.xml.in.in:24
+msgid "Main window, narrow and running"
+msgstr "Негізгі терезе, тар және орындалып тұрған"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:6
+#: data/com.adrienplazas.Metronome.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Терезенің бастапқы ені"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:11
+#: data/com.adrienplazas.Metronome.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Терезенің бастапқы биіктігі"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Терезенің жазық күйіндегі бастапқы әрекеті"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:22
+#: data/com.adrienplazas.Metronome.gschema.xml.in:23
+msgid "Default beats per bar"
+msgstr "Такт бойынша бастапқы соққылар"
+
+#: data/com.adrienplazas.Metronome.gschema.xml.in:28
+#: data/com.adrienplazas.Metronome.gschema.xml.in:29
+msgid "Default beats per minute"
+msgstr "Минутына бастапқы соққылар"
+
+#: data/resources/ui/shortcuts.blp:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Жалпы"
+
+#: data/resources/ui/shortcuts.blp:16
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Жарлықтарды көрсету"
+
+#: data/resources/ui/shortcuts.blp:21
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Шығу"
+
+#: data/resources/ui/shortcuts.blp:26
+msgctxt "shortcut window"
+msgid "Tap"
+msgstr "Түрту"
+
+#: data/resources/ui/shortcuts.blp:31
+msgctxt "shortcut window"
+msgid "Play/Pause"
+msgstr "Ойнату/Аялдату"
+
+#: data/resources/ui/timerbutton.blp:23
+msgid "Play"
+msgstr "Ойнату"
+
+#: data/resources/ui/timerbutton.blp:38
+msgid "Pause"
+msgstr "Аялдату"
+
+#: data/resources/ui/window.blp:7
+msgid "_Keyboard Shortcuts"
+msgstr "_Пернетақта жарлықтары"
+
+#: data/resources/ui/window.blp:12
+msgid "_About Metronome"
+msgstr "Метроном _туралы"
+
+#: data/resources/ui/window.blp:53
+msgid "2/4 Time"
+msgstr "2/4 өлшемі"
+
+#: data/resources/ui/window.blp:65
+msgid ""
+"2\n"
+"4"
+msgstr ""
+"2\n"
+"4"
+
+#: data/resources/ui/window.blp:71
+msgid "3/4 Time"
+msgstr "3/4 өлшемі"
+
+#: data/resources/ui/window.blp:84
+msgid ""
+"3\n"
+"4"
+msgstr ""
+"3\n"
+"4"
+
+#: data/resources/ui/window.blp:90
+msgid "4/4 Time"
+msgstr "4/4 өлшемі"
+
+#: data/resources/ui/window.blp:103
+msgid ""
+"4\n"
+"4"
+msgstr ""
+"4\n"
+"4"
+
+#: data/resources/ui/window.blp:110
+msgid "6/8 Time"
+msgstr "6/8 өлшемі"
+
+#: data/resources/ui/window.blp:122
+msgid ""
+"6\n"
+"8"
+msgstr ""
+"6\n"
+"8"
+
+#: data/resources/ui/window.blp:164
+msgid "Increase BPM"
+msgstr "BPM арттыру"
+
+#: data/resources/ui/window.blp:176
+msgid "Decrease BPM"
+msgstr "BPM кеміту"
+
+#: data/resources/ui/window.blp:213
+msgid "TAP"
+msgstr "ТҮРТУ"
+
+#: data/resources/ui/window.blp:230
+msgid "Main Menu"
+msgstr "Негізгі мәзір"
+
+#: src/application.rs:123
+msgid ""
+"Metronome beats the rhythm for you, you simply need to tell it the required "
+"time signature and beats per minutes.\n"
+msgstr ""
+"Метроном сіз үшін ырғақты соғады, сізге тек қажетті өлшем мен минутына "
+"соққы санын көрсету керек.\n"
+
+#: src/application.rs:125
+msgid ""
+"You can also tap to let the application guess the required beats per minute"
+msgstr ""
+"Сондай-ақ, бағдарлама қажетті соққы санын анықтауы үшін түртуге болады"
+
+#. Translators: Please enter your credits here (format: "Name
+#. https://example.com" or "Name <email@example.com>", no quotes)
+#: src/application.rs:143
+msgid "translator-credits"
+msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
