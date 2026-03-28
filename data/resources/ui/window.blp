@@ -47,6 +47,25 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
               "time-signature",
             ]
 
+            ToggleButton time_signature_1_1_button {
+              notify::active => $on_time_signature_1_1_button_active() swapped;
+              group: time_signature_4_4_button;
+              tooltip-text: _("1/1 Time");
+              halign: center;
+              valign: center;
+
+              styles [
+                "circular",
+                "large",
+                "text-button",
+              ]
+
+              Label {
+                justify: center;
+                label: _("1\n1");
+              }
+            }
+
             ToggleButton time_signature_2_4_button {
               notify::active => $on_time_signature_2_4_button_active() swapped;
               group: time_signature_4_4_button;

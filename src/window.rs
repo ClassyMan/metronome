@@ -27,6 +27,8 @@ mod imp {
         #[template_child]
         pub timer: TemplateChild<MtrTimer>,
         #[template_child]
+        pub time_signature_1_1_button: TemplateChild<gtk::ToggleButton>,
+        #[template_child]
         pub time_signature_2_4_button: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub time_signature_3_4_button: TemplateChild<gtk::ToggleButton>,
@@ -52,6 +54,7 @@ mod imp {
             Self {
                 timer_button: Default::default(),
                 timer: Default::default(),
+                time_signature_1_1_button: Default::default(),
                 time_signature_2_4_button: Default::default(),
                 time_signature_3_4_button: Default::default(),
                 time_signature_4_4_button: Default::default(),
@@ -115,6 +118,7 @@ mod imp {
             self.beats_per_bar.set(bpm);
 
             if let Some(button) = match bpm {
+                1 => Some(self.time_signature_1_1_button.get()),
                 2 => Some(self.time_signature_2_4_button.get()),
                 3 => Some(self.time_signature_3_4_button.get()),
                 4 => Some(self.time_signature_4_4_button.get()),
@@ -178,6 +182,17 @@ impl MtrApplicationWindow {
         let imp = self.imp();
         self.set_beats_per_bar(imp.settings.uint("beats-per-bar"));
         self.set_beats_per_minute(imp.settings.uint("beats-per-minute"));
+    }
+
+    #[template_callback]
+    fn on_time_signature_1_1_button_active(
+        &self,
+        _pspec: &glib::ParamSpec,
+        button: &gtk::ToggleButton,
+    ) {
+        if button.is_active() {
+            self.set_beats_per_bar(1);
+        }
     }
 
     #[template_callback]

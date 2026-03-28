@@ -87,7 +87,7 @@ mod imp {
                     lastiter = std::time::Instant::now();
                     bar_position += elapsed.as_secs_f64() / ticktime.as_secs_f64();
                     if bar_position > 1.0 {
-                        if beat_in_bar == 0 {
+                        if beat_in_bar == 0 && beats_per_bar > 1 {
                             clicker.high();
                         } else {
                             clicker.low();
