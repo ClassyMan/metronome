@@ -35,13 +35,14 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: Configure with meson
+        run: meson setup builddir
+
       - name: Run tests
         run: cargo test
 
-      - name: Build with meson
-        run: |
-          meson setup builddir
-          ninja -C builddir
+      - name: Build
+        run: ninja -C builddir
 
       - name: Upload Linux build
         uses: actions/upload-artifact@v4
@@ -64,7 +65,7 @@ jobs:
         run: |
           brew install gtk4 libadwaita gstreamer \
             gst-plugins-base gst-plugins-good \
-            meson ninja blueprint-compiler
+            meson ninja blueprint-compiler gettext
 
       - name: Cache cargo
         uses: actions/cache@v4
@@ -75,13 +76,14 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: Configure with meson
+        run: meson setup builddir
+
       - name: Run tests
         run: cargo test
 
-      - name: Build with meson
-        run: |
-          meson setup builddir
-          ninja -C builddir
+      - name: Build
+        run: ninja -C builddir
 
       - name: Create app bundle
         run: |
