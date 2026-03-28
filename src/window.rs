@@ -4,9 +4,9 @@ use crate::theme_dialog::MtrThemeDialog;
 use crate::theme_manager::ThemeManager;
 use crate::timer::MtrTimer;
 use crate::timerbutton::MtrTimerButton;
-use adw::prelude::AdwDialogExt;
+use adw::prelude::*;
 use adw::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, glib};
 use std::cell::RefCell;
 use std::time::Instant;
 
@@ -39,6 +39,8 @@ mod imp {
         pub timer: TemplateChild<MtrTimer>,
         #[template_child]
         pub bpm_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub bg_picture: TemplateChild<gtk::Picture>,
         #[template_child]
         pub time_signature_1_1_button: TemplateChild<gtk::ToggleButton>,
         #[template_child]
@@ -77,6 +79,7 @@ mod imp {
                 timer_button: Default::default(),
                 timer: Default::default(),
                 bpm_label: Default::default(),
+                bg_picture: Default::default(),
                 time_signature_1_1_button: Default::default(),
                 time_signature_2_4_button: Default::default(),
                 time_signature_3_4_button: Default::default(),
@@ -112,6 +115,10 @@ mod imp {
 
             klass.install_action("win.show-theme-dialog", None, |win, _, _| {
                 win.show_theme_dialog();
+            });
+
+            klass.install_action("win.show-background-dialog", None, |win, _, _| {
+                win.show_background_dialog();
             });
         }
 
@@ -271,11 +278,224 @@ impl MtrApplicationWindow {
         self.set_tempo_ramp_increment(imp.settings.uint("tempo-ramp-increment"));
         self.set_tempo_ramp_bars(imp.settings.uint("tempo-ramp-bars"));
         self.set_tempo_ramp_target(imp.settings.uint("tempo-ramp-target"));
+        self.apply_background();
     }
 
     fn show_theme_dialog(&self) {
         let dialog = MtrThemeDialog::new(self);
         dialog.present(self);
+    }
+
+    fn show_background_dialog(&self) {
+        let imp = self.imp();
+        let settings = &imp.settings;
+
+        let dialog = adw::Dialog::builder()
+            .title("Background Image")
+            .content_width(360)
+            .content_height(400)
+            .build();
+
+        let toolbar = adw::ToolbarView::new();
+        let header = adw::HeaderBar::new();
+        toolbar.add_top_bar(&header);
+
+        let content = gtk::Box::new(gtk::Orientation::Vertical, 12);
+        content.set_margin_start(12);
+        content.set_margin_end(12);
+        content.set_margin_top(12);
+        content.set_margin_bottom(12);
+
+        let group = adw::PreferencesGroup::new();
+
+        // Image path row with choose button
+        let image_row = adw::ActionRow::builder().title("Image").build();
+        let current_path = settings.string("background-image-path").to_string();
+        let path_label = gtk::Label::new(if current_path.is_empty() {
+            Some("None")
+        } else {
+            std::path::Path::new(&current_path)
+                .file_name()
+                .and_then(|name| name.to_str())
+                .or(Some("Selected"))
+        });
+        path_label.set_ellipsize(gtk::pango::EllipsizeMode::Middle);
+        path_label.set_max_width_chars(20);
+        path_label.add_css_class("dim-label");
+
+        let button_box = gtk::Box::new(gtk::Orientation::Horizontal, 4);
+        button_box.set_valign(gtk::Align::Center);
+
+        let choose_button = gtk::Button::from_icon_name("document-open-symbolic");
+        choose_button.set_tooltip_text(Some("Choose image"));
+        choose_button.add_css_class("flat");
+
+        let clear_button = gtk::Button::from_icon_name("edit-clear-symbolic");
+        clear_button.set_tooltip_text(Some("Remove background"));
+        clear_button.add_css_class("flat");
+
+        button_box.append(&choose_button);
+        button_box.append(&clear_button);
+
+        image_row.add_suffix(&path_label);
+        image_row.add_suffix(&button_box);
+        group.add(&image_row);
+
+        // Style dropdown
+        let style_row = adw::ComboRow::builder().title("Style").build();
+        let style_model = gtk::StringList::new(&["Cover", "Contain", "Fill", "Tile"]);
+        style_row.set_model(Some(&style_model));
+        let current_style = settings.string("background-style").to_string();
+        let style_idx = match current_style.as_str() {
+            "cover" => 0,
+            "contain" => 1,
+            "fill" => 2,
+            "tile" => 3,
+            _ => 0,
+        };
+        style_row.set_selected(style_idx);
+        group.add(&style_row);
+
+        // Opacity slider
+        let opacity_row = adw::ActionRow::builder().title("Opacity").build();
+        let opacity_scale = gtk::Scale::with_range(gtk::Orientation::Horizontal, 0.0, 1.0, 0.05);
+        opacity_scale.set_value(settings.double("background-opacity"));
+        opacity_scale.set_hexpand(true);
+        opacity_scale.set_valign(gtk::Align::Center);
+        opacity_scale.set_draw_value(true);
+        opacity_scale.set_value_pos(gtk::PositionType::Right);
+        opacity_row.add_suffix(&opacity_scale);
+        group.add(&opacity_row);
+
+        content.append(&group);
+        toolbar.set_content(Some(&content));
+        dialog.set_child(Some(&toolbar));
+
+        // Choose button handler
+        {
+            let win_weak = self.downgrade();
+            let path_label = path_label.clone();
+            choose_button.connect_clicked(move |button| {
+                let Some(window) = win_weak.upgrade() else {
+                    return;
+                };
+                let path_label = path_label.clone();
+                let win_weak = window.downgrade();
+
+                let filter = gtk::FileFilter::new();
+                filter.add_mime_type("image/*");
+                filter.set_name(Some("Images"));
+                let filters = gio::ListStore::new::<gtk::FileFilter>();
+                filters.append(&filter);
+
+                let file_dialog = gtk::FileDialog::builder()
+                    .title("Choose Background Image")
+                    .filters(&filters)
+                    .build();
+
+                let root = button.root().and_downcast::<gtk::Window>();
+                file_dialog.open(root.as_ref(), gio::Cancellable::NONE, move |result| {
+                    if let Ok(file) = result {
+                        if let Some(path) = file.path() {
+                            let path_str = path.to_string_lossy().to_string();
+                            if let Some(window) = win_weak.upgrade() {
+                                window
+                                    .imp()
+                                    .settings
+                                    .set_string("background-image-path", &path_str)
+                                    .ok();
+                                window.apply_background();
+                                if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+                                    path_label.set_text(name);
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Clear button handler
+        {
+            let win_weak = self.downgrade();
+            let path_label = path_label.clone();
+            clear_button.connect_clicked(move |_| {
+                if let Some(window) = win_weak.upgrade() {
+                    window
+                        .imp()
+                        .settings
+                        .set_string("background-image-path", "")
+                        .ok();
+                    window.apply_background();
+                    path_label.set_text("None");
+                }
+            });
+        }
+
+        // Style changed handler
+        {
+            let win_weak = self.downgrade();
+            style_row.connect_selected_notify(move |row: &adw::ComboRow| {
+                let style = match row.selected() {
+                    0 => "cover",
+                    1 => "contain",
+                    2 => "fill",
+                    3 => "tile",
+                    _ => "cover",
+                };
+                if let Some(window) = win_weak.upgrade() {
+                    window
+                        .imp()
+                        .settings
+                        .set_string("background-style", style)
+                        .ok();
+                    window.apply_background();
+                }
+            });
+        }
+
+        // Opacity changed handler
+        {
+            let win_weak = self.downgrade();
+            opacity_scale.connect_value_changed(move |scale| {
+                if let Some(window) = win_weak.upgrade() {
+                    window
+                        .imp()
+                        .settings
+                        .set_double("background-opacity", scale.value())
+                        .ok();
+                    window.apply_background();
+                }
+            });
+        }
+
+        dialog.present(self);
+    }
+
+    fn apply_background(&self) {
+        let imp = self.imp();
+        let path = imp.settings.string("background-image-path").to_string();
+        let opacity = imp.settings.double("background-opacity");
+        let style = imp.settings.string("background-style").to_string();
+
+        if path.is_empty() || !std::path::Path::new(&path).exists() {
+            imp.bg_picture.set_visible(false);
+            return;
+        }
+
+        let file = gio::File::for_path(&path);
+        imp.bg_picture.set_file(Some(&file));
+        imp.bg_picture.set_opacity(opacity);
+        imp.bg_picture.set_visible(true);
+
+        let fit = match style.as_str() {
+            "cover" => gtk::ContentFit::Cover,
+            "contain" => gtk::ContentFit::Contain,
+            "fill" => gtk::ContentFit::Fill,
+            "tile" => gtk::ContentFit::Cover, // GTK4 Picture doesn't tile; cover is closest
+            _ => gtk::ContentFit::Cover,
+        };
+        imp.bg_picture.set_content_fit(fit);
     }
 
     #[template_callback]

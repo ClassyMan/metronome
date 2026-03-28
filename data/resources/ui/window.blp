@@ -7,6 +7,11 @@ menu primary_menu {
       label: _("_Color Themes");
       action: "win.show-theme-dialog";
     }
+
+    item {
+      label: _("_Background Image");
+      action: "win.show-background-dialog";
+    }
   }
 
   section {
@@ -31,6 +36,16 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
   ]
 
   WindowHandle {
+    Overlay {
+    Picture bg_picture {
+      content-fit: cover;
+      hexpand: true;
+      vexpand: true;
+      opacity: 0.15;
+      visible: false;
+    }
+
+    [overlay]
     Adw.ToolbarView {
       [top]
       Adw.HeaderBar header {
@@ -330,6 +345,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
         [end]
         Box footer {}
       };
+    }
     }
   }
 }
