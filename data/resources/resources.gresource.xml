@@ -13,6 +13,12 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/theme-dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/theme-editor.ui</file>
 
+    <file>themes/monokai.json</file>
+    <file>themes/dracula.json</file>
+    <file>themes/nord.json</file>
+    <file>themes/catppuccin-mocha.json</file>
+    <file>themes/gruvbox-dark.json</file>
+    <file>themes/solarized-dark.json</file>
     <file>themes/ocean.json</file>
     <file>themes/forest.json</file>
     <file>themes/berry.json</file>

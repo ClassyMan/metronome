@@ -4,7 +4,18 @@ use adw::prelude::*;
 use gtk::{gdk, gio, glib};
 use std::path::PathBuf;
 
-const BUILTIN_THEMES: &[&str] = &["ocean", "forest", "berry", "sunset"];
+const BUILTIN_THEMES: &[&str] = &[
+    "monokai",
+    "dracula",
+    "nord",
+    "catppuccin-mocha",
+    "gruvbox-dark",
+    "solarized-dark",
+    "ocean",
+    "forest",
+    "berry",
+    "sunset",
+];
 
 #[derive(Debug)]
 pub struct ThemeManager {
