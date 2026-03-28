@@ -2,6 +2,8 @@ data/com.adrienplazas.Metronome.desktop.in.in
 data/com.adrienplazas.Metronome.metainfo.xml.in.in
 data/com.adrienplazas.Metronome.gschema.xml.in
 data/resources/ui/shortcuts.blp
+data/resources/ui/theme-dialog.blp
+data/resources/ui/theme-editor.blp
 data/resources/ui/timerbutton.blp
 data/resources/ui/window.blp
 src/application.rs

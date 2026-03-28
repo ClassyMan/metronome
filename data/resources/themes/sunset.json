@@ -1,0 +1,8 @@
+{
+  "name": "Sunset",
+  "version": 1,
+  "colors": {
+    "accent_bg_color": "#e66100",
+    "accent_fg_color": "#ffffff"
+  }
+}

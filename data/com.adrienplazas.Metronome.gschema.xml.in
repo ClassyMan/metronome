@@ -28,5 +28,10 @@
       <summary>Default beats per minute</summary>
       <description>Default beats per minute</description>
     </key>
+    <key name="active-theme" type="s">
+      <default>''</default>
+      <summary>Active color theme</summary>
+      <description>Name of the active color theme. Empty string uses default Adwaita colors.</description>
+    </key>
   </schema>
 </schemalist>

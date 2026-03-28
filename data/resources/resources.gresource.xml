@@ -9,5 +9,13 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
 
     <file compressed="true">style.css</file>
+
+    <file compressed="true" preprocess="xml-stripblanks">ui/theme-dialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/theme-editor.ui</file>
+
+    <file>themes/ocean.json</file>
+    <file>themes/forest.json</file>
+    <file>themes/berry.json</file>
+    <file>themes/sunset.json</file>
   </gresource>
 </gresources>

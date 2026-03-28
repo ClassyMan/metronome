@@ -1,9 +1,13 @@
 use crate::application::MtrApplication;
 use crate::config::{APP_ID, PROFILE};
+use crate::theme_dialog::MtrThemeDialog;
+use crate::theme_manager::ThemeManager;
 use crate::timer::MtrTimer;
 use crate::timerbutton::MtrTimerButton;
+use adw::prelude::AdwDialogExt;
 use adw::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*};
+use std::cell::RefCell;
 use std::time::Instant;
 
 pub const BPB_MIN: u32 = 1;
@@ -40,6 +44,7 @@ mod imp {
         pub beats_per_minute: Cell<u32>,
         pub tap_time: Cell<Instant>,
         pub settings: gio::Settings,
+        pub theme_manager: RefCell<ThemeManager>,
     }
 
     #[glib::object_subclass]
@@ -60,6 +65,7 @@ mod imp {
                 beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
                 tap_time: std::cell::Cell::new(Instant::now()),
                 settings: gio::Settings::new(APP_ID),
+                theme_manager: RefCell::new(ThemeManager::new()),
             }
         }
 
@@ -77,6 +83,10 @@ mod imp {
 
             klass.install_action("win.tap", None, |win, _, _| {
                 win.tap();
+            });
+
+            klass.install_action("win.show-theme-dialog", None, |win, _, _| {
+                win.show_theme_dialog();
             });
         }
 
@@ -99,6 +109,11 @@ mod imp {
                 obj.add_css_class("devel");
             }
             obj.load_settings();
+
+            let mut theme_manager = self.theme_manager.borrow_mut();
+            theme_manager.load_builtin_themes();
+            theme_manager.load_user_themes();
+            theme_manager.restore_active_theme();
         }
     }
 
@@ -178,6 +193,11 @@ impl MtrApplicationWindow {
         let imp = self.imp();
         self.set_beats_per_bar(imp.settings.uint("beats-per-bar"));
         self.set_beats_per_minute(imp.settings.uint("beats-per-minute"));
+    }
+
+    fn show_theme_dialog(&self) {
+        let dialog = MtrThemeDialog::new(self);
+        dialog.present(self);
     }
 
     #[template_callback]

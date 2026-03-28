@@ -1,0 +1,164 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MtrThemeEditor : Adw.Dialog {
+  title: _("New Theme");
+  content-width: 360;
+  content-height: 520;
+
+  child: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [start]
+      Button cancel_button {
+        label: _("Cancel");
+      }
+
+      [end]
+      Button save_button {
+        label: _("Save");
+
+        styles [
+          "suggested-action",
+        ]
+      }
+    }
+
+    content: ScrolledWindow {
+      hscrollbar-policy: never;
+
+      Box {
+        orientation: vertical;
+        margin-start: 12;
+        margin-end: 12;
+        margin-top: 12;
+        margin-bottom: 12;
+        spacing: 12;
+
+        Adw.PreferencesGroup {
+          Adw.EntryRow name_entry {
+            title: _("Theme Name");
+          }
+
+          Adw.ActionRow {
+            title: _("Dark Mode");
+            subtitle: _("Use dark window background");
+
+            [suffix]
+            Switch dark_switch {
+              valign: center;
+            }
+          }
+        }
+
+        Adw.PreferencesGroup {
+          title: _("Colors");
+
+          Adw.ActionRow accent_bg_row {
+            title: _("Accent");
+            subtitle: _("Play button and progress ring");
+
+            [suffix]
+            ColorDialogButton accent_bg_button {
+              valign: center;
+              dialog: ColorDialog {};
+            }
+          }
+
+          Adw.ActionRow accent_fg_row {
+            title: _("Accent Text");
+            subtitle: _("Text on accent background");
+
+            [suffix]
+            Switch accent_fg_switch {
+              valign: center;
+            }
+
+            [suffix]
+            ColorDialogButton accent_fg_button {
+              valign: center;
+              dialog: ColorDialog {};
+            }
+          }
+
+          Adw.ActionRow theme_bg_row {
+            title: _("Background");
+
+            [suffix]
+            Switch theme_bg_switch {
+              valign: center;
+            }
+
+            [suffix]
+            ColorDialogButton theme_bg_button {
+              valign: center;
+              dialog: ColorDialog {};
+            }
+          }
+
+          Adw.ActionRow theme_fg_row {
+            title: _("Foreground");
+
+            [suffix]
+            Switch theme_fg_switch {
+              valign: center;
+            }
+
+            [suffix]
+            ColorDialogButton theme_fg_button {
+              valign: center;
+              dialog: ColorDialog {};
+            }
+          }
+
+          Adw.ActionRow window_fg_row {
+            title: _("Window Foreground");
+            subtitle: _("Outlines and borders");
+
+            [suffix]
+            Switch window_fg_switch {
+              valign: center;
+            }
+
+            [suffix]
+            ColorDialogButton window_fg_button {
+              valign: center;
+              dialog: ColorDialog {};
+            }
+          }
+
+          Adw.ActionRow view_bg_row {
+            title: _("View Background");
+            subtitle: _("Beat mark outlines");
+
+            [suffix]
+            Switch view_bg_switch {
+              valign: center;
+            }
+
+            [suffix]
+            ColorDialogButton view_bg_button {
+              valign: center;
+              dialog: ColorDialog {};
+            }
+          }
+
+          Adw.ActionRow borders_row {
+            title: _("Borders");
+
+            [suffix]
+            Switch borders_switch {
+              valign: center;
+            }
+
+            [suffix]
+            ColorDialogButton borders_button {
+              valign: center;
+              dialog: ColorDialog {};
+            }
+          }
+        }
+      }
+    };
+  };
+}
