@@ -51,6 +51,11 @@ button.large label {
   font-size: 8em;
   font-weight: 300;
   font-variant: tabular-nums;
+  transition: color 200ms ease-out;
+}
+
+.display label.bpm.ramp-flash {
+  color: @accent_bg_color;
 }
 
 .display box.bpm> :not(:last-child) {

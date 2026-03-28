@@ -18,6 +18,13 @@ pub const BPM_MIN: u32 = 20;
 pub const BPM_MAX: u32 = 260;
 pub const BPM_DEFAULT: u32 = 100;
 
+pub const RAMP_INCREMENT_MIN: u32 = 1;
+pub const RAMP_INCREMENT_MAX: u32 = 50;
+pub const RAMP_INCREMENT_DEFAULT: u32 = 5;
+pub const RAMP_BARS_MIN: u32 = 1;
+pub const RAMP_BARS_MAX: u32 = 32;
+pub const RAMP_BARS_DEFAULT: u32 = 4;
+
 mod imp {
     use super::*;
     use std::cell::Cell;
@@ -31,6 +38,10 @@ mod imp {
         #[template_child]
         pub timer: TemplateChild<MtrTimer>,
         #[template_child]
+        pub bpm_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub time_signature_1_1_button: TemplateChild<gtk::ToggleButton>,
+        #[template_child]
         pub time_signature_2_4_button: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub time_signature_3_4_button: TemplateChild<gtk::ToggleButton>,
@@ -42,6 +53,14 @@ mod imp {
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
         pub beats_per_minute: Cell<u32>,
+        #[property(get, set = Self::set_tempo_ramp_enabled)]
+        pub tempo_ramp_enabled: Cell<bool>,
+        #[property(get, set = Self::set_tempo_ramp_increment, minimum = RAMP_INCREMENT_MIN, maximum = RAMP_INCREMENT_MAX, default = RAMP_INCREMENT_DEFAULT)]
+        pub tempo_ramp_increment: Cell<u32>,
+        #[property(get, set = Self::set_tempo_ramp_bars, minimum = RAMP_BARS_MIN, maximum = RAMP_BARS_MAX, default = RAMP_BARS_DEFAULT)]
+        pub tempo_ramp_bars: Cell<u32>,
+        #[property(get, set = Self::set_tempo_ramp_target, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_MAX)]
+        pub tempo_ramp_target: Cell<u32>,
         pub tap_time: Cell<Instant>,
         pub settings: gio::Settings,
         pub theme_manager: RefCell<ThemeManager>,
@@ -57,12 +76,18 @@ mod imp {
             Self {
                 timer_button: Default::default(),
                 timer: Default::default(),
+                bpm_label: Default::default(),
+                time_signature_1_1_button: Default::default(),
                 time_signature_2_4_button: Default::default(),
                 time_signature_3_4_button: Default::default(),
                 time_signature_4_4_button: Default::default(),
                 time_signature_6_8_button: Default::default(),
                 beats_per_bar: std::cell::Cell::new(BPB_DEFAULT),
                 beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
+                tempo_ramp_enabled: std::cell::Cell::new(false),
+                tempo_ramp_increment: std::cell::Cell::new(RAMP_INCREMENT_DEFAULT),
+                tempo_ramp_bars: std::cell::Cell::new(RAMP_BARS_DEFAULT),
+                tempo_ramp_target: std::cell::Cell::new(BPM_MAX),
                 tap_time: std::cell::Cell::new(Instant::now()),
                 settings: gio::Settings::new(APP_ID),
                 theme_manager: RefCell::new(ThemeManager::new()),
@@ -110,6 +135,30 @@ mod imp {
             }
             obj.load_settings();
 
+            // Flash BPM label on ramp increment
+            let bpm_label = self.bpm_label.clone();
+            self.timer
+                .connect_notify_local(Some("ramp-status"), move |timer, _| {
+                    let status = timer.ramp_status();
+                    if !status.is_empty() && !status.starts_with("Bar") {
+                        // "Reached target" or just after an increment — skip flash
+                    }
+                    if !status.is_empty()
+                        && status.contains("next:")
+                        && status.starts_with("Bar 1/")
+                    {
+                        // Just incremented (bar counter reset to 1)
+                        bpm_label.add_css_class("ramp-flash");
+                        let label = bpm_label.clone();
+                        glib::timeout_add_local_once(
+                            std::time::Duration::from_millis(400),
+                            move || {
+                                label.remove_css_class("ramp-flash");
+                            },
+                        );
+                    }
+                });
+
             let mut theme_manager = self.theme_manager.borrow_mut();
             theme_manager.load_builtin_themes();
             theme_manager.load_user_themes();
@@ -130,6 +179,7 @@ mod imp {
             self.beats_per_bar.set(bpm);
 
             if let Some(button) = match bpm {
+                1 => Some(self.time_signature_1_1_button.get()),
                 2 => Some(self.time_signature_2_4_button.get()),
                 3 => Some(self.time_signature_3_4_button.get()),
                 4 => Some(self.time_signature_4_4_button.get()),
@@ -159,6 +209,30 @@ mod imp {
                 .action_set_enabled("win.increase-bpm", bpm != BPM_MAX);
 
             self.obj().notify_beats_per_minute();
+        }
+
+        fn set_tempo_ramp_enabled(&self, val: bool) {
+            self.tempo_ramp_enabled.set(val);
+            self.settings.set_boolean("tempo-ramp-enabled", val).ok();
+            self.obj().notify_tempo_ramp_enabled();
+        }
+
+        fn set_tempo_ramp_increment(&self, val: u32) {
+            self.tempo_ramp_increment.set(val);
+            self.settings.set_uint("tempo-ramp-increment", val).ok();
+            self.obj().notify_tempo_ramp_increment();
+        }
+
+        fn set_tempo_ramp_bars(&self, val: u32) {
+            self.tempo_ramp_bars.set(val);
+            self.settings.set_uint("tempo-ramp-bars", val).ok();
+            self.obj().notify_tempo_ramp_bars();
+        }
+
+        fn set_tempo_ramp_target(&self, val: u32) {
+            self.tempo_ramp_target.set(val);
+            self.settings.set_uint("tempo-ramp-target", val).ok();
+            self.obj().notify_tempo_ramp_target();
         }
     }
 }
@@ -193,11 +267,26 @@ impl MtrApplicationWindow {
         let imp = self.imp();
         self.set_beats_per_bar(imp.settings.uint("beats-per-bar"));
         self.set_beats_per_minute(imp.settings.uint("beats-per-minute"));
+        self.set_tempo_ramp_enabled(imp.settings.boolean("tempo-ramp-enabled"));
+        self.set_tempo_ramp_increment(imp.settings.uint("tempo-ramp-increment"));
+        self.set_tempo_ramp_bars(imp.settings.uint("tempo-ramp-bars"));
+        self.set_tempo_ramp_target(imp.settings.uint("tempo-ramp-target"));
     }
 
     fn show_theme_dialog(&self) {
         let dialog = MtrThemeDialog::new(self);
         dialog.present(self);
+    }
+
+    #[template_callback]
+    fn on_time_signature_1_1_button_active(
+        &self,
+        _pspec: &glib::ParamSpec,
+        button: &gtk::ToggleButton,
+    ) {
+        if button.is_active() {
+            self.set_beats_per_bar(1);
+        }
     }
 
     #[template_callback]
