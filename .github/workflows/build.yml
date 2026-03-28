@@ -7,31 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Cache cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-test-${{ hashFiles('**/Cargo.lock') }}
-
-      - name: Run tests
-        run: cargo test
-
   linux:
     name: Linux
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - uses: actions/checkout@v4
 
@@ -55,7 +33,10 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: ${{ runner.os }}-cargo-linux-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run tests
+        run: cargo test
 
       - name: Build with meson
         run: |
@@ -73,7 +54,6 @@ jobs:
   macos:
     name: macOS
     runs-on: macos-latest
-    needs: test
     steps:
       - uses: actions/checkout@v4
 
@@ -93,7 +73,10 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: ${{ runner.os }}-cargo-macos-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run tests
+        run: cargo test
 
       - name: Build with meson
         run: |
@@ -134,12 +117,17 @@ jobs:
 
           # Bundle dylibs from Homebrew
           BREW_PREFIX="$(brew --prefix)"
-          for lib in gtk4 adwaita gstreamer gdk_pixbuf cairo pango harfbuzz; do
-            find "$BREW_PREFIX/lib" -name "lib${lib}*.dylib" -not -name "*.a" \
-              -exec cp {} "$APP/Contents/lib/" \; 2>/dev/null || true
+          for lib in gtk-4 adwaita-1 gstreamer-1.0 gdk_pixbuf-2.0 cairo \
+                     pango-1.0 pangocairo-1.0 harfbuzz gobject-2.0 glib-2.0 \
+                     gio-2.0 graphene-1.0 gstplay-1.0 gstbase-1.0 \
+                     gstaudio-1.0 gsttag-1.0 gstvideo-1.0 gstpbutils-1.0 \
+                     epoxy intl fribidi fontconfig freetype png16 pixman-1 \
+                     gmodule-2.0; do
+            find "$BREW_PREFIX/lib" -maxdepth 1 -name "lib${lib}*.dylib" \
+              -exec cp -n {} "$APP/Contents/lib/" \; 2>/dev/null || true
           done
 
-          # Fix dylib rpaths
+          # Fix rpaths so the binary finds bundled dylibs
           install_name_tool -add_rpath @executable_path/../lib \
             "$APP/Contents/MacOS/metronome" 2>/dev/null || true
 
