@@ -1,0 +1,150 @@
+name: Build
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-test-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run tests
+        run: cargo test
+
+  linux:
+    name: Linux
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            meson ninja-build blueprint-compiler \
+            libgtk-4-dev libadwaita-1-dev \
+            libgstreamer1.0-dev \
+            libgstreamer-plugins-base1.0-dev \
+            libgstreamer-plugins-bad1.0-dev
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-linux-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build with meson
+        run: |
+          meson setup builddir
+          ninja -C builddir
+
+      - name: Upload Linux build
+        uses: actions/upload-artifact@v4
+        with:
+          name: metronome-linux
+          path: |
+            builddir/src/metronome
+            builddir/data/resources/resources.gresource
+
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies via Homebrew
+        run: |
+          brew install gtk4 libadwaita gstreamer \
+            gst-plugins-base gst-plugins-good \
+            meson ninja blueprint-compiler
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-macos-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build with meson
+        run: |
+          meson setup builddir
+          ninja -C builddir
+
+      - name: Create app bundle
+        run: |
+          APP="Metronome.app"
+          mkdir -p "$APP/Contents/MacOS"
+          mkdir -p "$APP/Contents/Resources"
+          mkdir -p "$APP/Contents/lib"
+
+          cp builddir/src/metronome "$APP/Contents/MacOS/"
+          cp builddir/data/resources/resources.gresource "$APP/Contents/Resources/"
+
+          cat > "$APP/Contents/Info.plist" << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+            "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>
+            <string>Metronome</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.adrienplazas.Metronome</string>
+            <key>CFBundleVersion</key>
+            <string>1.3.0</string>
+            <key>CFBundleExecutable</key>
+            <string>metronome</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            <key>NSHighResolutionCapable</key>
+            <true/>
+          </dict>
+          </plist>
+          PLIST
+
+          # Bundle dylibs from Homebrew
+          BREW_PREFIX="$(brew --prefix)"
+          for lib in gtk4 adwaita gstreamer gdk_pixbuf cairo pango harfbuzz; do
+            find "$BREW_PREFIX/lib" -name "lib${lib}*.dylib" -not -name "*.a" \
+              -exec cp {} "$APP/Contents/lib/" \; 2>/dev/null || true
+          done
+
+          # Fix dylib rpaths
+          install_name_tool -add_rpath @executable_path/../lib \
+            "$APP/Contents/MacOS/metronome" 2>/dev/null || true
+
+      - name: Upload macOS app
+        uses: actions/upload-artifact@v4
+        with:
+          name: metronome-macos
+          path: Metronome.app
