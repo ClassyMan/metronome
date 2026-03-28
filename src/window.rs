@@ -10,6 +10,11 @@ use gtk::{gio, glib};
 use std::cell::RefCell;
 use std::time::Instant;
 
+#[cfg(target_os = "windows")]
+use crate::portable_settings::PortableSettings as AppSettings;
+#[cfg(not(target_os = "windows"))]
+type AppSettings = gio::Settings;
+
 pub const BPB_MIN: u32 = 1;
 pub const BPB_MAX: u32 = 9;
 pub const BPB_DEFAULT: u32 = 4;
@@ -64,7 +69,7 @@ mod imp {
         #[property(get, set = Self::set_tempo_ramp_target, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_MAX)]
         pub tempo_ramp_target: Cell<u32>,
         pub tap_time: Cell<Instant>,
-        pub settings: gio::Settings,
+        pub settings: AppSettings,
         pub theme_manager: RefCell<ThemeManager>,
     }
 
@@ -92,7 +97,7 @@ mod imp {
                 tempo_ramp_bars: std::cell::Cell::new(RAMP_BARS_DEFAULT),
                 tempo_ramp_target: std::cell::Cell::new(BPM_MAX),
                 tap_time: std::cell::Cell::new(Instant::now()),
-                settings: gio::Settings::new(APP_ID),
+                settings: AppSettings::new(APP_ID),
                 theme_manager: RefCell::new(ThemeManager::new()),
             }
         }
@@ -474,9 +479,26 @@ impl MtrApplicationWindow {
 
     fn apply_background(&self) {
         let imp = self.imp();
-        let path = imp.settings.string("background-image-path").to_string();
+        let raw_path = imp.settings.string("background-image-path").to_string();
         let opacity = imp.settings.double("background-opacity");
         let style = imp.settings.string("background-style").to_string();
+
+        #[cfg(target_os = "windows")]
+        let path = if raw_path.is_empty() {
+            raw_path
+        } else if std::path::Path::new(&raw_path).is_absolute() {
+            raw_path
+        } else {
+            std::env::current_exe()
+                .unwrap()
+                .parent()
+                .unwrap()
+                .join(&raw_path)
+                .to_string_lossy()
+                .to_string()
+        };
+        #[cfg(not(target_os = "windows"))]
+        let path = raw_path;
 
         if path.is_empty() || !std::path::Path::new(&path).exists() {
             imp.bg_picture.set_visible(false);

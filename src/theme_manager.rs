@@ -4,6 +4,11 @@ use adw::prelude::*;
 use gtk::{gdk, gio, glib};
 use std::path::PathBuf;
 
+#[cfg(target_os = "windows")]
+use crate::portable_settings::PortableSettings as AppSettings;
+#[cfg(not(target_os = "windows"))]
+type AppSettings = gio::Settings;
+
 const BUILTIN_THEMES: &[&str] = &[
     "monokai",
     "dracula",
@@ -23,7 +28,7 @@ pub struct ThemeManager {
     themes: Vec<ThemeEntry>,
     active_theme_name: String,
     user_themes_dir: PathBuf,
-    settings: gio::Settings,
+    settings: AppSettings,
 }
 
 impl ThemeManager {
@@ -36,12 +41,20 @@ impl ThemeManager {
             gtk::STYLE_PROVIDER_PRIORITY_APPLICATION + 1,
         );
 
+        #[cfg(target_os = "windows")]
+        let data_dir = std::env::current_exe()
+            .unwrap_or_default()
+            .parent()
+            .unwrap_or(std::path::Path::new("."))
+            .join("themes");
+        #[cfg(not(target_os = "windows"))]
         let data_dir = glib::user_data_dir().join("metronome").join("themes");
+
         if !data_dir.exists() {
             std::fs::create_dir_all(&data_dir).ok();
         }
 
-        let settings = gio::Settings::new(APP_ID);
+        let settings = AppSettings::new(APP_ID);
 
         Self {
             css_provider: provider,
