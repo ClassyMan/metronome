@@ -81,16 +81,16 @@ jobs:
 
       - name: Configure with meson
         run: meson setup builddir
-        env:
-          PKG_CONFIG_PATH: ${{ env.HOMEBREW_PREFIX }}/opt/gettext/lib/pkgconfig:${{ env.PKG_CONFIG_PATH }}
 
       - name: Run tests
-        run: cargo test
-        env:
-          GETTEXT_DIR: ${{ env.HOMEBREW_PREFIX }}/opt/gettext
+        run: |
+          export GETTEXT_DIR="$(brew --prefix gettext)"
+          cargo test
 
       - name: Build
-        run: ninja -C builddir
+        run: |
+          export GETTEXT_DIR="$(brew --prefix gettext)"
+          ninja -C builddir
 
       - name: Create app bundle
         run: |
