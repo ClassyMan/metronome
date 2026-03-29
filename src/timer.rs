@@ -23,7 +23,7 @@ mod imp {
     use crate::window::{
         BPB_DEFAULT, BPB_MAX, BPB_MIN, BPM_DEFAULT, BPM_MAX, BPM_MIN, RAMP_BARS_DEFAULT,
         RAMP_BARS_MAX, RAMP_BARS_MIN, RAMP_INCREMENT_DEFAULT, RAMP_INCREMENT_MAX,
-        RAMP_INCREMENT_MIN,
+        RAMP_INCREMENT_MIN, VOLUME_DEFAULT, VOLUME_MAX, VOLUME_MIN,
     };
     use std::cell::{Cell, RefCell};
 
@@ -44,6 +44,8 @@ mod imp {
         pub tempo_ramp_bars: Cell<u32>,
         #[property(get, set = Self::set_tempo_ramp_target, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_MAX)]
         pub tempo_ramp_target: Cell<u32>,
+        #[property(get, set = Self::set_volume, minimum = VOLUME_MIN, maximum = VOLUME_MAX, default = VOLUME_DEFAULT)]
+        pub volume: Cell<f64>,
         #[property(get, set)]
         pub ramp_status: RefCell<String>,
         pub clicker: MtrClicker,
@@ -65,6 +67,7 @@ mod imp {
                 tempo_ramp_increment: Cell::new(RAMP_INCREMENT_DEFAULT),
                 tempo_ramp_bars: Cell::new(RAMP_BARS_DEFAULT),
                 tempo_ramp_target: Cell::new(BPM_MAX),
+                volume: Cell::new(VOLUME_DEFAULT),
                 ramp_status: RefCell::new(String::new()),
                 clicker: Default::default(),
                 thread_cmd: RefCell::new(tx),
@@ -266,6 +269,11 @@ mod imp {
         fn set_tempo_ramp_target(&self, val: u32) {
             self.tempo_ramp_target.set(val);
             self.send_ramp_command();
+        }
+
+        fn set_volume(&self, volume: f64) {
+            self.volume.set(volume);
+            self.clicker.set_volume(volume);
         }
     }
 }

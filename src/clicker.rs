@@ -45,6 +45,10 @@ impl MtrClicker {
         imp.player.set_uri(Some(AUDIO_CLICKER_LOW_URI));
         imp.player.play();
     }
+
+    pub fn set_volume(&self, volume: f64) {
+        self.imp().player.set_volume(volume);
+    }
 }
 
 impl Default for MtrClicker {

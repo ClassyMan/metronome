@@ -64,104 +64,60 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
 
           Box time_signature {
             halign: center;
+            orientation: vertical;
+            spacing: 4;
 
             styles [
               "time-signature",
             ]
 
-            ToggleButton time_signature_1_1_button {
-              notify::active => $on_time_signature_1_1_button_active() swapped;
-              group: time_signature_4_4_button;
-              tooltip-text: _("1/1 Time");
+            Box {
               halign: center;
-              valign: center;
 
-              styles [
-                "circular",
-                "large",
-                "text-button",
-              ]
+              Button {
+                action-name: "win.decrease-bpb";
+                halign: center;
+                icon-name: "value-decrease-symbolic";
+                valign: center;
+                tooltip-text: _("Fewer beats per bar");
+
+                styles [
+                  "circular",
+                  "large",
+                ]
+              }
 
               Label {
-                justify: center;
-                label: _("1\n1");
+                label: bind-property template.beats-per-bar;
+                width-chars: 2;
+                halign: center;
+
+                styles [
+                  "title-1",
+                ]
+              }
+
+              Button {
+                action-name: "win.increase-bpb";
+                halign: center;
+                icon-name: "value-increase-symbolic";
+                valign: center;
+                tooltip-text: _("More beats per bar");
+
+                styles [
+                  "circular",
+                  "large",
+                ]
               }
             }
 
-            ToggleButton time_signature_2_4_button {
-              notify::active => $on_time_signature_2_4_button_active() swapped;
-              group: time_signature_4_4_button;
-              tooltip-text: _("2/4 Time");
-              halign: center;
-              valign: center;
+            Label {
+              label: _("beats per bar");
 
               styles [
-                "circular",
-                "large",
-                "text-button",
+                "caption",
+                "dim-label",
               ]
-
-              Label {
-                justify: center;
-                label: _("2\n4");
-              }
-            }
-
-            ToggleButton time_signature_3_4_button {
-              notify::active => $on_time_signature_3_4_button_active() swapped;
-              tooltip-text: _("3/4 Time");
-              group: time_signature_4_4_button;
-              halign: center;
-              valign: center;
-
-              styles [
-                "circular",
-                "large",
-                "text-button",
-              ]
-
-              Label {
-                justify: center;
-                label: _("3\n4");
-              }
-            }
-
-            ToggleButton time_signature_4_4_button {
-              notify::active => $on_time_signature_4_4_button_active() swapped;
-              tooltip-text: _("4/4 Time");
-              active: true;
-              halign: center;
-              valign: center;
-
-              styles [
-                "circular",
-                "large",
-                "text-button",
-              ]
-
-              Label {
-                justify: center;
-                label: _("4\n4");
-              }
-            }
-
-            ToggleButton time_signature_6_8_button {
-              notify::active => $on_time_signature_6_8_button_active() swapped;
-              group: time_signature_4_4_button;
-              tooltip-text: _("6/8 Time");
-              halign: center;
-              valign: center;
-
-              styles [
-                "circular",
-                "large",
-                "text-button",
-              ]
-
-              Label {
-                justify: center;
-                label: _("6\n8");
-              }
             }
           }
 
@@ -301,6 +257,43 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
             }
           }
 
+          Adw.Clamp {
+            tightening-threshold: 360;
+            maximum-size: 480;
+            margin-top: 8;
+
+            Box {
+              orientation: horizontal;
+              spacing: 8;
+              margin-start: 16;
+              margin-end: 16;
+
+              Image {
+                icon-name: "audio-volume-low-symbolic";
+                valign: center;
+
+                styles [
+                  "dim-label",
+                ]
+              }
+
+              Scale {
+                adjustment: volume_adjustment;
+                hexpand: true;
+                draw-value: false;
+              }
+
+              Image {
+                icon-name: "audio-volume-high-symbolic";
+                valign: center;
+
+                styles [
+                  "dim-label",
+                ]
+              }
+            }
+          }
+
           Box controls {
             halign: center;
 
@@ -368,6 +361,14 @@ Adjustment bpm_adjustment {
   value: bind-property template.beats-per-minute no-sync-create bidirectional;
 }
 
+Adjustment volume_adjustment {
+  lower: 0;
+  upper: 1;
+  step-increment: 0.05;
+  page-increment: 0.1;
+  value: bind-property template.volume no-sync-create bidirectional;
+}
+
 $MtrTimer timer {
   active: bind-property timer_button.active;
   beats-per-bar: bind-property template.beats-per-bar;
@@ -376,4 +377,5 @@ $MtrTimer timer {
   tempo-ramp-increment: bind-property template.tempo-ramp-increment;
   tempo-ramp-bars: bind-property template.tempo-ramp-bars;
   tempo-ramp-target: bind-property template.tempo-ramp-target;
+  volume: bind-property template.volume;
 }
