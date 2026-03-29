@@ -28,5 +28,49 @@
       <summary>Default beats per minute</summary>
       <description>Default beats per minute</description>
     </key>
+    <key name="active-theme" type="s">
+      <default>'Monokai'</default>
+      <summary>Active color theme</summary>
+      <description>Name of the active color theme. Empty string uses default Adwaita colors.</description>
+    </key>
+    <key name="tempo-ramp-enabled" type="b">
+      <default>false</default>
+      <summary>Enable gradual tempo increase</summary>
+      <description>When enabled, BPM increases automatically during playback</description>
+    </key>
+    <key name="tempo-ramp-increment" type="u">
+      <range min="1" max="50"/>
+      <default>5</default>
+      <summary>Tempo ramp BPM increment</summary>
+      <description>BPM increase per interval</description>
+    </key>
+    <key name="tempo-ramp-bars" type="u">
+      <range min="1" max="32"/>
+      <default>4</default>
+      <summary>Tempo ramp bar interval</summary>
+      <description>Number of bars between each BPM increase</description>
+    </key>
+    <key name="tempo-ramp-target" type="u">
+      <range min="20" max="260"/>
+      <default>260</default>
+      <summary>Tempo ramp target BPM</summary>
+      <description>Maximum BPM the ramp will reach</description>
+    </key>
+    <key name="background-image-path" type="s">
+      <default>''</default>
+      <summary>Background image path</summary>
+      <description>Absolute path to a background image file. Empty string means no background.</description>
+    </key>
+    <key name="background-opacity" type="d">
+      <range min="0.0" max="1.0"/>
+      <default>0.15</default>
+      <summary>Background image opacity</summary>
+      <description>Opacity of the background image (0.0 = invisible, 1.0 = fully opaque)</description>
+    </key>
+    <key name="background-style" type="s">
+      <default>'cover'</default>
+      <summary>Background image style</summary>
+      <description>How the background image is displayed: cover, contain, fill, tile</description>
+    </key>
   </schema>
 </schemalist>

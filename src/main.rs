@@ -2,6 +2,10 @@ mod application;
 #[rustfmt::skip]
 mod clicker;
 mod config;
+mod theme;
+mod theme_dialog;
+mod theme_editor;
+mod theme_manager;
 mod timer;
 mod timerbutton;
 mod timerbuttonmark;

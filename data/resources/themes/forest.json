@@ -1,0 +1,8 @@
+{
+  "name": "Forest",
+  "version": 1,
+  "colors": {
+    "accent_bg_color": "#2ec27e",
+    "accent_fg_color": "#ffffff"
+  }
+}
