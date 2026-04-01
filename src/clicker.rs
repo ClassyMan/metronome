@@ -56,3 +56,49 @@ impl Default for MtrClicker {
         glib::Object::new()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use glib::subclass::prelude::ObjectSubclassIsExt;
+
+    fn ensure_gstreamer() {
+        gst::init().expect("GStreamer must initialize for audio tests");
+    }
+
+    #[test]
+    fn test_set_volume_updates_gstreamer_player() {
+        ensure_gstreamer();
+        let clicker = MtrClicker::default();
+        clicker.set_volume(0.5);
+        let player_volume = clicker.imp().player.volume();
+        assert!(
+            (player_volume - 0.5).abs() < f64::EPSILON,
+            "expected 0.5, got {player_volume}"
+        );
+    }
+
+    #[test]
+    fn test_volume_zero_mutes_player() {
+        ensure_gstreamer();
+        let clicker = MtrClicker::default();
+        clicker.set_volume(0.0);
+        let player_volume = clicker.imp().player.volume();
+        assert!(
+            player_volume.abs() < f64::EPSILON,
+            "expected 0.0, got {player_volume}"
+        );
+    }
+
+    #[test]
+    fn test_volume_full_is_max() {
+        ensure_gstreamer();
+        let clicker = MtrClicker::default();
+        clicker.set_volume(1.0);
+        let player_volume = clicker.imp().player.volume();
+        assert!(
+            (player_volume - 1.0).abs() < f64::EPSILON,
+            "expected 1.0, got {player_volume}"
+        );
+    }
+}

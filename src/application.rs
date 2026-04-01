@@ -105,6 +105,27 @@ impl MtrApplication {
             .build();
 
         self.add_action_entries([quit_action, about_action, sound_control_action]);
+
+        // Test-friendly actions for E2E automation via D-Bus
+        let set_chord = gio::SimpleAction::new("set-chord-structure", Some(glib::VariantTy::UINT32));
+        let weak_app = self.downgrade();
+        set_chord.connect_activate(move |_, param| {
+            if let Some(app) = weak_app.upgrade() {
+                let idx = param.unwrap().get::<u32>().unwrap();
+                app.get_main_window().imp().scales_page.set_chord_structure(idx);
+            }
+        });
+        self.add_action(&set_chord);
+
+        let tap_fret = gio::SimpleAction::new("tap-fret", Some(glib::VariantTy::new("(uu)").unwrap()));
+        let weak_app = self.downgrade();
+        tap_fret.connect_activate(move |_, param| {
+            if let Some(app) = weak_app.upgrade() {
+                let (string_idx, fret) = param.unwrap().get::<(u32, u32)>().unwrap();
+                app.get_main_window().imp().scales_page.tap_fret(string_idx as usize, fret as usize);
+            }
+        });
+        self.add_action(&tap_fret);
     }
 
     // Sets up keyboard shortcuts

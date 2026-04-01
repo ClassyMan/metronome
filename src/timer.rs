@@ -281,3 +281,69 @@ mod imp {
 glib::wrapper! {
     pub struct MtrTimer(ObjectSubclass<imp::MtrTimer>);
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::window::{BPB_DEFAULT, BPB_MAX, VOLUME_DEFAULT};
+    use glib::subclass::prelude::ObjectSubclassIsExt;
+
+    fn ensure_runtime() {
+        gst::init().expect("GStreamer must initialize for timer tests");
+    }
+
+    #[test]
+    fn test_volume_defaults_to_full() {
+        ensure_runtime();
+        let timer: MtrTimer = glib::Object::new();
+        assert!(
+            (timer.volume() - VOLUME_DEFAULT).abs() < f64::EPSILON,
+            "expected {VOLUME_DEFAULT}, got {}",
+            timer.volume()
+        );
+    }
+
+    #[test]
+    fn test_set_volume_propagates_to_clicker() {
+        ensure_runtime();
+        let timer: MtrTimer = glib::Object::new();
+        timer.set_volume(0.42);
+        let clicker_volume = timer.imp().clicker.imp().player.volume();
+        assert!(
+            (clicker_volume - 0.42).abs() < f64::EPSILON,
+            "volume did not propagate: expected 0.42, got {clicker_volume}"
+        );
+    }
+
+    #[test]
+    fn test_beats_per_bar_defaults_to_four() {
+        ensure_runtime();
+        let timer: MtrTimer = glib::Object::new();
+        assert_eq!(timer.beats_per_bar(), BPB_DEFAULT);
+    }
+
+    #[test]
+    fn test_beats_per_bar_accepts_values_above_old_limit() {
+        ensure_runtime();
+        let timer: MtrTimer = glib::Object::new();
+        timer.set_beats_per_bar(24);
+        assert_eq!(timer.beats_per_bar(), 24);
+    }
+
+    #[test]
+    fn test_beats_per_bar_accepts_max() {
+        ensure_runtime();
+        let timer: MtrTimer = glib::Object::new();
+        timer.set_beats_per_bar(BPB_MAX);
+        assert_eq!(timer.beats_per_bar(), BPB_MAX);
+    }
+
+    #[test]
+    fn test_volume_change_does_not_affect_bpb() {
+        ensure_runtime();
+        let timer: MtrTimer = glib::Object::new();
+        timer.set_beats_per_bar(7);
+        timer.set_volume(0.3);
+        assert_eq!(timer.beats_per_bar(), 7);
+    }
+}

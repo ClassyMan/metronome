@@ -1,5 +1,6 @@
 use crate::application::MtrApplication;
 use crate::config::{APP_ID, PROFILE};
+use crate::scales_page::MtrScalesPage;
 use crate::theme_dialog::MtrThemeDialog;
 use crate::theme_manager::ThemeManager;
 use crate::timer::MtrTimer;
@@ -45,6 +46,8 @@ mod imp {
         pub bpm_label: TemplateChild<gtk::Label>,
         #[template_child]
         pub bg_picture: TemplateChild<gtk::Picture>,
+        #[template_child]
+        pub scales_page: TemplateChild<MtrScalesPage>,
         #[property(get, set = Self::set_beats_per_bar, minimum = BPB_MIN, maximum = BPB_MAX, default = BPB_DEFAULT)]
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
@@ -59,7 +62,7 @@ mod imp {
         pub tempo_ramp_target: Cell<u32>,
         #[property(get, set = Self::set_volume, minimum = VOLUME_MIN, maximum = VOLUME_MAX, default = VOLUME_DEFAULT)]
         pub volume: Cell<f64>,
-        pub tap_time: Cell<Instant>,
+        pub tap_history: RefCell<Vec<Instant>>,
         pub settings: gio::Settings,
         pub theme_manager: RefCell<ThemeManager>,
     }
@@ -76,6 +79,7 @@ mod imp {
                 timer: Default::default(),
                 bpm_label: Default::default(),
                 bg_picture: Default::default(),
+                scales_page: Default::default(),
                 beats_per_bar: std::cell::Cell::new(BPB_DEFAULT),
                 beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
                 tempo_ramp_enabled: std::cell::Cell::new(false),
@@ -83,7 +87,7 @@ mod imp {
                 tempo_ramp_bars: std::cell::Cell::new(RAMP_BARS_DEFAULT),
                 tempo_ramp_target: std::cell::Cell::new(BPM_MAX),
                 volume: std::cell::Cell::new(VOLUME_DEFAULT),
-                tap_time: std::cell::Cell::new(Instant::now()),
+                tap_history: RefCell::new(Vec::new()),
                 settings: gio::Settings::new(APP_ID),
                 theme_manager: RefCell::new(ThemeManager::new()),
             }
@@ -126,12 +130,14 @@ mod imp {
             klass.install_action("win.show-background-dialog", None, |win, _, _| {
                 win.show_background_dialog();
             });
+
         }
 
         // You must call `Widget`'s `init_template()` within `instance_init()`.
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             MtrTimerButton::ensure_type();
             MtrTimer::ensure_type();
+            MtrScalesPage::ensure_type();
             obj.init_template();
         }
     }
@@ -272,10 +278,22 @@ impl MtrApplicationWindow {
     fn tap(&self) {
         let imp = self.imp();
         let now = Instant::now();
-        let duration = now - imp.tap_time.get();
-        let bpm = 60.0 / duration.as_secs_f64();
-        imp.tap_time.set(now);
-        self.set_beats_per_minute((bpm as u32).clamp(BPM_MIN, BPM_MAX));
+        let mut history = imp.tap_history.borrow_mut();
+
+        // Discard taps older than 3 seconds
+        history.retain(|t| now.duration_since(*t).as_secs_f64() < 3.0);
+        history.push(now);
+
+        if history.len() >= 2 {
+            let total_intervals: f64 = history
+                .windows(2)
+                .map(|pair| pair[1].duration_since(pair[0]).as_secs_f64())
+                .sum();
+            let avg_interval = total_intervals / (history.len() - 1) as f64;
+            let bpm = (60.0 / avg_interval) as u32;
+            drop(history);
+            self.set_beats_per_minute(bpm.clamp(BPM_MIN, BPM_MAX));
+        }
     }
 
     fn load_settings(&self) {

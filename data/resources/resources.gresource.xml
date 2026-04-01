@@ -3,9 +3,54 @@
   <gresource prefix="/com/adrienplazas/Metronome/">
     <file compressed="true">audio/clicker-high.ogg</file>
     <file compressed="true">audio/clicker-low.ogg</file>
+    <file compressed="true">audio/guitar/guitar_40.ogg</file>
+    <file compressed="true">audio/guitar/guitar_41.ogg</file>
+    <file compressed="true">audio/guitar/guitar_42.ogg</file>
+    <file compressed="true">audio/guitar/guitar_43.ogg</file>
+    <file compressed="true">audio/guitar/guitar_44.ogg</file>
+    <file compressed="true">audio/guitar/guitar_45.ogg</file>
+    <file compressed="true">audio/guitar/guitar_46.ogg</file>
+    <file compressed="true">audio/guitar/guitar_47.ogg</file>
+    <file compressed="true">audio/guitar/guitar_48.ogg</file>
+    <file compressed="true">audio/guitar/guitar_49.ogg</file>
+    <file compressed="true">audio/guitar/guitar_50.ogg</file>
+    <file compressed="true">audio/guitar/guitar_51.ogg</file>
+    <file compressed="true">audio/guitar/guitar_52.ogg</file>
+    <file compressed="true">audio/guitar/guitar_53.ogg</file>
+    <file compressed="true">audio/guitar/guitar_54.ogg</file>
+    <file compressed="true">audio/guitar/guitar_55.ogg</file>
+    <file compressed="true">audio/guitar/guitar_56.ogg</file>
+    <file compressed="true">audio/guitar/guitar_57.ogg</file>
+    <file compressed="true">audio/guitar/guitar_58.ogg</file>
+    <file compressed="true">audio/guitar/guitar_59.ogg</file>
+    <file compressed="true">audio/guitar/guitar_60.ogg</file>
+    <file compressed="true">audio/guitar/guitar_61.ogg</file>
+    <file compressed="true">audio/guitar/guitar_62.ogg</file>
+    <file compressed="true">audio/guitar/guitar_63.ogg</file>
+    <file compressed="true">audio/guitar/guitar_64.ogg</file>
+    <file compressed="true">audio/guitar/guitar_65.ogg</file>
+    <file compressed="true">audio/guitar/guitar_66.ogg</file>
+    <file compressed="true">audio/guitar/guitar_67.ogg</file>
+    <file compressed="true">audio/guitar/guitar_68.ogg</file>
+    <file compressed="true">audio/guitar/guitar_69.ogg</file>
+    <file compressed="true">audio/guitar/guitar_70.ogg</file>
+    <file compressed="true">audio/guitar/guitar_71.ogg</file>
+    <file compressed="true">audio/guitar/guitar_72.ogg</file>
+    <file compressed="true">audio/guitar/guitar_73.ogg</file>
+    <file compressed="true">audio/guitar/guitar_74.ogg</file>
+    <file compressed="true">audio/guitar/guitar_75.ogg</file>
+    <file compressed="true">audio/guitar/guitar_76.ogg</file>
+    <file compressed="true">audio/guitar/guitar_77.ogg</file>
+    <file compressed="true">audio/guitar/guitar_78.ogg</file>
+    <file compressed="true">audio/guitar/guitar_79.ogg</file>
+    <file compressed="true">audio/guitar/guitar_80.ogg</file>
+    <file compressed="true">audio/guitar/guitar_81.ogg</file>
+    <file compressed="true">audio/guitar/guitar_82.ogg</file>
+    <file compressed="true">audio/guitar/guitar_83.ogg</file>
 
     <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/timerbutton.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/scales-page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
 
     <file compressed="true">style.css</file>
