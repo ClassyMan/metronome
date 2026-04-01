@@ -4,7 +4,7 @@ use crate::guitar_player;
 use crate::scale_data::{self, ALL_FAMILIES, NOTE_NAMES};
 use adw::prelude::*;
 use adw::subclass::prelude::*;
-use gtk::glib;
+use gtk::{gio, glib};
 
 mod imp {
     use super::*;
@@ -37,6 +37,7 @@ mod imp {
         pub mute_button: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub tap_hint_label: TemplateChild<gtk::Label>,
+        pub settings: std::cell::RefCell<Option<gio::Settings>>,
         pub inversion: Cell<usize>,
         pub chord_degree: Cell<i32>,
         pub chord_fret: Cell<i32>,
@@ -58,6 +59,7 @@ mod imp {
                 inversion_button: Default::default(),
                 mute_button: Default::default(),
                 tap_hint_label: Default::default(),
+                settings: std::cell::RefCell::new(None),
                 inversion: Cell::new(0),
                 chord_degree: Cell::new(-1),
                 chord_fret: Cell::new(-1),
@@ -110,6 +112,31 @@ glib::wrapper! {
 }
 
 impl MtrScalesPage {
+    pub fn bind_settings(&self, settings: &gio::Settings) {
+        let imp = self.imp();
+        *imp.settings.borrow_mut() = Some(settings.clone());
+
+        // Restore saved selections
+        let root = settings.uint("scale-root");
+        let family = settings.uint("scale-family");
+        let mode = settings.uint("scale-mode");
+
+        imp.root_dropdown.set_selected(root);
+        imp.family_dropdown.set_selected(family);
+        self.update_mode_dropdown();
+        imp.mode_dropdown.set_selected(mode);
+        self.on_selection_changed();
+    }
+
+    fn save_scale_selection(&self) {
+        let imp = self.imp();
+        if let Some(ref settings) = *imp.settings.borrow() {
+            let _ = settings.set_uint("scale-root", imp.root_dropdown.selected());
+            let _ = settings.set_uint("scale-family", imp.family_dropdown.selected());
+            let _ = settings.set_uint("scale-mode", imp.mode_dropdown.selected());
+        }
+    }
+
     pub fn set_chord_structure(&self, index: u32) {
         self.imp().chord_dropdown.set_selected(index);
     }
@@ -267,6 +294,7 @@ impl MtrScalesPage {
 
         self.update_controls_visibility();
         self.update_voicing();
+        self.save_scale_selection();
     }
 
     fn cycle_pentatonic(&self) {
@@ -334,9 +362,16 @@ impl MtrScalesPage {
         let family = &ALL_FAMILIES[family_idx.min(ALL_FAMILIES.len() - 1)];
         let scale = &family.scales[mode_idx.min(family.scales.len() - 1)];
 
-        let has_chord = chord_selected > 0 && degree >= 0;
+        let can_build_chords = scale_data::has_diatonic_chords(scale);
+        let has_chord = chord_selected > 0 && degree >= 0 && can_build_chords;
         let has_pentatonics = !scale.pentatonic_variants.is_empty();
-        let in_chord_mode = chord_selected > 0;
+        let in_chord_mode = chord_selected > 0 && can_build_chords;
+
+        // Disable chord dropdown for non-7-note scales (Messiaen, Blues)
+        imp.chord_dropdown.set_sensitive(can_build_chords);
+        if !can_build_chords && chord_selected > 0 {
+            imp.chord_dropdown.set_selected(0);
+        }
 
         // Pentatonic: show when NOT in chord mode and scale has variants
         imp.pentatonic_button.set_visible(!in_chord_mode && has_pentatonics);

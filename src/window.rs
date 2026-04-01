@@ -306,6 +306,7 @@ impl MtrApplicationWindow {
         self.set_tempo_ramp_target(imp.settings.uint("tempo-ramp-target"));
         self.set_volume(imp.settings.double("volume"));
         self.apply_background();
+        imp.scales_page.bind_settings(&imp.settings);
     }
 
     fn show_theme_dialog(&self) {

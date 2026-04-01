@@ -11,6 +11,7 @@ from e2e.test_chord_mode import test_chord_mode
 from e2e.test_inversion import test_inversion_cycling
 from e2e.test_mute import test_mute_toggle
 from e2e.test_scale_info import test_scale_info_display
+from e2e.test_non_diatonic import test_chord_disabled_for_non_diatonic
 
 if __name__ == "__main__":
     clean_screenshots()
@@ -21,5 +22,6 @@ if __name__ == "__main__":
     test_inversion_cycling(ctx)
     test_mute_toggle(ctx)
     test_scale_info_display(ctx)
+    test_chord_disabled_for_non_diatonic(ctx)
 
     ctx.summarize()
