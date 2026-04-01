@@ -50,12 +50,18 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
       [top]
       Adw.HeaderBar header {
         [title]
-        Box {
-          visible: false;
+        Adw.ViewSwitcherTitle view_switcher_title {
+          stack: view_stack;
         }
       }
 
-      content: CenterBox {
+      content: Adw.ViewStack view_stack {
+        Adw.ViewStackPage {
+          name: "metronome";
+          title: _("Metronome");
+          icon-name: "media-playback-start-symbolic";
+
+          child: CenterBox {
           orientation: vertical;
 
           [center]
@@ -337,6 +343,16 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
 
         [end]
         Box footer {}
+      };
+        }
+
+        Adw.ViewStackPage {
+          name: "scales";
+          title: _("Scales");
+          icon-name: "applications-multimedia-symbolic";
+
+          child: $MtrScalesPage scales_page {};
+        }
       };
     }
     }

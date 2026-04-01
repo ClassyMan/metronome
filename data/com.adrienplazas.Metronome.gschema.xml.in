@@ -78,5 +78,23 @@
       <summary>Background image style</summary>
       <description>How the background image is displayed: cover, contain, fill, tile</description>
     </key>
+    <key name="scale-root" type="u">
+      <range min="0" max="11"/>
+      <default>0</default>
+      <summary>Scale root note index</summary>
+      <description>Index into the chromatic note list (0=C, 1=C#, ... 11=B)</description>
+    </key>
+    <key name="scale-family" type="u">
+      <range min="0" max="4"/>
+      <default>0</default>
+      <summary>Scale family index</summary>
+      <description>Index of the scale family (0=Major, 1=Melodic Minor, 2=Harmonic Minor, 3=Messiaen, 4=Other)</description>
+    </key>
+    <key name="scale-mode" type="u">
+      <range min="0" max="9"/>
+      <default>0</default>
+      <summary>Scale mode index</summary>
+      <description>Index of the mode within the selected family</description>
+    </key>
   </schema>
 </schemalist>

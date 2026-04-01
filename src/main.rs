@@ -1,7 +1,12 @@
 mod application;
+mod chord_builder;
 #[rustfmt::skip]
 mod clicker;
+mod fretboard;
+mod guitar_player;
 mod config;
+mod scale_data;
+mod scales_page;
 mod theme;
 mod theme_dialog;
 mod theme_editor;
