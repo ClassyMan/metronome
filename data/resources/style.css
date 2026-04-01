@@ -4,11 +4,11 @@ window.application {
 }
 
 .time-signature {
-  margin: 0 12px 18px 12px;
+  margin: 0 12px 12px 12px;
 }
 
 .time-signature> :not(:last-child) {
-  margin-right: 18px;
+  margin-right: 12px;
 }
 
 .controls {

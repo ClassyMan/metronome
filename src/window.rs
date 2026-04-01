@@ -11,7 +11,7 @@ use std::cell::RefCell;
 use std::time::Instant;
 
 pub const BPB_MIN: u32 = 1;
-pub const BPB_MAX: u32 = 9;
+pub const BPB_MAX: u32 = 99;
 pub const BPB_DEFAULT: u32 = 4;
 
 pub const BPM_MIN: u32 = 20;
@@ -24,6 +24,10 @@ pub const RAMP_INCREMENT_DEFAULT: u32 = 5;
 pub const RAMP_BARS_MIN: u32 = 1;
 pub const RAMP_BARS_MAX: u32 = 32;
 pub const RAMP_BARS_DEFAULT: u32 = 4;
+
+pub const VOLUME_MIN: f64 = 0.0;
+pub const VOLUME_MAX: f64 = 1.0;
+pub const VOLUME_DEFAULT: f64 = 1.0;
 
 mod imp {
     use super::*;
@@ -41,16 +45,6 @@ mod imp {
         pub bpm_label: TemplateChild<gtk::Label>,
         #[template_child]
         pub bg_picture: TemplateChild<gtk::Picture>,
-        #[template_child]
-        pub time_signature_1_1_button: TemplateChild<gtk::ToggleButton>,
-        #[template_child]
-        pub time_signature_2_4_button: TemplateChild<gtk::ToggleButton>,
-        #[template_child]
-        pub time_signature_3_4_button: TemplateChild<gtk::ToggleButton>,
-        #[template_child]
-        pub time_signature_4_4_button: TemplateChild<gtk::ToggleButton>,
-        #[template_child]
-        pub time_signature_6_8_button: TemplateChild<gtk::ToggleButton>,
         #[property(get, set = Self::set_beats_per_bar, minimum = BPB_MIN, maximum = BPB_MAX, default = BPB_DEFAULT)]
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
@@ -63,6 +57,8 @@ mod imp {
         pub tempo_ramp_bars: Cell<u32>,
         #[property(get, set = Self::set_tempo_ramp_target, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_MAX)]
         pub tempo_ramp_target: Cell<u32>,
+        #[property(get, set = Self::set_volume, minimum = VOLUME_MIN, maximum = VOLUME_MAX, default = VOLUME_DEFAULT)]
+        pub volume: Cell<f64>,
         pub tap_time: Cell<Instant>,
         pub settings: gio::Settings,
         pub theme_manager: RefCell<ThemeManager>,
@@ -80,17 +76,13 @@ mod imp {
                 timer: Default::default(),
                 bpm_label: Default::default(),
                 bg_picture: Default::default(),
-                time_signature_1_1_button: Default::default(),
-                time_signature_2_4_button: Default::default(),
-                time_signature_3_4_button: Default::default(),
-                time_signature_4_4_button: Default::default(),
-                time_signature_6_8_button: Default::default(),
                 beats_per_bar: std::cell::Cell::new(BPB_DEFAULT),
                 beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
                 tempo_ramp_enabled: std::cell::Cell::new(false),
                 tempo_ramp_increment: std::cell::Cell::new(RAMP_INCREMENT_DEFAULT),
                 tempo_ramp_bars: std::cell::Cell::new(RAMP_BARS_DEFAULT),
                 tempo_ramp_target: std::cell::Cell::new(BPM_MAX),
+                volume: std::cell::Cell::new(VOLUME_DEFAULT),
                 tap_time: std::cell::Cell::new(Instant::now()),
                 settings: gio::Settings::new(APP_ID),
                 theme_manager: RefCell::new(ThemeManager::new()),
@@ -100,6 +92,20 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
             klass.bind_template_instance_callbacks();
+
+            klass.install_action("win.decrease-bpb", None, |win, _, _| {
+                let bpb = win.beats_per_bar();
+                if bpb > BPB_MIN {
+                    win.set_beats_per_bar(bpb - 1);
+                }
+            });
+
+            klass.install_action("win.increase-bpb", None, |win, _, _| {
+                let bpb = win.beats_per_bar();
+                if bpb < BPB_MAX {
+                    win.set_beats_per_bar(bpb + 1);
+                }
+            });
 
             klass.install_action("win.decrease-bpm", None, |win, _, _| {
                 win.add_beats_per_minute(-1);
@@ -182,23 +188,17 @@ mod imp {
     impl AdwApplicationWindowImpl for MtrApplicationWindow {}
 
     impl MtrApplicationWindow {
-        fn set_beats_per_bar(&self, bpm: u32) {
-            self.beats_per_bar.set(bpm);
+        fn set_beats_per_bar(&self, bpb: u32) {
+            self.beats_per_bar.set(bpb);
 
-            if let Some(button) = match bpm {
-                1 => Some(self.time_signature_1_1_button.get()),
-                2 => Some(self.time_signature_2_4_button.get()),
-                3 => Some(self.time_signature_3_4_button.get()),
-                4 => Some(self.time_signature_4_4_button.get()),
-                6 => Some(self.time_signature_6_8_button.get()),
-                _ => None,
-            } {
-                button.set_active(true);
-            }
-
-            if let Err(err) = self.settings.set_uint("beats-per-bar", bpm) {
+            if let Err(err) = self.settings.set_uint("beats-per-bar", bpb) {
                 log::warn!("Failed to save the beats per bar, {}", &err);
             }
+
+            self.obj()
+                .action_set_enabled("win.decrease-bpb", bpb != BPB_MIN);
+            self.obj()
+                .action_set_enabled("win.increase-bpb", bpb != BPB_MAX);
 
             self.obj().notify_beats_per_bar();
         }
@@ -241,6 +241,14 @@ mod imp {
             self.settings.set_uint("tempo-ramp-target", val).ok();
             self.obj().notify_tempo_ramp_target();
         }
+
+        fn set_volume(&self, volume: f64) {
+            self.volume.set(volume);
+            if let Err(err) = self.settings.set_double("volume", volume) {
+                log::warn!("Failed to save volume, {}", &err);
+            }
+            self.obj().notify_volume();
+        }
     }
 }
 
@@ -278,6 +286,7 @@ impl MtrApplicationWindow {
         self.set_tempo_ramp_increment(imp.settings.uint("tempo-ramp-increment"));
         self.set_tempo_ramp_bars(imp.settings.uint("tempo-ramp-bars"));
         self.set_tempo_ramp_target(imp.settings.uint("tempo-ramp-target"));
+        self.set_volume(imp.settings.double("volume"));
         self.apply_background();
     }
 
@@ -498,58 +507,4 @@ impl MtrApplicationWindow {
         imp.bg_picture.set_content_fit(fit);
     }
 
-    #[template_callback]
-    fn on_time_signature_1_1_button_active(
-        &self,
-        _pspec: &glib::ParamSpec,
-        button: &gtk::ToggleButton,
-    ) {
-        if button.is_active() {
-            self.set_beats_per_bar(1);
-        }
-    }
-
-    #[template_callback]
-    fn on_time_signature_2_4_button_active(
-        &self,
-        _pspec: &glib::ParamSpec,
-        button: &gtk::ToggleButton,
-    ) {
-        if button.is_active() {
-            self.set_beats_per_bar(2);
-        }
-    }
-
-    #[template_callback]
-    fn on_time_signature_3_4_button_active(
-        &self,
-        _pspec: &glib::ParamSpec,
-        button: &gtk::ToggleButton,
-    ) {
-        if button.is_active() {
-            self.set_beats_per_bar(3);
-        }
-    }
-
-    #[template_callback]
-    fn on_time_signature_4_4_button_active(
-        &self,
-        _pspec: &glib::ParamSpec,
-        button: &gtk::ToggleButton,
-    ) {
-        if button.is_active() {
-            self.set_beats_per_bar(4);
-        }
-    }
-
-    #[template_callback]
-    fn on_time_signature_6_8_button_active(
-        &self,
-        _pspec: &glib::ParamSpec,
-        button: &gtk::ToggleButton,
-    ) {
-        if button.is_active() {
-            self.set_beats_per_bar(6);
-        }
-    }
 }
