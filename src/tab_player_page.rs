@@ -567,6 +567,8 @@ impl MtrTabPlayerPage {
             glib::MainContext::default().invoke(move || {
                 if let Some(page) = weak.upgrade() {
                     page.on_beat(beat_index, &notes_owned);
+                } else {
+                    log::warn!("[main] weak upgrade failed for beat {}", beat_index);
                 }
             });
         });
@@ -817,8 +819,12 @@ impl MtrTabPlayerPage {
         let score = self.imp().score.borrow();
         let score = match score.as_ref() {
             Some(score) => score,
-            None => return,
+            None => {
+                log::warn!("[main] on_beat({}): score is None", beat_index);
+                return;
+            }
         };
+        log::debug!("[main] on_beat({}) score.beats.len()={}", beat_index, score.beats.len());
 
         self.imp().current_beat.set(beat_index);
 
