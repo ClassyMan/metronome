@@ -1,3 +1,4 @@
+use super::audio::ClickPlayer;
 use iced::widget::{button, column, container, row, slider, text, Space};
 use iced::{time, Element, Length, Subscription};
 use std::time::{Duration, Instant};
@@ -27,6 +28,7 @@ pub struct MetronomePage {
     is_playing: bool,
     current_beat: u32,
     tap_times: Vec<Instant>,
+    click_player: Option<ClickPlayer>,
 }
 
 impl MetronomePage {
@@ -38,6 +40,7 @@ impl MetronomePage {
             is_playing: false,
             current_beat: 0,
             tap_times: Vec::new(),
+            click_player: ClickPlayer::new(),
         }
     }
 
@@ -53,6 +56,9 @@ impl MetronomePage {
             Message::Tick => {
                 if self.is_playing {
                     self.current_beat = (self.current_beat + 1) % self.beats_per_bar as u32;
+                    if let Some(ref player) = self.click_player {
+                        player.click(self.current_beat == 0);
+                    }
                 }
                 iced::Task::none()
             }
@@ -82,6 +88,9 @@ impl MetronomePage {
             }
             Message::SetVolume(volume) => {
                 self.volume = volume.clamp(0.0, 1.0);
+                if let Some(ref mut player) = self.click_player {
+                    player.set_volume(self.volume);
+                }
                 iced::Task::none()
             }
             Message::Tap => {
@@ -221,7 +230,16 @@ mod tests {
     use super::*;
 
     fn make_page() -> MetronomePage {
-        MetronomePage::new()
+        // Tests don't need audio — create without the click player
+        MetronomePage {
+            bpm: 100,
+            beats_per_bar: 4,
+            volume: 1.0,
+            is_playing: false,
+            current_beat: 0,
+            tap_times: Vec::new(),
+            click_player: None,
+        }
     }
 
     #[test]

@@ -1,4 +1,6 @@
+pub mod audio;
 mod metronome_page;
+mod scales_page;
 
 use iced::widget::{button, column, container, row, text};
 use iced::{Element, Length, Subscription, Theme};
@@ -14,11 +16,13 @@ pub enum Page {
 pub enum Message {
     SwitchPage(Page),
     Metronome(metronome_page::Message),
+    Scales(scales_page::Message),
 }
 
 pub struct App {
     page: Page,
     metronome: metronome_page::MetronomePage,
+    scales: scales_page::ScalesPage,
 }
 
 impl App {
@@ -26,6 +30,7 @@ impl App {
         Self {
             page: Page::Metronome,
             metronome: metronome_page::MetronomePage::new(),
+            scales: scales_page::ScalesPage::new(),
         }
     }
 
@@ -36,6 +41,7 @@ impl App {
                 iced::Task::none()
             }
             Message::Metronome(msg) => self.metronome.update(msg).map(Message::Metronome),
+            Message::Scales(msg) => self.scales.update(msg).map(Message::Scales),
         }
     }
 
@@ -50,7 +56,7 @@ impl App {
 
         let content: Element<Message> = match self.page {
             Page::Metronome => self.metronome.view().map(Message::Metronome),
-            Page::Scales => placeholder("Scales"),
+            Page::Scales => self.scales.view().map(Message::Scales),
             Page::TabPlayer => placeholder("Tab Player"),
         };
 
