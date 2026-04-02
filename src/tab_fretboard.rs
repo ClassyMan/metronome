@@ -165,12 +165,7 @@ mod imp {
                 let y = TOP_MARGIN + string_index as f32 * STRING_SPACING;
                 let fret_text = format!("{}", glow.fret);
 
-                if elapsed_ms > FADE_DURATION_MS {
-                    // Ghost note — faded circle remains at position
-                    let ghost_color = with_alpha(&fg, 0.15);
-                    append_circle(snapshot, &ghost_color, x, y, NOTE_RADIUS * 0.85);
-                    let ghost_text = with_alpha(&fg, 0.3);
-                    draw_text(&*widget, snapshot, &ghost_text, x, y, &fret_text, 8.0);
+                if elapsed_ms >= FADE_DURATION_MS {
                     continue;
                 }
 
@@ -292,23 +287,19 @@ impl MtrTabFretboard {
             let tab_fb = widget.downcast_ref::<MtrTabFretboard>().unwrap();
             let now = Instant::now();
 
-            // Check if any glows are still animating (not yet ghost)
-            let has_animating = tab_fb
+            // Prune fully-faded glows to prevent unbounded accumulation
+            tab_fb
                 .imp()
                 .active_glows
-                .borrow()
-                .iter()
-                .any(|glow| now.duration_since(glow.start_time).as_millis() < FADE_DURATION_MS);
+                .borrow_mut()
+                .retain(|glow| now.duration_since(glow.start_time).as_millis() < FADE_DURATION_MS);
 
-            tab_fb.queue_draw();
-
-            if !has_animating {
-                // All glows are ghosts now — stop the tick callback
-                // (ghosts are static, no animation needed)
+            if tab_fb.imp().active_glows.borrow().is_empty() {
                 tab_fb.imp().tick_callback_id.borrow_mut().take();
                 return glib::ControlFlow::Break;
             }
 
+            tab_fb.queue_draw();
             glib::ControlFlow::Continue
         });
 

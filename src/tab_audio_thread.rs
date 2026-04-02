@@ -45,7 +45,10 @@ impl BeatCallback {
 
     fn fire(&self, beat_index: usize, notes: &[(u8, u8)]) {
         if let Ok(callback) = self.callback.lock() {
+            log::debug!("[audio] fire beat_index={} notes={}", beat_index, notes.len());
             callback(beat_index, notes);
+        } else {
+            log::warn!("[audio] BeatCallback mutex poisoned, dropping beat {}", beat_index);
         }
     }
 }
@@ -173,6 +176,7 @@ fn run_audio_loop(
             match command {
                 TabAudioCommand::Play => {
                     if timeline.is_some() {
+                        log::info!("[audio] Play — starting playback");
                         is_playing = true;
                         let _ = pipeline.set_state(gst::State::Playing);
                     }
@@ -188,6 +192,7 @@ fn run_audio_loop(
                     }
                 }
                 TabAudioCommand::Pause => {
+                    log::info!("[audio] Pause received");
                     is_playing = false;
                 }
                 TabAudioCommand::Stop => {
@@ -246,8 +251,15 @@ fn run_audio_loop(
             None => continue,
         };
 
+        // Clamp the buffer window to the loop/song boundary so events and
+        // beat callbacks past the end never fire before the rewind check.
+        let raw_buffer_end = sample_position + BUFFER_FRAMES as u64;
+        let boundary = loop_range
+            .map(|(_, end)| end)
+            .unwrap_or(current_timeline.total_samples);
+        let buffer_end = raw_buffer_end.min(boundary);
+
         // Dispatch MIDI events in this buffer window
-        let buffer_end = sample_position + BUFFER_FRAMES as u64;
         while event_index < current_timeline.events.len() {
             let event = &current_timeline.events[event_index];
             if event.sample_position() >= buffer_end {
@@ -490,4 +502,521 @@ fn collect_beat_notes(timeline: &MidiTimeline, marker: &BeatMarker) -> Vec<(u8, 
             _ => None,
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::tab_midi::{BeatMarker, MidiEvent, MidiTimeline};
+
+    fn make_timeline(beat_positions: &[u64], note_positions: &[u64]) -> MidiTimeline {
+        let beat_markers: Vec<BeatMarker> = beat_positions
+            .iter()
+            .enumerate()
+            .map(|(index, &pos)| BeatMarker {
+                sample_position: pos,
+                beat_index: index,
+            })
+            .collect();
+        let mut events: Vec<MidiEvent> = Vec::new();
+        for &pos in note_positions {
+            events.push(MidiEvent::NoteOn {
+                sample_position: pos,
+                channel: GUITAR_CHANNEL,
+                key: 60,
+                velocity: 80,
+            });
+            events.push(MidiEvent::NoteOff {
+                sample_position: pos + 1000,
+                channel: GUITAR_CHANNEL,
+                key: 60,
+            });
+        }
+        events.sort_by_key(|e| e.sample_position());
+        let total_samples = beat_positions
+            .last()
+            .copied()
+            .unwrap_or(0)
+            + 5000;
+        MidiTimeline {
+            events,
+            beat_markers,
+            total_samples,
+        }
+    }
+
+    // ── rewind_indices ─────────────────────────────────────────────────
+
+    #[test]
+    fn test_rewind_to_start() {
+        let tl = make_timeline(&[0, 1000, 2000, 3000], &[0, 1000, 2000, 3000]);
+        let mut event_idx = 99;
+        let mut beat_idx = 99;
+        rewind_indices(&tl, 0, &mut event_idx, &mut beat_idx);
+        assert_eq!(event_idx, 0);
+        assert_eq!(beat_idx, 0);
+    }
+
+    #[test]
+    fn test_rewind_to_midpoint() {
+        let tl = make_timeline(&[0, 1000, 2000, 3000], &[0, 1000, 2000, 3000]);
+        let mut event_idx = 0;
+        let mut beat_idx = 0;
+        rewind_indices(&tl, 2000, &mut event_idx, &mut beat_idx);
+        // Beat markers: [0, 1000, 2000, 3000]. partition_point(< 2000) = 2
+        assert_eq!(beat_idx, 2);
+    }
+
+    #[test]
+    fn test_rewind_past_end() {
+        let tl = make_timeline(&[0, 1000, 2000], &[0, 1000, 2000]);
+        let mut event_idx = 0;
+        let mut beat_idx = 0;
+        rewind_indices(&tl, 99999, &mut event_idx, &mut beat_idx);
+        assert_eq!(beat_idx, tl.beat_markers.len());
+        assert_eq!(event_idx, tl.events.len());
+    }
+
+    #[test]
+    fn test_rewind_between_markers() {
+        let tl = make_timeline(&[0, 1000, 2000, 3000], &[]);
+        let mut event_idx = 0;
+        let mut beat_idx = 0;
+        rewind_indices(&tl, 1500, &mut event_idx, &mut beat_idx);
+        // First marker at or after 1500 is index 2 (pos=2000). partition_point(< 1500) = 2.
+        assert_eq!(beat_idx, 2);
+    }
+
+    // ── update_loop_samples ────────────────────────────────────────────
+
+    #[test]
+    fn test_update_loop_basic() {
+        let tl = make_timeline(&[0, 1000, 2000, 3000], &[]);
+        let timeline = Some(tl);
+        let beat_range = Some((1, 2)); // beats 1..2, end = beat 3's position
+        let mut loop_range = None;
+        update_loop_samples(&timeline, &beat_range, &mut loop_range);
+
+        assert_eq!(loop_range, Some((1000, 3000)));
+    }
+
+    #[test]
+    fn test_update_loop_first_beat() {
+        let tl = make_timeline(&[0, 1000, 2000], &[]);
+        let timeline = Some(tl);
+        let beat_range = Some((0, 0));
+        let mut loop_range = None;
+        update_loop_samples(&timeline, &beat_range, &mut loop_range);
+
+        // Start=0, end=beat 1's position=1000
+        assert_eq!(loop_range, Some((0, 1000)));
+    }
+
+    #[test]
+    fn test_update_loop_last_beat_falls_back_to_total() {
+        let tl = make_timeline(&[0, 1000, 2000], &[]);
+        let total = tl.total_samples;
+        let timeline = Some(tl);
+        let beat_range = Some((2, 2)); // end_beat+1=3 doesn't exist
+        let mut loop_range = None;
+        update_loop_samples(&timeline, &beat_range, &mut loop_range);
+
+        assert_eq!(loop_range, Some((2000, total)));
+    }
+
+    #[test]
+    fn test_update_loop_none_clears() {
+        let tl = make_timeline(&[0, 1000], &[]);
+        let timeline = Some(tl);
+        let mut loop_range = Some((0, 1000));
+        update_loop_samples(&timeline, &None, &mut loop_range);
+        assert_eq!(loop_range, None);
+    }
+
+    #[test]
+    fn test_update_loop_no_timeline_clears() {
+        let mut loop_range = Some((0, 1000));
+        update_loop_samples(&None, &Some((0, 5)), &mut loop_range);
+        assert_eq!(loop_range, None);
+    }
+
+    #[test]
+    fn test_update_loop_invalid_start_beat_defaults_to_zero() {
+        let tl = make_timeline(&[0, 1000, 2000], &[]);
+        let timeline = Some(tl);
+        let beat_range = Some((999, 999)); // neither beat exists
+        let mut loop_range = None;
+        update_loop_samples(&timeline, &beat_range, &mut loop_range);
+
+        // start defaults to 0 (unwrap_or), end defaults to total_samples
+        let total = timeline.as_ref().unwrap().total_samples;
+        assert_eq!(loop_range, Some((0, total)));
+    }
+
+    // ── collect_beat_notes ─────────────────────────────────────────────
+
+    #[test]
+    fn test_collect_notes_single_beat() {
+        let tl = make_timeline(&[0, 1000], &[0]);
+        let marker = &tl.beat_markers[0];
+        let notes = collect_beat_notes(&tl, marker);
+        assert_eq!(notes.len(), 1);
+        assert_eq!(notes[0], (GUITAR_CHANNEL, 60));
+    }
+
+    #[test]
+    fn test_collect_notes_excludes_adjacent_beat() {
+        let tl = make_timeline(&[0, 1000, 2000], &[0, 1000, 2000]);
+        // Beat 1 should only collect the note at 1000, not 0 or 2000
+        let marker = &tl.beat_markers[1];
+        let notes = collect_beat_notes(&tl, marker);
+        assert_eq!(notes.len(), 1);
+    }
+
+    #[test]
+    fn test_collect_notes_last_beat() {
+        let tl = make_timeline(&[0, 1000, 2000], &[2000]);
+        let marker = &tl.beat_markers[2]; // last beat
+        let notes = collect_beat_notes(&tl, marker);
+        assert_eq!(notes.len(), 1);
+    }
+
+    #[test]
+    fn test_collect_notes_rest_beat() {
+        let tl = make_timeline(&[0, 1000, 2000], &[]); // no notes at all
+        let marker = &tl.beat_markers[1];
+        let notes = collect_beat_notes(&tl, marker);
+        assert_eq!(notes.len(), 0);
+    }
+
+    #[test]
+    fn test_collect_notes_ignores_metronome_channel() {
+        let mut tl = make_timeline(&[0, 1000], &[0]);
+        // Add a metronome note at the same position
+        tl.events.push(MidiEvent::NoteOn {
+            sample_position: 0,
+            channel: METRONOME_CHANNEL,
+            key: 75,
+            velocity: 100,
+        });
+        tl.events.sort_by_key(|e| e.sample_position());
+
+        let notes = collect_beat_notes(&tl, &tl.beat_markers[0]);
+        // Should only return the guitar note, not the metronome
+        assert_eq!(notes.len(), 1);
+        assert_eq!(notes[0].0, GUITAR_CHANNEL);
+    }
+
+    // ── Assembly tests ─────────────────────────────────────────────────
+    // Real TabAudioThread + real FluidSynth + real GStreamer pipeline.
+    // No mocks — exercises actual threading, mutex contention, and timing.
+
+    fn soundfont_dir() -> std::path::PathBuf {
+        std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("data/soundfonts")
+    }
+
+    fn fixture_path(name: &str) -> std::path::PathBuf {
+        std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("tests/fixtures")
+            .join(name)
+    }
+
+    /// Collect beat callbacks from a real audio thread into a shared vec.
+    fn collecting_callback() -> (BeatCallback, Arc<Mutex<Vec<usize>>>) {
+        let fired = Arc::new(Mutex::new(Vec::new()));
+        let fired_ref = fired.clone();
+        let callback = BeatCallback::new(move |beat_index, _notes| {
+            fired_ref.lock().unwrap().push(beat_index);
+        });
+        (callback, fired)
+    }
+
+    fn wait_until(
+        fired: &Arc<Mutex<Vec<usize>>>,
+        predicate: impl Fn(&[usize]) -> bool,
+        timeout: std::time::Duration,
+    ) -> Vec<usize> {
+        let start = std::time::Instant::now();
+        loop {
+            let snapshot = fired.lock().unwrap().clone();
+            if predicate(&snapshot) || start.elapsed() > timeout {
+                return snapshot;
+            }
+            std::thread::sleep(std::time::Duration::from_millis(50));
+        }
+    }
+
+    #[test]
+    fn test_assembly_real_playback_short_loop() {
+        gst::init().expect("GStreamer init");
+
+        let (callback, fired) = collecting_callback();
+        let audio_thread = TabAudioThread::new(
+            soundfont_dir().join("sonivox.sf2"),
+            soundfont_dir().join("metronome_clicks.sf2"),
+            callback,
+        )
+        .expect("audio thread");
+
+        // Parse All Hammers, build timeline at 200% speed
+        let path = fixture_path("test_file_1.gp");
+        let (score, _) = crate::gp7_parser::parse_file(&path).unwrap();
+        let timeline = crate::tab_midi::build_timeline(&score, 0, 200.0, false);
+
+        audio_thread.send(TabAudioCommand::SetTimeline(timeline));
+        // Loop first bar only (16 beats) — takes ~2s at 200%
+        audio_thread.send(TabAudioCommand::SetLoop(Some((0, 15))));
+        audio_thread.send(TabAudioCommand::Play);
+
+        // Wait for at least 2 full loop cycles (32 beats)
+        let beats = wait_until(&fired, |b| b.len() >= 32, std::time::Duration::from_secs(10));
+
+        assert!(
+            beats.len() >= 32,
+            "expected >= 32 beats from 2 loop cycles, got {}",
+            beats.len(),
+        );
+
+        // All beats should be within the loop range
+        for &beat_index in &beats {
+            assert!(
+                beat_index <= 15,
+                "beat {} leaked past loop end [0, 15]",
+                beat_index,
+            );
+        }
+
+        // Verify sequential ordering within each 16-beat cycle
+        for chunk in beats.chunks(16) {
+            if chunk.len() < 16 {
+                break;
+            }
+            for (offset, &beat_index) in chunk.iter().enumerate() {
+                assert_eq!(beat_index, offset, "wrong order in loop cycle");
+            }
+        }
+
+        audio_thread.send(TabAudioCommand::Stop);
+    }
+
+    #[test]
+    fn test_assembly_real_pause_resume() {
+        gst::init().expect("GStreamer init");
+
+        let (callback, fired) = collecting_callback();
+        let audio_thread = TabAudioThread::new(
+            soundfont_dir().join("sonivox.sf2"),
+            soundfont_dir().join("metronome_clicks.sf2"),
+            callback,
+        )
+        .expect("audio thread");
+
+        let path = fixture_path("test_file_1.gp");
+        let (score, _) = crate::gp7_parser::parse_file(&path).unwrap();
+        let timeline = crate::tab_midi::build_timeline(&score, 0, 200.0, false);
+
+        audio_thread.send(TabAudioCommand::SetTimeline(timeline));
+        audio_thread.send(TabAudioCommand::SetLoop(Some((0, 15))));
+        audio_thread.send(TabAudioCommand::Play);
+
+        // Wait for some beats
+        wait_until(&fired, |b| b.len() >= 8, std::time::Duration::from_secs(5));
+
+        // Pause
+        audio_thread.send(TabAudioCommand::Pause);
+        std::thread::sleep(std::time::Duration::from_millis(200));
+        let count_at_pause = fired.lock().unwrap().len();
+
+        // Wait — no new beats should arrive while paused
+        std::thread::sleep(std::time::Duration::from_millis(500));
+        let count_after_wait = fired.lock().unwrap().len();
+        assert_eq!(
+            count_at_pause, count_after_wait,
+            "beats arrived while paused: {} → {}",
+            count_at_pause, count_after_wait,
+        );
+
+        // Resume — beats should flow again
+        audio_thread.send(TabAudioCommand::Play);
+        wait_until(
+            &fired,
+            |b| b.len() > count_after_wait + 4,
+            std::time::Duration::from_secs(5),
+        );
+        let final_count = fired.lock().unwrap().len();
+        assert!(
+            final_count > count_after_wait,
+            "no beats after resume: {} == {}",
+            final_count,
+            count_after_wait,
+        );
+
+        audio_thread.send(TabAudioCommand::Stop);
+    }
+
+    #[test]
+    fn test_assembly_real_seek_resets_position() {
+        gst::init().expect("GStreamer init");
+
+        let (callback, fired) = collecting_callback();
+        let audio_thread = TabAudioThread::new(
+            soundfont_dir().join("sonivox.sf2"),
+            soundfont_dir().join("metronome_clicks.sf2"),
+            callback,
+        )
+        .expect("audio thread");
+
+        let path = fixture_path("test_file_1.gp");
+        let (score, _) = crate::gp7_parser::parse_file(&path).unwrap();
+        let timeline = crate::tab_midi::build_timeline(&score, 0, 200.0, false);
+
+        audio_thread.send(TabAudioCommand::SetTimeline(timeline));
+        audio_thread.send(TabAudioCommand::SetLoop(Some((0, 31))));
+        audio_thread.send(TabAudioCommand::Play);
+
+        // Let it play a bit
+        wait_until(&fired, |b| b.len() >= 8, std::time::Duration::from_secs(5));
+
+        // Seek to beat 0 — should restart the loop from the beginning
+        audio_thread.send(TabAudioCommand::SeekToBeat(0));
+        std::thread::sleep(std::time::Duration::from_millis(500));
+
+        let beats = fired.lock().unwrap().clone();
+        // After seek to 0, beat 0 should appear more than once (initial + post-seek)
+        let zero_count = beats.iter().filter(|&&b| b == 0).count();
+        assert!(
+            zero_count >= 2,
+            "beat 0 should fire at least twice (initial + seek), got {}",
+            zero_count,
+        );
+
+        audio_thread.send(TabAudioCommand::Stop);
+    }
+
+    #[test]
+    fn test_assembly_real_loop_change_mid_playback() {
+        gst::init().expect("GStreamer init");
+
+        let (callback, fired) = collecting_callback();
+        let audio_thread = TabAudioThread::new(
+            soundfont_dir().join("sonivox.sf2"),
+            soundfont_dir().join("metronome_clicks.sf2"),
+            callback,
+        )
+        .expect("audio thread");
+
+        let path = fixture_path("test_file_1.gp");
+        let (score, _) = crate::gp7_parser::parse_file(&path).unwrap();
+        let timeline = crate::tab_midi::build_timeline(&score, 0, 200.0, false);
+
+        audio_thread.send(TabAudioCommand::SetTimeline(timeline));
+        audio_thread.send(TabAudioCommand::SetLoop(Some((0, 15))));
+        audio_thread.send(TabAudioCommand::Play);
+
+        // Let first loop run
+        wait_until(&fired, |b| b.len() >= 20, std::time::Duration::from_secs(5));
+
+        // Switch to bar 2 loop (beats 32-47)
+        audio_thread.send(TabAudioCommand::SetLoop(Some((32, 47))));
+
+        // Wait for the transition to complete and several new-loop cycles
+        // to run. The audio thread plays through beats 16-47 before the
+        // first loop-back to 32, so we need enough beats for that
+        // transition plus 2+ clean cycles.
+        wait_until(&fired, |b| {
+            let in_new_loop = b.iter().filter(|&&x| x >= 32 && x <= 47).count();
+            in_new_loop >= 48 // at least 3 clean cycles
+        }, std::time::Duration::from_secs(15));
+
+        let beats = fired.lock().unwrap().clone();
+        // After the transition settles, the LAST 32 beats should all be
+        // within the new loop range (2 full cycles, no transition beats).
+        let stable_tail: Vec<_> = beats.iter().rev().take(32).copied().collect();
+        for &beat_index in &stable_tail {
+            assert!(
+                beat_index >= 32 && beat_index <= 47,
+                "stable tail beat {} outside new loop [32, 47]",
+                beat_index,
+            );
+        }
+
+        audio_thread.send(TabAudioCommand::Stop);
+    }
+
+    #[test]
+    fn test_assembly_real_stop_terminates_thread() {
+        gst::init().expect("GStreamer init");
+
+        let (callback, fired) = collecting_callback();
+        let audio_thread = TabAudioThread::new(
+            soundfont_dir().join("sonivox.sf2"),
+            soundfont_dir().join("metronome_clicks.sf2"),
+            callback,
+        )
+        .expect("audio thread");
+
+        let path = fixture_path("test_file_1.gp");
+        let (score, _) = crate::gp7_parser::parse_file(&path).unwrap();
+        let timeline = crate::tab_midi::build_timeline(&score, 0, 200.0, false);
+
+        audio_thread.send(TabAudioCommand::SetTimeline(timeline));
+        audio_thread.send(TabAudioCommand::SetLoop(Some((0, 15))));
+        audio_thread.send(TabAudioCommand::Play);
+
+        wait_until(&fired, |b| b.len() >= 8, std::time::Duration::from_secs(5));
+
+        audio_thread.send(TabAudioCommand::Stop);
+        std::thread::sleep(std::time::Duration::from_millis(200));
+        let count_at_stop = fired.lock().unwrap().len();
+
+        std::thread::sleep(std::time::Duration::from_millis(500));
+        let count_after = fired.lock().unwrap().len();
+        assert_eq!(
+            count_at_stop, count_after,
+            "beats still arriving after Stop: {} → {}",
+            count_at_stop, count_after,
+        );
+    }
+
+    #[test]
+    fn test_assembly_gp5_real_playback() {
+        gst::init().expect("GStreamer init");
+
+        let (callback, fired) = collecting_callback();
+        let audio_thread = TabAudioThread::new(
+            soundfont_dir().join("sonivox.sf2"),
+            soundfont_dir().join("metronome_clicks.sf2"),
+            callback,
+        )
+        .expect("audio thread");
+
+        // Use a short GP5 fixture (Harmonics: 1 bar, 4 beats)
+        let path = fixture_path("pygp_Harmonics.gp5");
+        let (score, _) = crate::gp5_parser::parse_file(&path).unwrap();
+        let timeline = crate::tab_midi::build_timeline(&score, 0, 200.0, false);
+        let total_beats = score.beats.len();
+
+        audio_thread.send(TabAudioCommand::SetTimeline(timeline));
+        audio_thread.send(TabAudioCommand::Play);
+
+        // Short file — should finish quickly
+        let beats = wait_until(
+            &fired,
+            |b| b.len() >= total_beats,
+            std::time::Duration::from_secs(10),
+        );
+
+        assert_eq!(
+            beats.len(),
+            total_beats,
+            "GP5: expected {} beats, got {}",
+            total_beats,
+            beats.len(),
+        );
+        for (position, &beat_index) in beats.iter().enumerate() {
+            assert_eq!(beat_index, position);
+        }
+
+        audio_thread.send(TabAudioCommand::Stop);
+    }
 }
