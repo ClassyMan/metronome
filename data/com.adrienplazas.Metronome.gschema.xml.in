@@ -96,5 +96,34 @@
       <summary>Scale mode index</summary>
       <description>Index of the mode within the selected family</description>
     </key>
+    <key name="tab-guitar-volume" type="u">
+      <range min="0" max="127"/>
+      <default>100</default>
+      <summary>Tab player guitar volume</summary>
+      <description>MIDI CC7 volume for the guitar channel in the tab player</description>
+    </key>
+    <key name="tab-metronome-volume" type="u">
+      <range min="0" max="127"/>
+      <default>100</default>
+      <summary>Tab player metronome volume</summary>
+      <description>MIDI CC7 volume for the metronome channel in the tab player</description>
+    </key>
+    <key name="tab-tempo-percent" type="u">
+      <range min="25" max="200"/>
+      <default>100</default>
+      <summary>Tab player tempo percentage</summary>
+      <description>Tempo scaling for tab playback (25-200%)</description>
+    </key>
+    <key name="tab-metronome-enabled" type="b">
+      <default>false</default>
+      <summary>Tab player metronome enabled</summary>
+      <description>Whether the metronome click is enabled during tab playback</description>
+    </key>
+    <key name="tab-guitar-tone" type="u">
+      <range min="0" max="2"/>
+      <default>0</default>
+      <summary>Tab player guitar tone</summary>
+      <description>Guitar tone index (0=Clean, 1=Crunch, 2=Lead)</description>
+    </key>
   </schema>
 </schemalist>

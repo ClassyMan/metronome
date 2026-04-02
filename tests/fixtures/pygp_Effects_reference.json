@@ -1,0 +1,492 @@
+{
+  "bars": [
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 0,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 1,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 2,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 4,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 6,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 7,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 8,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 9,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 10,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 11,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 12,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 13,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 14,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 15,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 18,
+              "string": 5
+            },
+            {
+              "fret": 16,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 17,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 18,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 19,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 20,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 21,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 22,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 23,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 24,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 25,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 26,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 27,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 28,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 29,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 30,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 0,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 1,
+      "beats": [
+        {
+          "notes": []
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": []
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": []
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 1,
+      "beats": [
+        {
+          "notes": []
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 1,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 2,
+              "string": 5
+            },
+            {
+              "fret": 2,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 4,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 6,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 7,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 8,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 9,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 10,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 11,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 12,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 8,
+      "time_sig_num": 7
+    }
+  ],
+  "num_tracks": 1,
+  "tempo": 0,
+  "title": "",
+  "track_name": "Track 1",
+  "tuning": [
+    40,
+    45,
+    50,
+    55,
+    59,
+    64
+  ]
+}

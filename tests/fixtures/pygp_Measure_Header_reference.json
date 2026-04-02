@@ -1,0 +1,86 @@
+{
+  "bars": [
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 2,
+              "string": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 4,
+              "string": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 6,
+              "string": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 7,
+              "string": 5
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 3,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 4,
+              "string": 5
+            }
+          ]
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": []
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 3
+    },
+    {
+      "beat_count": 1,
+      "beats": [
+        {
+          "notes": []
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    }
+  ],
+  "num_tracks": 1,
+  "tempo": 0,
+  "title": "",
+  "track_name": "Track 1",
+  "tuning": [
+    40,
+    45,
+    50,
+    55,
+    59,
+    64
+  ]
+}

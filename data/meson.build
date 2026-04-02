@@ -1,5 +1,12 @@
 subdir('icons')
 subdir('resources')
+
+# SoundFont files for tab player (FluidSynth)
+install_data(
+  'soundfonts/sonivox.sf2',
+  'soundfonts/metronome_clicks.sf2',
+  install_dir: pkgdatadir / 'soundfonts',
+)
 # Desktop file
 desktop_conf = configuration_data()
 desktop_conf.set('icon', application_id)

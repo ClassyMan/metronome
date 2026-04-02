@@ -126,6 +126,58 @@ impl MtrApplication {
             }
         });
         self.add_action(&tap_fret);
+
+        let load_tab = gio::SimpleAction::new("load-tab-file", Some(glib::VariantTy::STRING));
+        let weak_app = self.downgrade();
+        load_tab.connect_activate(move |_, param| {
+            if let Some(app) = weak_app.upgrade() {
+                let path_str = param.unwrap().get::<String>().unwrap();
+                let path = std::path::Path::new(&path_str);
+                app.get_main_window().imp().tab_player_page.load_file(path);
+            }
+        });
+        self.add_action(&load_tab);
+
+        let set_loop = gio::SimpleAction::new("set-tab-loop-bar", Some(glib::VariantTy::UINT32));
+        let weak_app = self.downgrade();
+        set_loop.connect_activate(move |_, param| {
+            if let Some(app) = weak_app.upgrade() {
+                let beat_index = param.unwrap().get::<u32>().unwrap();
+                let window = app.get_main_window();
+                window.imp().tab_player_page.set_loop_on_bar(beat_index as usize);
+            }
+        });
+        self.add_action(&set_loop);
+
+        let clear_loop = gio::SimpleAction::new("clear-tab-loop", None);
+        let weak_app = self.downgrade();
+        clear_loop.connect_activate(move |_, _| {
+            if let Some(app) = weak_app.upgrade() {
+                let window = app.get_main_window();
+                window.imp().tab_player_page.clear_loop();
+            }
+        });
+        self.add_action(&clear_loop);
+
+        let get_scroll = gio::SimpleAction::new("get-tab-scroll-info", None);
+        let weak_app = self.downgrade();
+        get_scroll.connect_activate(move |_, _| {
+            if let Some(app) = weak_app.upgrade() {
+                let window = app.get_main_window();
+                let page = &window.imp().tab_player_page;
+                let adj = page.imp().tab_strip_scroll.hadjustment();
+                let child_width = page.imp().tab_strip.width();
+                let scroll_width = page.imp().tab_strip_scroll.width();
+                let (min_w, nat_w, _, _) = page.imp().tab_strip.measure(gtk::Orientation::Horizontal, -1);
+                let _ = min_w;
+                log::info!(
+                    "TAB SCROLL: value={}, upper={}, page_size={}, child_w={}, scroll_w={}, natural_w={}",
+                    adj.value(), adj.upper(), adj.page_size(),
+                    child_width, scroll_width, nat_w
+                );
+            }
+        });
+        self.add_action(&get_scroll);
     }
 
     // Sets up keyboard shortcuts

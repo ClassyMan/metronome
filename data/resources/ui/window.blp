@@ -35,8 +35,7 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
     "application",
   ]
 
-  WindowHandle {
-    Overlay {
+  Overlay {
     Picture bg_picture {
       content-fit: cover;
       hexpand: true;
@@ -353,8 +352,15 @@ template $MtrApplicationWindow : Adw.ApplicationWindow {
 
           child: $MtrScalesPage scales_page {};
         }
+
+        Adw.ViewStackPage {
+          name: "tab-player";
+          title: _("Tab Player");
+          icon-name: "document-open-symbolic";
+
+          child: $MtrTabPlayerPage tab_player_page {};
+        }
       };
-    }
     }
   }
 }

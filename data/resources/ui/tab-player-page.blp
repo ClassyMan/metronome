@@ -1,0 +1,326 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MtrTabPlayerPage : Widget {
+  accessibility {
+    label: "Tab Player Page";
+  }
+
+  Box {
+    orientation: vertical;
+    spacing: 0;
+
+    Adw.Clamp {
+      tightening-threshold: 360;
+      maximum-size: 600;
+      margin-top: 8;
+      margin-start: 12;
+      margin-end: 12;
+
+      Box {
+        orientation: vertical;
+        spacing: 4;
+
+        Adw.PreferencesGroup {
+          Box {
+            orientation: horizontal;
+            spacing: 8;
+
+            MenuButton open_button {
+              icon-name: "document-open-symbolic";
+              tooltip-text: _("Open GuitarPro File");
+              valign: center;
+              accessibility {
+                label: "Open File";
+              }
+              styles ["circular"]
+            }
+
+            Label song_title_label {
+              label: _("No file loaded");
+              hexpand: true;
+              halign: start;
+              ellipsize: end;
+              accessibility {
+                label: "Song Title";
+              }
+              styles ["title-4"]
+            }
+
+            Label time_sig_label {
+              label: "";
+              halign: end;
+              accessibility {
+                label: "Time Signature";
+              }
+              styles ["dim-label", "caption"]
+            }
+
+            Label current_time_label {
+              label: "0:00";
+              halign: end;
+              width-chars: 5;
+              accessibility {
+                label: "Current Time";
+              }
+              styles ["dim-label", "caption", "numeric"]
+            }
+          }
+
+          Adw.ComboRow track_dropdown {
+            title: _("Track");
+            visible: false;
+          }
+        }
+
+        Box transport_box {
+          orientation: horizontal;
+          spacing: 4;
+          halign: center;
+          margin-top: 4;
+          margin-bottom: 4;
+
+          Button skip_start_button {
+            icon-name: "media-skip-backward-symbolic";
+            tooltip-text: _("Skip to Start");
+            accessibility {
+              label: "Skip to Start";
+            }
+            styles ["circular"]
+          }
+
+          Button prev_bar_button {
+            icon-name: "media-seek-backward-symbolic";
+            tooltip-text: _("Previous Bar");
+            accessibility {
+              label: "Previous Bar";
+            }
+            styles ["circular"]
+          }
+
+          Button stop_button {
+            icon-name: "media-playback-stop-symbolic";
+            tooltip-text: _("Stop");
+            accessibility {
+              label: "Stop";
+            }
+            styles ["circular"]
+          }
+
+          Button play_pause_button {
+            icon-name: "media-playback-start-symbolic";
+            tooltip-text: _("Play");
+            accessibility {
+              label: "Play";
+            }
+            styles ["circular", "suggested-action"]
+          }
+
+          Button next_bar_button {
+            icon-name: "media-seek-forward-symbolic";
+            tooltip-text: _("Next Bar");
+            accessibility {
+              label: "Next Bar";
+            }
+            styles ["circular"]
+          }
+
+          Button skip_end_button {
+            icon-name: "media-skip-forward-symbolic";
+            tooltip-text: _("Skip to End");
+            accessibility {
+              label: "Skip to End";
+            }
+            styles ["circular"]
+          }
+
+          Separator {
+            styles ["spacer"]
+          }
+
+          ToggleButton loop_button {
+            icon-name: "media-playlist-repeat-symbolic";
+            tooltip-text: _("Loop");
+            accessibility {
+              label: "Loop";
+            }
+            styles ["circular"]
+          }
+
+          ToggleButton metronome_button {
+            label: "♩";
+            tooltip-text: _("Metronome");
+            accessibility {
+              label: "Metronome";
+            }
+            styles ["circular"]
+          }
+
+          Button tone_button {
+            label: "Clean";
+            tooltip-text: _("Guitar Tone");
+            accessibility {
+              label: "Guitar Tone";
+            }
+            styles ["pill"]
+          }
+
+          Button count_in_button {
+            label: "0in";
+            tooltip-text: _("Count-In Bars");
+            accessibility {
+              label: "Count-In";
+            }
+            styles ["pill"]
+          }
+        }
+
+        Box tempo_box {
+          orientation: horizontal;
+          spacing: 8;
+          margin-start: 8;
+          margin-end: 8;
+
+          Label {
+            label: _("Tempo");
+            styles ["dim-label", "caption"]
+          }
+
+          Scale tempo_scale {
+            adjustment: Adjustment {
+              lower: 25;
+              upper: 200;
+              step-increment: 5;
+              page-increment: 10;
+              value: 100;
+            };
+            hexpand: true;
+            draw-value: true;
+            value-pos: right;
+            digits: 0;
+
+            marks [
+              mark (50, bottom),
+              mark (100, bottom),
+              mark (150, bottom),
+            ]
+          }
+
+          Label {
+            label: "%";
+            styles ["dim-label", "caption"]
+          }
+
+          Label effective_bpm_label {
+            label: "";
+            width-chars: 7;
+            halign: end;
+            accessibility {
+              label: "Effective BPM";
+            }
+            styles ["caption", "numeric"]
+          }
+        }
+
+        Box volume_box {
+          orientation: horizontal;
+          spacing: 8;
+          margin-start: 8;
+          margin-end: 8;
+          margin-bottom: 4;
+
+          Image {
+            icon-name: "audio-guitar-symbolic";
+            valign: center;
+            styles ["dim-label"]
+          }
+
+          Scale guitar_volume_scale {
+            adjustment: Adjustment {
+              lower: 0;
+              upper: 127;
+              step-increment: 1;
+              page-increment: 10;
+              value: 100;
+            };
+            hexpand: true;
+            draw-value: false;
+          }
+
+          Image {
+            icon-name: "audio-volume-high-symbolic";
+            valign: center;
+            styles ["dim-label"]
+          }
+
+          Scale metronome_volume_scale {
+            adjustment: Adjustment {
+              lower: 0;
+              upper: 127;
+              step-increment: 1;
+              page-increment: 10;
+              value: 100;
+            };
+            hexpand: true;
+            draw-value: false;
+          }
+        }
+      }
+    }
+
+    ScrolledWindow tab_strip_scroll {
+      hscrollbar-policy: automatic;
+      vscrollbar-policy: never;
+      min-content-height: 130;
+      visible: false;
+
+      $MtrTabStrip tab_strip {
+        halign: start;
+        accessibility {
+          label: "Tab Strip";
+        }
+      }
+    }
+
+    ScrolledWindow tab_fretboard_scroll {
+      hscrollbar-policy: automatic;
+      vscrollbar-policy: never;
+      vexpand: true;
+      visible: false;
+
+      $MtrTabFretboard tab_fretboard {
+        halign: start;
+        accessibility {
+          label: "Tab Fretboard";
+        }
+      }
+    }
+
+    Box status_box {
+      orientation: vertical;
+      vexpand: true;
+      valign: center;
+      visible: true;
+
+      Label status_label {
+        label: _("Open a GuitarPro file to begin");
+        margin-top: 24;
+        accessibility {
+          label: "Status Message";
+        }
+        styles ["dim-label", "title-3"]
+      }
+
+      Button dismiss_error_button {
+        label: _("Dismiss");
+        halign: center;
+        margin-top: 8;
+        visible: false;
+        accessibility {
+          label: "Dismiss Error";
+        }
+        styles ["pill"]
+      }
+    }
+  }
+}

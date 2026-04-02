@@ -21,6 +21,7 @@ dependency('gstreamer-player-1.0', version: gstreamer_version)
 dependency('gstreamer-plugins-base-1.0', version: gstreamer_version)
 dependency('gtk4', version: '>= 4.0.0')
 dependency('libadwaita-1', version: '>= 1.4.0')
+dependency('fluidsynth', version: '>= 2.0.0')
 
 glib_compile_resources = find_program('glib-compile-resources', required: true)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)
