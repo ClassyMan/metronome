@@ -1,20 +1,10 @@
-use crate::chord_builder;
-use crate::scale_data::{self, ALL_FAMILIES, NOTE_NAMES};
-use iced::mouse;
+use super::fretboard_canvas::{FretboardCanvas, TOP_MARGIN};
+use crate::scale_data::{ALL_FAMILIES, NOTE_NAMES};
 use iced::widget::{button, canvas, column, container, pick_list, row, text, Space};
-use iced::{Color, Element, Length, Point, Rectangle, Renderer, Size, Theme};
+use iced::{Element, Length};
 
-const FRET_WIDTH: f32 = 48.0;
-const NUT_WIDTH: f32 = 6.0;
-const LEFT_MARGIN: f32 = 40.0;
-const TOP_MARGIN: f32 = 24.0;
 const STRING_SPACING: f32 = 26.0;
-const NOTE_RADIUS: f32 = 10.0;
 const NUM_STRINGS: usize = 6;
-const NUM_FRETS: usize = 24;
-const STRING_LABELS: [&str; 6] = ["e", "B", "G", "D", "A", "E"];
-const FRET_MARKERS: [usize; 10] = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24];
-const DOUBLE_MARKERS: [usize; 2] = [12, 24];
 
 #[derive(Debug, Clone)]
 pub enum Message {
@@ -33,7 +23,7 @@ pub struct ScalesPage {
     chord_structure: usize,
     inversion: usize,
     pentatonic_variant: usize,
-    fretboard_cache: canvas::Cache,
+    fretboard: FretboardCanvas,
 }
 
 impl ScalesPage {
@@ -45,7 +35,7 @@ impl ScalesPage {
             chord_structure: 0,
             inversion: 0,
             pentatonic_variant: 0,
-            fretboard_cache: canvas::Cache::new(),
+            fretboard: FretboardCanvas::new(),
         }
     }
 
@@ -53,42 +43,42 @@ impl ScalesPage {
         match message {
             Message::SetRoot(root) => {
                 self.root = root.min(11);
-                self.fretboard_cache.clear();
             }
             Message::SetFamily(family) => {
                 self.family = family.min(ALL_FAMILIES.len() - 1);
                 self.mode = 0;
                 self.chord_structure = 0;
-                self.fretboard_cache.clear();
             }
             Message::SetMode(mode) => {
                 let family = &ALL_FAMILIES[self.family];
                 self.mode = mode.min(family.scales.len().saturating_sub(1));
                 self.chord_structure = 0;
-                self.fretboard_cache.clear();
             }
             Message::SetChordStructure(structure) => {
                 self.chord_structure = structure;
                 self.inversion = 0;
-                self.fretboard_cache.clear();
             }
             Message::CycleInversion => {
                 self.inversion = (self.inversion + 1) % 3;
-                self.fretboard_cache.clear();
             }
             Message::TogglePentatonic => {
-                let scale = &ALL_FAMILIES[self.family].scales[self.mode];
+                let scale = self.current_scale();
                 if !scale.pentatonic_variants.is_empty() {
                     self.pentatonic_variant =
                         (self.pentatonic_variant + 1) % (scale.pentatonic_variants.len() + 1);
-                    self.fretboard_cache.clear();
                 }
             }
         }
+        self.fretboard.set_scale(
+            self.root,
+            self.family,
+            self.mode,
+            self.pentatonic_variant,
+        );
         iced::Task::none()
     }
 
-    fn current_scale(&self) -> &'static scale_data::Scale {
+    fn current_scale(&self) -> &'static crate::scale_data::Scale {
         &ALL_FAMILIES[self.family].scales[self.mode]
     }
 
@@ -129,30 +119,31 @@ impl ScalesPage {
         let mode_pick = pick_list(
             mode_names.clone(),
             Some(mode_names[self.mode].clone()),
-            move |selected| {
-                let family = &ALL_FAMILIES[self.family];
-                let index = family
-                    .scales
-                    .iter()
-                    .position(|s| s.name == selected)
-                    .unwrap_or(0);
-                Message::SetMode(index)
+            {
+                let family = self.family;
+                move |selected| {
+                    let fam = &ALL_FAMILIES[family];
+                    let index = fam
+                        .scales
+                        .iter()
+                        .position(|s| s.name == selected)
+                        .unwrap_or(0);
+                    Message::SetMode(index)
+                }
             },
         )
         .width(150);
 
-        let scale_label = text(format!(
-            "{} {}",
-            NOTE_NAMES[self.root],
-            scale.name
-        ))
-        .size(20);
+        let scale_label = text(format!("{} {}", NOTE_NAMES[self.root], scale.name)).size(20);
 
-        let chord_structures = ["None", "Triad", "7th", "9th", "11th", "13th",
-            "add9", "sus2", "sus4", "6th", "6/9"];
+        let chord_structures = [
+            "None", "Triad", "7th", "9th", "11th", "13th", "add9", "sus2", "sus4", "6th", "6/9",
+        ];
         let chord_pick = pick_list(
             chord_structures.map(String::from).to_vec(),
-            Some(chord_structures[self.chord_structure.min(chord_structures.len() - 1)].to_string()),
+            Some(
+                chord_structures[self.chord_structure.min(chord_structures.len() - 1)].to_string(),
+            ),
             move |selected| {
                 let index = chord_structures
                     .iter()
@@ -201,7 +192,7 @@ impl ScalesPage {
         ]
         .padding(12);
 
-        let fretboard = canvas(&self.fretboard_cache)
+        let fretboard = canvas(&self.fretboard)
             .width(Length::Fill)
             .height(TOP_MARGIN + STRING_SPACING * (NUM_STRINGS - 1) as f32 + 32.0);
 
@@ -212,116 +203,6 @@ impl ScalesPage {
             .height(Length::Fill)
             .into()
     }
-}
-
-impl canvas::Program<Message> for canvas::Cache {
-    type State = ();
-
-    fn draw(
-        &self,
-        _state: &(),
-        renderer: &Renderer,
-        theme: &Theme,
-        bounds: Rectangle,
-        _cursor: mouse::Cursor,
-    ) -> Vec<canvas::Geometry> {
-        // For now, draw the empty fretboard structure.
-        // Scale notes will be drawn once we wire up the scale state.
-        let geometry = self.draw(renderer, bounds.size(), |frame| {
-            let fg = Color::from_rgba(1.0, 1.0, 1.0, 0.8);
-            let dim = Color::from_rgba(1.0, 1.0, 1.0, 0.15);
-            let fretboard_height = STRING_SPACING * (NUM_STRINGS - 1) as f32;
-
-            // Fret marker dots
-            let dot_color = Color::from_rgba(1.0, 1.0, 1.0, 0.06);
-            for &fret in FRET_MARKERS.iter() {
-                let x = fret_center_x(fret);
-                if DOUBLE_MARKERS.contains(&fret) {
-                    draw_circle(frame, dot_color, x, TOP_MARGIN + STRING_SPACING * 1.5, 4.0);
-                    draw_circle(frame, dot_color, x, TOP_MARGIN + STRING_SPACING * 3.5, 4.0);
-                } else {
-                    draw_circle(
-                        frame,
-                        dot_color,
-                        x,
-                        TOP_MARGIN + fretboard_height / 2.0,
-                        4.0,
-                    );
-                }
-            }
-
-            // Strings
-            for string_index in 0..NUM_STRINGS {
-                let y = TOP_MARGIN + string_index as f32 * STRING_SPACING;
-                let thickness = 1.0 + (NUM_STRINGS - 1 - string_index) as f32 * 0.4;
-                frame.fill_rectangle(
-                    Point::new(LEFT_MARGIN, y - thickness / 2.0),
-                    Size::new(bounds.width - LEFT_MARGIN, thickness),
-                    dim,
-                );
-            }
-
-            // Nut
-            frame.fill_rectangle(
-                Point::new(LEFT_MARGIN, TOP_MARGIN),
-                Size::new(NUT_WIDTH, fretboard_height),
-                Color::from_rgba(1.0, 1.0, 1.0, 0.5),
-            );
-
-            // Fret lines
-            for fret in 1..=NUM_FRETS {
-                let x = LEFT_MARGIN + NUT_WIDTH + fret as f32 * FRET_WIDTH;
-                frame.fill_rectangle(
-                    Point::new(x, TOP_MARGIN),
-                    Size::new(1.0, fretboard_height),
-                    Color::from_rgba(1.0, 1.0, 1.0, 0.12),
-                );
-            }
-
-            // String labels
-            for (string_index, label) in STRING_LABELS.iter().enumerate() {
-                let y = TOP_MARGIN + string_index as f32 * STRING_SPACING;
-                let label_text = canvas::Text {
-                    content: label.to_string(),
-                    position: Point::new(12.0, y - 6.0),
-                    color: Color::from_rgba(1.0, 1.0, 1.0, 0.4),
-                    size: 12.0.into(),
-                    ..canvas::Text::default()
-                };
-                frame.fill_text(label_text);
-            }
-
-            // Fret numbers at markers
-            for &fret in FRET_MARKERS.iter() {
-                let x = fret_center_x(fret);
-                let label_text = canvas::Text {
-                    content: format!("{}", fret),
-                    position: Point::new(x - 6.0, TOP_MARGIN - 16.0),
-                    color: Color::from_rgba(1.0, 1.0, 1.0, 0.35),
-                    size: 10.0.into(),
-                    ..canvas::Text::default()
-                };
-                frame.fill_text(label_text);
-            }
-        });
-
-        vec![geometry]
-    }
-}
-
-fn fret_center_x(fret: usize) -> f32 {
-    if fret == 0 {
-        LEFT_MARGIN - 10.0
-    } else {
-        LEFT_MARGIN + NUT_WIDTH + (fret as f32 - 0.5) * FRET_WIDTH
-    }
-}
-
-fn draw_circle(frame: &mut canvas::Frame, color: Color, cx: f32, cy: f32, radius: f32) {
-    frame.fill(
-        &canvas::Path::circle(Point::new(cx, cy), radius),
-        color,
-    );
 }
 
 #[cfg(test)]
@@ -344,7 +225,7 @@ mod tests {
     #[test]
     fn test_set_root() {
         let mut page = make_page();
-        page.update(Message::SetRoot(7)); // G
+        page.update(Message::SetRoot(7));
         assert_eq!(page.root, 7);
     }
 
@@ -360,7 +241,7 @@ mod tests {
         let mut page = make_page();
         page.update(Message::SetMode(3));
         assert_eq!(page.mode, 3);
-        page.update(Message::SetFamily(1)); // Melodic Minor
+        page.update(Message::SetFamily(1));
         assert_eq!(page.mode, 0);
         assert_eq!(page.family, 1);
     }
@@ -403,12 +284,8 @@ mod tests {
     #[test]
     fn test_pentatonic_toggle() {
         let mut page = make_page();
-        // Major Ionian has pentatonic variants
-        let has_penta = !page.current_scale().pentatonic_variants.is_empty();
-        assert!(has_penta);
+        assert!(!page.current_scale().pentatonic_variants.is_empty());
         page.update(Message::TogglePentatonic);
         assert_eq!(page.pentatonic_variant, 1);
-        page.update(Message::TogglePentatonic);
-        // Should cycle back to 0 after all variants
     }
 }

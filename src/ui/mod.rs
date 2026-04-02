@@ -1,4 +1,5 @@
 pub mod audio;
+mod fretboard_canvas;
 mod metronome_page;
 mod scales_page;
 
