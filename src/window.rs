@@ -1,6 +1,7 @@
 use crate::application::MtrApplication;
 use crate::config::{APP_ID, PROFILE};
 use crate::scales_page::MtrScalesPage;
+use crate::tab_player_page::MtrTabPlayerPage;
 use crate::theme_dialog::MtrThemeDialog;
 use crate::theme_manager::ThemeManager;
 use crate::timer::MtrTimer;
@@ -47,7 +48,11 @@ mod imp {
         #[template_child]
         pub bg_picture: TemplateChild<gtk::Picture>,
         #[template_child]
+        pub view_stack: TemplateChild<adw::ViewStack>,
+        #[template_child]
         pub scales_page: TemplateChild<MtrScalesPage>,
+        #[template_child]
+        pub tab_player_page: TemplateChild<MtrTabPlayerPage>,
         #[property(get, set = Self::set_beats_per_bar, minimum = BPB_MIN, maximum = BPB_MAX, default = BPB_DEFAULT)]
         pub beats_per_bar: Cell<u32>,
         #[property(get, set = Self::set_beats_per_minute, minimum = BPM_MIN, maximum = BPM_MAX, default = BPM_DEFAULT)]
@@ -79,7 +84,9 @@ mod imp {
                 timer: Default::default(),
                 bpm_label: Default::default(),
                 bg_picture: Default::default(),
+                view_stack: Default::default(),
                 scales_page: Default::default(),
+                tab_player_page: Default::default(),
                 beats_per_bar: std::cell::Cell::new(BPB_DEFAULT),
                 beats_per_minute: std::cell::Cell::new(BPM_DEFAULT),
                 tempo_ramp_enabled: std::cell::Cell::new(false),
@@ -138,6 +145,7 @@ mod imp {
             MtrTimerButton::ensure_type();
             MtrTimer::ensure_type();
             MtrScalesPage::ensure_type();
+            MtrTabPlayerPage::ensure_type();
             obj.init_template();
         }
     }
@@ -153,6 +161,30 @@ mod imp {
                 obj.add_css_class("devel");
             }
             obj.load_settings();
+
+            // Resize window when switching between metronome (portrait) and
+            // scales/tab-player (landscape) pages
+            let win_weak = obj.downgrade();
+            self.view_stack.connect_notify_local(
+                Some("visible-child-name"),
+                move |stack, _| {
+                    if let Some(win) = win_weak.upgrade() {
+                        let page_name = stack
+                            .visible_child_name()
+                            .map(|name| name.to_string())
+                            .unwrap_or_default();
+                        match page_name.as_str() {
+                            "metronome" => {
+                                win.set_default_size(480, 750);
+                            }
+                            "scales" | "tab-player" => {
+                                win.set_default_size(900, 650);
+                            }
+                            _ => {}
+                        }
+                    }
+                },
+            );
 
             // Flash BPM label on ramp increment
             let bpm_label = self.bpm_label.clone();

@@ -51,6 +51,7 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/timerbutton.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scales-page.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/tab-player-page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
 
     <file compressed="true">style.css</file>

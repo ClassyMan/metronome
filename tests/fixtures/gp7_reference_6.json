@@ -1,0 +1,1407 @@
+{
+  "title": "String Crossing 5",
+  "num_tracks": 1,
+  "track_name": "Jazz Guitar",
+  "bars": [
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 19
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 19
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 18
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 17
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 16
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 15
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 14
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 13
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 11
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 10
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 9
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 8
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "time_sig_num": 21,
+      "time_sig_denom": 16,
+      "beat_count": 21,
+      "beats": [
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 3
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 4
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 4
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 3
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 4
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 2,
+              "fret": 4
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "string": 3,
+              "fret": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -8,7 +8,7 @@ from e2e.helpers import TestContext, dbus_action
 def test_scale_info_display(ctx: TestContext):
     print("\n== Scale Info Display ==")
     ctx.switch_to_scales()
-    time.sleep(0.5)
+    time.sleep(1.0)
 
     # Default should be C Ionian
     name_label = ctx.find(lambda n: n.roleName == "label" and "Ionian" in (n.name or ""))

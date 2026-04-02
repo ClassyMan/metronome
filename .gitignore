@@ -13,3 +13,4 @@ src/config.rs
 .venv/
 e2e_screenshots/
 dist/
+__pycache__/

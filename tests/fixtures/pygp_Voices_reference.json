@@ -1,0 +1,115 @@
+{
+  "bars": [
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 1,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 2,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 4,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 1,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 8,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": []
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 4
+            },
+            {
+              "fret": 5,
+              "string": 5
+            },
+            {
+              "fret": 3,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 4
+            },
+            {
+              "fret": 5,
+              "string": 5
+            },
+            {
+              "fret": 3,
+              "string": 6
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    }
+  ],
+  "num_tracks": 1,
+  "tempo": 0,
+  "title": "",
+  "track_name": "Track 1",
+  "tuning": [
+    40,
+    45,
+    50,
+    55,
+    59,
+    64
+  ]
+}

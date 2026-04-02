@@ -1,0 +1,126 @@
+{
+  "bars": [
+    {
+      "beat_count": 6,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 4
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 4
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 2
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 2
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 2
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 2
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    },
+    {
+      "beat_count": 8,
+      "beats": [
+        {
+          "notes": []
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 2
+            }
+          ]
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 3
+            }
+          ]
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 3
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 5,
+              "string": 3
+            }
+          ]
+        },
+        {
+          "notes": [
+            {
+              "fret": 3,
+              "string": 2
+            }
+          ]
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    }
+  ],
+  "num_tracks": 2,
+  "tempo": 0,
+  "title": "",
+  "track_name": "Electric Bass",
+  "tuning": [
+    23,
+    28,
+    33,
+    38,
+    43
+  ]
+}

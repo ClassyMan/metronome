@@ -1,0 +1,40 @@
+{
+  "bars": [
+    {
+      "beat_count": 4,
+      "beats": [
+        {
+          "notes": [
+            {
+              "fret": 0,
+              "string": 6
+            }
+          ]
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": []
+        },
+        {
+          "notes": []
+        }
+      ],
+      "time_sig_denom": 4,
+      "time_sig_num": 4
+    }
+  ],
+  "num_tracks": 1,
+  "tempo": 0,
+  "title": "",
+  "track_name": "Track 1",
+  "tuning": [
+    40,
+    45,
+    50,
+    55,
+    59,
+    64
+  ]
+}
