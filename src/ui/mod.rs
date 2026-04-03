@@ -103,7 +103,14 @@ impl App {
     }
 
     pub fn theme(&self) -> Theme {
-        Theme::Dark
+        Theme::custom("Fluent Dark".to_string(), iced::theme::Palette {
+            background: iced::Color::from_rgb(0.125, 0.125, 0.125),
+            text: iced::Color::WHITE,
+            primary: iced::Color::from_rgb(0.463, 0.725, 0.929),
+            success: iced::Color::from_rgb(0.424, 0.796, 0.373),
+            danger: iced::Color::from_rgb(1.0, 0.6, 0.643),
+            warning: iced::Color::from_rgb(0.988, 0.882, 0.0),
+        })
     }
 
     pub fn subscription(&self) -> Subscription<Message> {
@@ -117,10 +124,11 @@ fn tab_button(label: &str, target: Page, current: Page) -> Element<Message> {
     let style = if target == current {
         button::primary
     } else {
-        button::secondary
+        button::text
     };
-    button(text(label).size(14))
+    button(text(label).size(13))
         .style(style)
+        .padding([8, 20])
         .on_press(Message::SwitchPage(target))
         .into()
 }
