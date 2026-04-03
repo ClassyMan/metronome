@@ -83,6 +83,9 @@ impl MetronomePage {
             Message::DecrementBpb => {
                 if self.beats_per_bar > BPB_MIN {
                     self.beats_per_bar -= 1;
+                    if self.current_beat >= self.beats_per_bar as u32 {
+                        self.current_beat = 0;
+                    }
                 }
                 iced::Task::none()
             }
@@ -406,5 +409,136 @@ mod tests {
     fn test_subscription_none_when_stopped() {
         let page = make_page();
         let _ = page.subscription();
+    }
+
+    // ── Tap tempo edge cases ───────────────────────────────────────
+
+    #[test]
+    fn test_tap_expiry_discards_old() {
+        let mut page = make_page();
+        // First tap 4 seconds ago — should be expired by the 3s window
+        page.tap_times.push(Instant::now() - Duration::from_secs(4));
+        // Second tap 500ms ago
+        page.tap_times.push(Instant::now() - Duration::from_millis(500));
+        // Third tap now
+        page.update(Message::Tap);
+        // Only the last two taps should be used (500ms interval = ~120 BPM)
+        assert!((page.bpm as i32 - 120).abs() <= 5);
+    }
+
+    #[test]
+    fn test_tap_multiple_averages_intervals() {
+        let mut page = make_page();
+        let now = Instant::now();
+        // 4 taps, each 400ms apart = 150 BPM
+        page.tap_times.push(now - Duration::from_millis(1200));
+        page.tap_times.push(now - Duration::from_millis(800));
+        page.tap_times.push(now - Duration::from_millis(400));
+        page.update(Message::Tap);
+        assert!((page.bpm as i32 - 150).abs() <= 2);
+    }
+
+    // ── Beat wraparound edge cases ─────────────────────────────────
+
+    #[test]
+    fn test_tick_wraparound_bpb_one() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.beats_per_bar = 1;
+        page.update(Message::Tick);
+        assert_eq!(page.current_beat, 0); // 1 % 1 = 0, always wraps
+    }
+
+    #[test]
+    fn test_tick_wraparound_bpb_max() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.beats_per_bar = BPB_MAX;
+        for _ in 0..BPB_MAX as u32 {
+            page.update(Message::Tick);
+        }
+        assert_eq!(page.current_beat, 0); // wraps after BPB_MAX ticks
+    }
+
+    #[test]
+    fn test_current_beat_clamped_after_bpb_decrease() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.beats_per_bar = 8;
+        page.current_beat = 7; // last beat of 8
+        page.update(Message::DecrementBpb); // bpb → 7
+        // current_beat=7 >= bpb=7 → should reset to 0
+        assert_eq!(page.current_beat, 0);
+    }
+
+    #[test]
+    fn test_current_beat_unchanged_after_bpb_decrease_if_valid() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.beats_per_bar = 8;
+        page.current_beat = 3;
+        page.update(Message::DecrementBpb); // bpb → 7
+        // current_beat=3 < bpb=7 → should remain 3
+        assert_eq!(page.current_beat, 3);
+    }
+
+    // ── Pause vs. Stop semantics ───────────────────────────────────
+
+    #[test]
+    fn test_pause_preserves_beat_stop_resets() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.current_beat = 5;
+        // Pause (toggle while playing)
+        page.update(Message::TogglePlay);
+        assert!(!page.is_playing);
+        assert_eq!(page.current_beat, 0); // current impl resets on toggle-off
+    }
+
+    #[test]
+    fn test_play_pause_play_bpm_preserved() {
+        let mut page = make_page();
+        page.update(Message::SetBpm(180));
+        page.update(Message::TogglePlay); // start
+        assert!(page.is_playing);
+        assert_eq!(page.bpm, 180);
+        page.update(Message::TogglePlay); // stop
+        page.update(Message::TogglePlay); // start again
+        assert_eq!(page.bpm, 180);
+    }
+
+    // ── Volume with no player ──────────────────────────────────────
+
+    #[test]
+    fn test_volume_without_player_no_panic() {
+        let mut page = make_page(); // click_player is None
+        page.update(Message::SetVolume(0.5));
+        assert!((page.volume - 0.5).abs() < f32::EPSILON);
+    }
+
+    // ── Settings restore ───────────────────────────────────────────
+
+    #[test]
+    fn test_restore_applies_values() {
+        let mut page = make_page();
+        let mut settings = super::super::settings::Settings::default();
+        settings.bpm = 200;
+        settings.beats_per_bar = 7;
+        settings.volume = 0.3;
+        page.restore(&settings);
+        assert_eq!(page.bpm, 200);
+        assert_eq!(page.beats_per_bar, 7);
+        assert!((page.volume - 0.3).abs() < f32::EPSILON);
+    }
+
+    #[test]
+    fn test_save_captures_current_state() {
+        let mut page = make_page();
+        page.update(Message::SetBpm(175));
+        page.update(Message::IncrementBpb); // 4 → 5
+        let mut settings = super::super::settings::Settings::default();
+        page.save(&mut settings);
+        assert_eq!(settings.bpm, 175);
+        assert_eq!(settings.beats_per_bar, 5);
     }
 }

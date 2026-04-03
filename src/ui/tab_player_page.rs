@@ -188,7 +188,7 @@ impl TabPlayerPage {
                             self.tab_fretboard.set_active_notes(&note_pairs);
                         }
                     }
-                    if beat_index + 1 >= score.beats.len() && !self.loop_active {
+                    if beat_index.saturating_add(1) >= score.beats.len() && !self.loop_active {
                         self.is_playing = false;
                     }
                 }
@@ -569,10 +569,194 @@ mod tests {
     }
 
     #[test]
-    fn test_on_beat_max_is_noop() {
+    fn test_on_beat_max_no_panic() {
         let mut page = make_page();
         page.current_beat = 5;
+        // usize::MAX beat_index — must not panic on saturating_add(1)
         page.update(Message::OnBeat(usize::MAX));
-        assert_eq!(page.current_beat, usize::MAX); // still updates — but no score to trigger end-of-song
+        assert_eq!(page.current_beat, usize::MAX);
+    }
+
+    // ── OnBeat + end-of-song ───────────────────────────────────────
+
+    #[test]
+    fn test_on_beat_at_end_stops_if_not_looping() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.score = Some(make_score(10));
+        page.update(Message::OnBeat(9)); // last beat
+        assert!(!page.is_playing);
+    }
+
+    #[test]
+    fn test_on_beat_at_end_continues_if_looping() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.loop_active = true;
+        page.score = Some(make_score(10));
+        page.update(Message::OnBeat(9)); // last beat
+        assert!(page.is_playing); // loop keeps playing
+    }
+
+    #[test]
+    fn test_on_beat_mid_song_keeps_playing() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.score = Some(make_score(100));
+        page.update(Message::OnBeat(50));
+        assert!(page.is_playing);
+        assert_eq!(page.current_beat, 50);
+    }
+
+    #[test]
+    fn test_on_beat_usize_max_with_score_no_panic() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.score = Some(make_score(100));
+        // Should NOT panic — saturating_add prevents overflow
+        page.update(Message::OnBeat(usize::MAX));
+        assert!(!page.is_playing); // usize::MAX + 1 saturates, >= 100 → stops
+    }
+
+    // ── PollBeats ──────────────────────────────────────────────────
+
+    #[test]
+    fn test_poll_beats_empty_is_noop() {
+        let mut page = make_page();
+        let receiver = Arc::new(Mutex::new(Vec::<usize>::new()));
+        page.beat_receiver = Some(receiver);
+        page.current_beat = 5;
+        page.update(Message::PollBeats);
+        assert_eq!(page.current_beat, 5); // unchanged
+    }
+
+    #[test]
+    fn test_poll_beats_uses_last_and_clears() {
+        let mut page = make_page();
+        page.is_playing = true;
+        page.score = Some(make_score(100));
+        let receiver = Arc::new(Mutex::new(vec![10, 20, 30]));
+        page.beat_receiver = Some(receiver.clone());
+        page.update(Message::PollBeats);
+        assert_eq!(page.current_beat, 30); // uses last
+        assert!(receiver.lock().unwrap().is_empty()); // cleared
+    }
+
+    // ── Volume independence ────────────────────────────────────────
+
+    #[test]
+    fn test_guitar_and_metronome_volumes_independent() {
+        let mut page = make_page();
+        page.update(Message::SetGuitarVolume(50.0));
+        page.update(Message::SetMetronomeVolume(100.0));
+        assert_eq!(page.guitar_volume, 50);
+        assert_eq!(page.metronome_volume, 100);
+    }
+
+    #[test]
+    fn test_volume_negative_clamped() {
+        let mut page = make_page();
+        // -1.0 as u8 wraps to 255, then .min(127) clamps
+        page.update(Message::SetGuitarVolume(-1.0));
+        assert!(page.guitar_volume <= 127);
+    }
+
+    // ── SetTrack ───────────────────────────────────────────────────
+
+    #[test]
+    fn test_set_track_resets_beat() {
+        let mut page = make_page();
+        page.current_beat = 50;
+        page.update(Message::SetTrack(1));
+        assert_eq!(page.current_beat, 0);
+        assert_eq!(page.selected_track, 1);
+    }
+
+    // ── Interaction sequences ──────────────────────────────────────
+
+    #[test]
+    fn test_play_stop_play_sequence() {
+        let mut page = make_page();
+        page.score = Some(make_score(50));
+        page.update(Message::Play);
+        assert!(page.is_playing);
+        page.update(Message::Stop);
+        assert!(!page.is_playing);
+        assert_eq!(page.current_beat, 0);
+        page.update(Message::Play);
+        assert!(page.is_playing);
+    }
+
+    #[test]
+    fn test_seek_while_stopped() {
+        let mut page = make_page();
+        page.update(Message::SeekToBeat(25));
+        assert_eq!(page.current_beat, 25);
+    }
+
+    #[test]
+    fn test_tempo_clamped_at_both_ends() {
+        let mut page = make_page();
+        page.update(Message::SetTempo(0.0));
+        assert_eq!(page.tempo_percent, 25.0);
+        page.update(Message::SetTempo(500.0));
+        assert_eq!(page.tempo_percent, 200.0);
+    }
+
+    // ── Settings restore/save ──────────────────────────────────────
+
+    #[test]
+    fn test_restore_applies_tab_settings() {
+        let mut page = make_page();
+        let mut settings = super::super::settings::Settings::default();
+        settings.tab_tempo_percent = 75.0;
+        settings.tab_guitar_volume = 80;
+        settings.tab_metronome_enabled = true;
+        settings.tab_guitar_tone = 2;
+        page.restore(&settings);
+        assert_eq!(page.tempo_percent, 75.0);
+        assert_eq!(page.guitar_volume, 80);
+        assert!(page.metronome_enabled);
+        assert_eq!(page.tone_index, 2);
+    }
+
+    #[test]
+    fn test_save_captures_tab_state() {
+        let mut page = make_page();
+        page.update(Message::SetTempo(150.0));
+        page.update(Message::CycleTone);
+        let mut settings = super::super::settings::Settings::default();
+        page.save(&mut settings);
+        assert_eq!(settings.tab_tempo_percent, 150.0);
+        assert_eq!(settings.tab_guitar_tone, 1);
+    }
+
+    /// Helper: create a minimal TabScore with N beats
+    fn make_score(beat_count: usize) -> TabScore {
+        use crate::tab_models::{TabBar, TabBeat, TabNote};
+        TabScore {
+            title: "Test".to_string(),
+            artist: String::new(),
+            total_ticks: beat_count as f64 * 960.0,
+            tracks: vec![],
+            bars: vec![TabBar {
+                index: 0,
+                first_beat_index: 0,
+                beat_count,
+                time_sig_num: 4,
+                time_sig_denom: 4,
+                tempo: 120.0,
+            }],
+            beats: (0..beat_count)
+                .map(|beat_index| TabBeat {
+                    bar_index: 0,
+                    beat_index,
+                    tick: beat_index as f64 * 960.0,
+                    duration: 960.0,
+                    is_rest: false,
+                    notes: vec![TabNote { string: 1, fret: 5 }],
+                })
+                .collect(),
+        }
     }
 }

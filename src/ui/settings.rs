@@ -137,10 +137,51 @@ mod tests {
 
     #[test]
     fn test_config_path_exists() {
-        // Should resolve to something on Linux
         let path = Settings::config_path();
         assert!(path.is_some());
         let path = path.unwrap();
         assert!(path.to_string_lossy().contains("metronome"));
+    }
+
+    #[test]
+    fn test_load_invalid_json_falls_back_to_defaults() {
+        // Simulates corrupted file — serde_json::from_str returns Err,
+        // unwrap_or_default() kicks in
+        let result: Result<Settings, _> = serde_json::from_str("{invalid json}");
+        assert!(result.is_err());
+        let settings = result.unwrap_or_default();
+        assert_eq!(settings.bpm, 100);
+    }
+
+    #[test]
+    fn test_serialize_all_tab_fields_roundtrip() {
+        let settings = Settings {
+            tab_tempo_percent: 75.0,
+            tab_guitar_volume: 80,
+            tab_metronome_volume: 60,
+            tab_metronome_enabled: true,
+            tab_guitar_tone: 2,
+            ..Settings::default()
+        };
+        let json = serde_json::to_string(&settings).unwrap();
+        let restored: Settings = serde_json::from_str(&json).unwrap();
+        assert_eq!(restored.tab_tempo_percent, 75.0);
+        assert_eq!(restored.tab_guitar_volume, 80);
+        assert_eq!(restored.tab_metronome_volume, 60);
+        assert!(restored.tab_metronome_enabled);
+        assert_eq!(restored.tab_guitar_tone, 2);
+    }
+
+    #[test]
+    fn test_deserialize_legacy_json_without_tab_fields() {
+        // Old settings file from before tab player was added
+        let json = r#"{"bpm": 120, "beats_per_bar": 3}"#;
+        let settings: Settings = serde_json::from_str(json).unwrap();
+        assert_eq!(settings.bpm, 120);
+        assert_eq!(settings.beats_per_bar, 3);
+        // Tab fields fall back to defaults
+        assert_eq!(settings.tab_tempo_percent, 100.0);
+        assert!(!settings.tab_metronome_enabled);
+        assert_eq!(settings.tab_guitar_tone, 0);
     }
 }

@@ -301,4 +301,81 @@ mod tests {
         page.update(Message::TogglePentatonic);
         assert_eq!(page.pentatonic_variant, 1);
     }
+
+    // ── Boundary and interaction tests ─────────────────────────────
+
+    #[test]
+    fn test_pentatonic_no_variants_is_noop() {
+        let mut page = make_page();
+        // Find a family with scales that have no pentatonic variants
+        // Messiaen scales typically have none
+        page.update(Message::SetFamily(3)); // Messiaen
+        let scale = page.current_scale();
+        assert!(scale.pentatonic_variants.is_empty());
+        page.update(Message::TogglePentatonic);
+        assert_eq!(page.pentatonic_variant, 0);
+    }
+
+    #[test]
+    fn test_pentatonic_cycles_back_to_zero() {
+        let mut page = make_page();
+        let variant_count = page.current_scale().pentatonic_variants.len();
+        for _ in 0..=variant_count {
+            page.update(Message::TogglePentatonic);
+        }
+        assert_eq!(page.pentatonic_variant, 0);
+    }
+
+    #[test]
+    fn test_set_mode_after_family_change_clamps() {
+        let mut page = make_page();
+        page.update(Message::SetFamily(3)); // Messiaen — may have fewer scales
+        let max_mode = ALL_FAMILIES[3].scales.len() - 1;
+        page.update(Message::SetMode(999));
+        assert_eq!(page.mode, max_mode);
+    }
+
+    #[test]
+    fn test_chord_structure_out_of_bounds_stores_value() {
+        let mut page = make_page();
+        page.update(Message::SetChordStructure(999));
+        // Value stored as-is (view clamps for display)
+        assert_eq!(page.chord_structure, 999);
+    }
+
+    #[test]
+    fn test_family_change_resets_chord_structure() {
+        let mut page = make_page();
+        page.update(Message::SetChordStructure(5));
+        assert_eq!(page.chord_structure, 5);
+        page.update(Message::SetFamily(1));
+        assert_eq!(page.chord_structure, 0);
+    }
+
+    #[test]
+    fn test_restore_then_family_change_resets_mode() {
+        let mut page = make_page();
+        let mut settings = super::super::settings::Settings::default();
+        settings.scale_root = 5;
+        settings.scale_family = 0;
+        settings.scale_mode = 3;
+        page.restore(&settings);
+        assert_eq!(page.mode, 3);
+
+        page.update(Message::SetFamily(1));
+        assert_eq!(page.mode, 0);
+        assert_eq!(page.root, 5); // root should survive
+    }
+
+    #[test]
+    fn test_save_captures_scale_state() {
+        let mut page = make_page();
+        page.update(Message::SetRoot(7));
+        page.update(Message::SetFamily(2));
+        let mut settings = super::super::settings::Settings::default();
+        page.save(&mut settings);
+        assert_eq!(settings.scale_root, 7);
+        assert_eq!(settings.scale_family, 2);
+        assert_eq!(settings.scale_mode, 0);
+    }
 }

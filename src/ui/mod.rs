@@ -52,6 +52,14 @@ impl App {
     }
 
     pub fn update(&mut self, message: Message) -> iced::Task<Message> {
+        // Only persist on user-initiated changes, not on tick/poll messages
+        let should_persist = !matches!(
+            message,
+            Message::Metronome(metronome_page::Message::Tick)
+                | Message::TabPlayer(tab_player_page::Message::PollBeats)
+                | Message::TabPlayer(tab_player_page::Message::OnBeat(_))
+        );
+
         let task = match message {
             Message::SwitchPage(page) => {
                 self.page = page;
@@ -61,11 +69,13 @@ impl App {
             Message::Scales(msg) => self.scales.update(msg).map(Message::Scales),
             Message::TabPlayer(msg) => self.tab_player.update(msg).map(Message::TabPlayer),
         };
-        // Persist settings after every state change
-        self.metronome.save(&mut self.settings);
-        self.scales.save(&mut self.settings);
-        self.tab_player.save(&mut self.settings);
-        self.settings.save();
+
+        if should_persist {
+            self.metronome.save(&mut self.settings);
+            self.scales.save(&mut self.settings);
+            self.tab_player.save(&mut self.settings);
+            self.settings.save();
+        }
         task
     }
 
