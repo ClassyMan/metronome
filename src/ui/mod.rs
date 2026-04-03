@@ -2,6 +2,7 @@ pub mod audio;
 mod fretboard_canvas;
 mod metronome_page;
 mod scales_page;
+pub mod settings;
 mod tab_fretboard_canvas;
 mod tab_player_page;
 mod tab_strip_canvas;
@@ -29,20 +30,29 @@ pub struct App {
     metronome: metronome_page::MetronomePage,
     scales: scales_page::ScalesPage,
     tab_player: tab_player_page::TabPlayerPage,
+    settings: settings::Settings,
 }
 
 impl App {
     pub fn new() -> Self {
+        let settings = settings::Settings::load();
+        let mut metronome = metronome_page::MetronomePage::new();
+        metronome.restore(&settings);
+        let mut scales = scales_page::ScalesPage::new();
+        scales.restore(&settings);
+        let mut tab_player = tab_player_page::TabPlayerPage::new();
+        tab_player.restore(&settings);
         Self {
             page: Page::Metronome,
-            metronome: metronome_page::MetronomePage::new(),
-            scales: scales_page::ScalesPage::new(),
-            tab_player: tab_player_page::TabPlayerPage::new(),
+            metronome,
+            scales,
+            tab_player,
+            settings,
         }
     }
 
     pub fn update(&mut self, message: Message) -> iced::Task<Message> {
-        match message {
+        let task = match message {
             Message::SwitchPage(page) => {
                 self.page = page;
                 iced::Task::none()
@@ -50,7 +60,13 @@ impl App {
             Message::Metronome(msg) => self.metronome.update(msg).map(Message::Metronome),
             Message::Scales(msg) => self.scales.update(msg).map(Message::Scales),
             Message::TabPlayer(msg) => self.tab_player.update(msg).map(Message::TabPlayer),
-        }
+        };
+        // Persist settings after every state change
+        self.metronome.save(&mut self.settings);
+        self.scales.save(&mut self.settings);
+        self.tab_player.save(&mut self.settings);
+        self.settings.save();
+        task
     }
 
     pub fn view(&self) -> Element<Message> {

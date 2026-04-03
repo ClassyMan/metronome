@@ -113,6 +113,21 @@ impl MetronomePage {
         }
     }
 
+    pub fn restore(&mut self, settings: &super::settings::Settings) {
+        self.bpm = settings.bpm;
+        self.beats_per_bar = settings.beats_per_bar;
+        self.volume = settings.volume;
+        if let Some(ref mut player) = self.click_player {
+            player.set_volume(self.volume);
+        }
+    }
+
+    pub fn save(&self, settings: &mut super::settings::Settings) {
+        settings.bpm = self.bpm;
+        settings.beats_per_bar = self.beats_per_bar;
+        settings.volume = self.volume;
+    }
+
     pub fn subscription(&self) -> Subscription<Message> {
         if self.is_playing {
             let interval = Duration::from_secs_f64(60.0 / self.bpm as f64);

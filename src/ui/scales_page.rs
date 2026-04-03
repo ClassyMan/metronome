@@ -78,6 +78,19 @@ impl ScalesPage {
         iced::Task::none()
     }
 
+    pub fn restore(&mut self, settings: &super::settings::Settings) {
+        self.root = settings.scale_root;
+        self.family = settings.scale_family;
+        self.mode = settings.scale_mode;
+        self.fretboard.set_scale(self.root, self.family, self.mode, 0);
+    }
+
+    pub fn save(&self, settings: &mut super::settings::Settings) {
+        settings.scale_root = self.root;
+        settings.scale_family = self.family;
+        settings.scale_mode = self.mode;
+    }
+
     fn current_scale(&self) -> &'static crate::scale_data::Scale {
         &ALL_FAMILIES[self.family].scales[self.mode]
     }

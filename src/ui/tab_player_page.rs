@@ -80,9 +80,19 @@ impl TabPlayerPage {
                 iced::Task::none()
             }
             Message::OpenFile => {
-                // TODO: wire up rfd file dialog once added as a dependency
-                log::info!("File dialog not yet implemented — use FileSelected message");
-                iced::Task::none()
+                iced::Task::perform(
+                    async {
+                        rfd::AsyncFileDialog::new()
+                            .add_filter("GuitarPro", &["gp5", "gp", "gp4", "gp3"])
+                            .pick_file()
+                            .await
+                            .map(|handle| handle.path().to_path_buf())
+                    },
+                    |path| match path {
+                        Some(path) => Message::FileSelected(path),
+                        None => Message::PollBeats, // cancelled — no-op
+                    },
+                )
             }
             Message::Play => {
                 if self.score.is_some() {
@@ -191,6 +201,9 @@ impl TabPlayerPage {
                 iced::Task::none()
             }
             Message::PollBeats => {
+                // Tick the fretboard animation regardless of new beats
+                self.tab_fretboard.tick();
+
                 if let Some(ref receiver) = self.beat_receiver {
                     let mut beats = receiver.lock().unwrap();
                     if let Some(&last) = beats.last() {
@@ -214,6 +227,22 @@ impl TabPlayerPage {
         } else {
             Subscription::none()
         }
+    }
+
+    pub fn restore(&mut self, settings: &super::settings::Settings) {
+        self.tempo_percent = settings.tab_tempo_percent;
+        self.guitar_volume = settings.tab_guitar_volume;
+        self.metronome_volume = settings.tab_metronome_volume;
+        self.metronome_enabled = settings.tab_metronome_enabled;
+        self.tone_index = settings.tab_guitar_tone;
+    }
+
+    pub fn save(&self, settings: &mut super::settings::Settings) {
+        settings.tab_tempo_percent = self.tempo_percent;
+        settings.tab_guitar_volume = self.guitar_volume;
+        settings.tab_metronome_volume = self.metronome_volume;
+        settings.tab_metronome_enabled = self.metronome_enabled;
+        settings.tab_guitar_tone = self.tone_index;
     }
 
     fn load_file(&mut self, path: &std::path::Path) {
