@@ -1,4 +1,5 @@
 pub mod audio;
+pub mod fluent;
 mod fretboard_canvas;
 mod metronome_page;
 mod scales_page;
@@ -7,8 +8,11 @@ mod tab_fretboard_canvas;
 mod tab_player_page;
 mod tab_strip_canvas;
 
+pub type Theme = fluent::Theme;
+pub type Element<'a, Message> = iced::Element<'a, Message, Theme>;
+
 use iced::widget::{button, column, container, row, text};
-use iced::{Element, Length, Subscription, Theme};
+use iced::{Length, Subscription};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Page {
@@ -79,7 +83,7 @@ impl App {
         task
     }
 
-    pub fn view(&self) -> Element<Message> {
+    pub fn view(&self) -> Element<'_, Message> {
         let nav = row![
             tab_button("Metronome", Page::Metronome, self.page),
             tab_button("Scales", Page::Scales, self.page),
@@ -88,7 +92,7 @@ impl App {
         .spacing(4)
         .padding(8);
 
-        let content: Element<Message> = match self.page {
+        let content: Element<'_, Message> = match self.page {
             Page::Metronome => self.metronome.view().map(Message::Metronome),
             Page::Scales => self.scales.view().map(Message::Scales),
             Page::TabPlayer => self.tab_player.view().map(Message::TabPlayer),
@@ -103,14 +107,7 @@ impl App {
     }
 
     pub fn theme(&self) -> Theme {
-        Theme::custom("Fluent Dark".to_string(), iced::theme::Palette {
-            background: iced::Color::from_rgb(0.125, 0.125, 0.125),
-            text: iced::Color::WHITE,
-            primary: iced::Color::from_rgb(0.463, 0.725, 0.929),
-            success: iced::Color::from_rgb(0.424, 0.796, 0.373),
-            danger: iced::Color::from_rgb(1.0, 0.6, 0.643),
-            warning: iced::Color::from_rgb(0.988, 0.882, 0.0),
-        })
+        Theme::Dark
     }
 
     pub fn subscription(&self) -> Subscription<Message> {
@@ -120,11 +117,11 @@ impl App {
     }
 }
 
-fn tab_button(label: &str, target: Page, current: Page) -> Element<Message> {
+fn tab_button(label: &str, target: Page, current: Page) -> Element<'_, Message> {
     let style = if target == current {
-        button::primary
+        fluent::button_primary
     } else {
-        button::text
+        fluent::button_subtle
     };
     button(text(label).size(13))
         .style(style)

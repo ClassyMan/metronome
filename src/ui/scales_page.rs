@@ -1,7 +1,8 @@
 use super::fretboard_canvas::{FretboardCanvas, TOP_MARGIN};
+use super::Element;
 use crate::scale_data::{ALL_FAMILIES, NOTE_NAMES};
 use iced::widget::{button, canvas, column, container, pick_list, row, text, Space};
-use iced::{Element, Length};
+use iced::Length;
 
 const STRING_SPACING: f32 = 26.0;
 const NUM_STRINGS: usize = 6;
@@ -95,7 +96,7 @@ impl ScalesPage {
         &ALL_FAMILIES[self.family].scales[self.mode]
     }
 
-    pub fn view(&self) -> Element<Message> {
+    pub fn view(&self) -> Element<'_, Message> {
         let scale = self.current_scale();
 
         let root_names: Vec<String> = NOTE_NAMES.iter().map(|s| s.to_string()).collect();

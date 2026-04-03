@@ -1,9 +1,10 @@
 /// Canvas-rendered tab strip — shows tablature notation with beat cursor and loop range.
 
+use super::fluent;
 use crate::tab_models::TabScore;
 use iced::mouse;
 use iced::widget::canvas;
-use iced::{Color, Point, Rectangle, Renderer, Size, Theme};
+use iced::{Color, Point, Rectangle, Renderer, Size};
 
 const BEAT_WIDTH: f32 = 48.0;
 const LEFT_MARGIN: f32 = 40.0;
@@ -74,14 +75,14 @@ impl TabStripCanvas {
     }
 }
 
-impl<Message> canvas::Program<Message> for TabStripCanvas {
+impl<Message> canvas::Program<Message, fluent::Theme> for TabStripCanvas {
     type State = ();
 
     fn draw(
         &self,
         _state: &(),
         renderer: &Renderer,
-        _theme: &Theme,
+        _theme: &fluent::Theme,
         bounds: Rectangle,
         _cursor: mouse::Cursor,
     ) -> Vec<canvas::Geometry> {

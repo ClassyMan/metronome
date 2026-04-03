@@ -1,8 +1,9 @@
 /// Canvas-rendered tab fretboard — shows currently-playing notes with fade animation.
 
+use super::fluent;
 use iced::mouse;
 use iced::widget::canvas;
-use iced::{Color, Point, Rectangle, Renderer, Size, Theme};
+use iced::{Color, Point, Rectangle, Renderer, Size};
 use std::time::Instant;
 
 const FRET_WIDTH: f32 = 52.0;
@@ -79,14 +80,14 @@ impl TabFretboardCanvas {
     }
 }
 
-impl<Message> canvas::Program<Message> for TabFretboardCanvas {
+impl<Message> canvas::Program<Message, fluent::Theme> for TabFretboardCanvas {
     type State = ();
 
     fn draw(
         &self,
         _state: &(),
         renderer: &Renderer,
-        _theme: &Theme,
+        _theme: &fluent::Theme,
         bounds: Rectangle,
         _cursor: mouse::Cursor,
     ) -> Vec<canvas::Geometry> {

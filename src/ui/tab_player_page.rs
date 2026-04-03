@@ -1,12 +1,13 @@
 use super::tab_fretboard_canvas::TabFretboardCanvas;
 use super::tab_strip_canvas::TabStripCanvas;
+use super::Element;
 use crate::gp5_parser;
 use crate::gp7_parser;
 use crate::tab_audio_thread::{BeatCallback, TabAudioCommand, TabAudioThread};
 use crate::tab_midi;
 use crate::tab_models::TabScore;
 use iced::widget::{button, canvas, column, container, row, slider, text, Space};
-use iced::{Element, Length, Subscription};
+use iced::{Length, Subscription};
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
@@ -345,7 +346,7 @@ impl TabPlayerPage {
         }
     }
 
-    pub fn view(&self) -> Element<Message> {
+    pub fn view(&self) -> Element<'_, Message> {
         let title = match self.score.as_ref() {
             Some(score) if !score.title.is_empty() => {
                 if !score.artist.is_empty() {

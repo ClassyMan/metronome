@@ -1,6 +1,7 @@
 use super::audio::ClickPlayer;
+use super::Element;
 use iced::widget::{button, column, container, row, slider, text, Space};
-use iced::{time, Element, Length, Subscription};
+use iced::{time, Length, Subscription};
 use std::time::{Duration, Instant};
 
 const BPM_MIN: u32 = 20;
@@ -140,7 +141,7 @@ impl MetronomePage {
         }
     }
 
-    pub fn view(&self) -> Element<Message> {
+    pub fn view(&self) -> Element<'_, Message> {
         let beat_indicator = beat_display(self.current_beat, self.beats_per_bar, self.is_playing);
 
         let bpm_display = text(format!("{}", self.bpm)).size(72);
@@ -216,12 +217,12 @@ impl MetronomePage {
     }
 }
 
-fn beat_display<'a>(
+fn beat_display(
     current_beat: u32,
     beats_per_bar: u8,
     is_playing: bool,
-) -> Element<'a, Message> {
-    let dots: Vec<Element<Message>> = (0..beats_per_bar as u32)
+) -> Element<'static, Message> {
+    let dots: Vec<Element<'static, Message>> = (0..beats_per_bar as u32)
         .map(|beat_index| {
             let is_active = is_playing && beat_index == current_beat;
             let is_downbeat = beat_index == 0;
