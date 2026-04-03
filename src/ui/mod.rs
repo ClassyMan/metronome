@@ -2,6 +2,7 @@ pub mod audio;
 mod fretboard_canvas;
 mod metronome_page;
 mod scales_page;
+mod tab_player_page;
 
 use iced::widget::{button, column, container, row, text};
 use iced::{Element, Length, Subscription, Theme};
@@ -18,12 +19,14 @@ pub enum Message {
     SwitchPage(Page),
     Metronome(metronome_page::Message),
     Scales(scales_page::Message),
+    TabPlayer(tab_player_page::Message),
 }
 
 pub struct App {
     page: Page,
     metronome: metronome_page::MetronomePage,
     scales: scales_page::ScalesPage,
+    tab_player: tab_player_page::TabPlayerPage,
 }
 
 impl App {
@@ -32,6 +35,7 @@ impl App {
             page: Page::Metronome,
             metronome: metronome_page::MetronomePage::new(),
             scales: scales_page::ScalesPage::new(),
+            tab_player: tab_player_page::TabPlayerPage::new(),
         }
     }
 
@@ -43,6 +47,7 @@ impl App {
             }
             Message::Metronome(msg) => self.metronome.update(msg).map(Message::Metronome),
             Message::Scales(msg) => self.scales.update(msg).map(Message::Scales),
+            Message::TabPlayer(msg) => self.tab_player.update(msg).map(Message::TabPlayer),
         }
     }
 
@@ -58,7 +63,7 @@ impl App {
         let content: Element<Message> = match self.page {
             Page::Metronome => self.metronome.view().map(Message::Metronome),
             Page::Scales => self.scales.view().map(Message::Scales),
-            Page::TabPlayer => placeholder("Tab Player"),
+            Page::TabPlayer => self.tab_player.view().map(Message::TabPlayer),
         };
 
         let page = column![nav, content].spacing(0);
@@ -74,7 +79,9 @@ impl App {
     }
 
     pub fn subscription(&self) -> Subscription<Message> {
-        self.metronome.subscription().map(Message::Metronome)
+        let metronome_sub = self.metronome.subscription().map(Message::Metronome);
+        let tab_sub = self.tab_player.subscription().map(Message::TabPlayer);
+        Subscription::batch([metronome_sub, tab_sub])
     }
 }
 
