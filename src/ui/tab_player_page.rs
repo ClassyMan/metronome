@@ -1,9 +1,11 @@
+use super::tab_fretboard_canvas::TabFretboardCanvas;
+use super::tab_strip_canvas::TabStripCanvas;
 use crate::gp5_parser;
 use crate::gp7_parser;
 use crate::tab_audio_thread::{BeatCallback, TabAudioCommand, TabAudioThread};
 use crate::tab_midi;
 use crate::tab_models::TabScore;
-use iced::widget::{button, column, container, row, slider, text, Space};
+use iced::widget::{button, canvas, column, container, row, slider, text, Space};
 use iced::{Element, Length, Subscription};
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
@@ -43,6 +45,8 @@ pub struct TabPlayerPage {
     tone_index: usize,
     audio_thread: Option<TabAudioThread>,
     beat_receiver: Option<Arc<Mutex<Vec<usize>>>>,
+    tab_strip: TabStripCanvas,
+    tab_fretboard: TabFretboardCanvas,
 }
 
 const TONES: [&str; 3] = ["Clean", "Crunch", "Lead"];
@@ -64,6 +68,8 @@ impl TabPlayerPage {
             tone_index: 0,
             audio_thread: None,
             beat_receiver: None,
+            tab_strip: TabStripCanvas::new(),
+            tab_fretboard: TabFretboardCanvas::new(),
         }
     }
 
@@ -162,7 +168,16 @@ impl TabPlayerPage {
             }
             Message::OnBeat(beat_index) => {
                 self.current_beat = beat_index;
+                self.tab_strip.set_current_beat(beat_index as i32);
+                // Update fretboard with notes from this beat
                 if let Some(ref score) = self.score {
+                    if let Some(beat) = score.beats.get(beat_index) {
+                        let note_pairs: Vec<(u8, u8)> =
+                            beat.notes.iter().map(|n| (n.string, n.fret)).collect();
+                        if !note_pairs.is_empty() {
+                            self.tab_fretboard.set_active_notes(&note_pairs);
+                        }
+                    }
                     if beat_index + 1 >= score.beats.len() && !self.loop_active {
                         self.is_playing = false;
                     }
@@ -217,6 +232,8 @@ impl TabPlayerPage {
             self.selected_track = default_track;
             self.file_path = Some(path.to_path_buf());
             self.current_beat = 0;
+            self.tab_strip.set_score(&score);
+            self.tab_fretboard.clear_notes();
             self.score = Some(score);
             self.ensure_audio_thread();
             self.rebuild_timeline();
@@ -407,13 +424,25 @@ impl TabPlayerPage {
             text("Open a GuitarPro file to begin").size(13)
         };
 
+        let tab_strip_view = canvas(&self.tab_strip)
+            .width(self.tab_strip.total_width().max(400.0))
+            .height(self.tab_strip.content_height());
+
+        let tab_fretboard_view = canvas(&self.tab_fretboard)
+            .width(Length::Fill)
+            .height(TabFretboardCanvas::content_height());
+
         let content = column![
             header,
             transport,
             tempo_row,
             volume_row,
-            Space::new().height(8),
+            Space::new().height(4),
             container(beat_info).padding([4, 12]),
+            Space::new().height(4),
+            tab_strip_view,
+            Space::new().height(4),
+            tab_fretboard_view,
         ];
 
         container(content)

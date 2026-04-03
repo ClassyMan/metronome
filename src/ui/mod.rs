@@ -2,7 +2,9 @@ pub mod audio;
 mod fretboard_canvas;
 mod metronome_page;
 mod scales_page;
+mod tab_fretboard_canvas;
 mod tab_player_page;
+mod tab_strip_canvas;
 
 use iced::widget::{button, column, container, row, text};
 use iced::{Element, Length, Subscription, Theme};
